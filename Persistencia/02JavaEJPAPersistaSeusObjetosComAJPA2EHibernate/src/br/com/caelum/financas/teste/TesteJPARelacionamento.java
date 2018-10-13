@@ -31,7 +31,7 @@ public class TesteJPARelacionamento {
 		
 		em.getTransaction().begin();
 		
-		em.persist(ct); 
+		em.persist(ct); // Não se esqueça de persistir a conta antes.
 		em.persist(mv); 
 		
 		em.getTransaction().commit();
