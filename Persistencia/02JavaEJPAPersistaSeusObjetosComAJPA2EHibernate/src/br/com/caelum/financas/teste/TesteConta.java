@@ -39,7 +39,7 @@ public class TesteConta {
 		// SOBRE O ESTADO DETACHED:
 		// 		-> se você adquirir um novo EntityManager e tentar fazer persist() este objeto, vai tomar o infame "detached entity passed to persist"
 		// 		-> No entanto você pode usar merge() em um novo entity manager que ele reconhecerá como o update de um objeto
-		//			-> O merge não é exatamente um UPDATE: o método fará um SELECT pela chave primária para averiguar a existência ou não deste objeto, fazendo UPDATE em caso afirmativo e um INSERT em caso negativo.
+		//			-> O merge não é exatamente um UPDATE: o método fará um SELECT pela chave primária para averiguar a existência ou não deste objeto e se ele realmente está diferente do seu estado na base, fazendo UPDATE em caso afirmativo e um INSERT em caso negativo.
 		EntityManager em2 = new JPAUtil().getEntityManager();
 		em2.getTransaction().begin();
 		conta.setAgencia("0000");
