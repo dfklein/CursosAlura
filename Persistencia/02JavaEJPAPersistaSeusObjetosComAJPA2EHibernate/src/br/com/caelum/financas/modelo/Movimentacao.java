@@ -10,13 +10,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQuery(
+		query="SELECT AVG(m.valor) FROM Movimentacao m " 
+		+ " WHERE m.conta = :pConta "
+		+ " AND m.tipo = :pTipo " 
+		+ " GROUP BY day(m.data), month(m.data), year(m.data) ",
+		name = "MediasPorDiaETipo")
 public class Movimentacao {
 	
 	@Id
