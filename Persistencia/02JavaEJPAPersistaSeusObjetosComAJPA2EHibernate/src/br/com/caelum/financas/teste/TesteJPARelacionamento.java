@@ -1,6 +1,7 @@
 package br.com.caelum.financas.teste;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.persistence.EntityManager;
@@ -26,6 +27,8 @@ public class TesteJPARelacionamento {
 		mv.setTipo(TipoMovimentacao.SAIDA);
 		mv.setValor(new BigDecimal("200.0"));
 		mv.setConta(ct);
+		
+		
 		
 		EntityManager em = new JPAUtil().getEntityManager();
 		
