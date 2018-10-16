@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -36,7 +37,10 @@ public class Produto {
 	private double preco;
 	
 	@ManyToMany
-	@JoinTable(name="CATEGORIA_PRODUTO")
+	@JoinTable(name="R_CATEGORIA_PRODUTO",
+			joinColumns = @JoinColumn(name = "id_produto"),
+	        inverseJoinColumns = @JoinColumn(name = "id_categoria")
+	)
 	List<Categoria> categorias = new ArrayList<>();
 	
 	@Valid

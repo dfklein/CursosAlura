@@ -1,9 +1,12 @@
 package br.com.caelum.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Categoria {
@@ -12,6 +15,8 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nome;
+	@ManyToMany(mappedBy="categorias")
+	private List<Produto> produtos;
 	
 	public Categoria(String nome) {
 		this.nome = nome;
@@ -32,5 +37,6 @@ public class Categoria {
 	public String getNome() {
 		return nome;
 	}
-
+	
+	
 }
