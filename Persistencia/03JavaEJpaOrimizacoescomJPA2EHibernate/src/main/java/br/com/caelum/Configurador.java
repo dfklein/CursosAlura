@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -35,6 +37,18 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		List<Produto> produtos = produtoDao.getProdutos();
 		
 		return produtos;
+	}
+	
+	
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addWebRequestInterceptor(getOpenEntityManager());
+	}
+	
+	@Bean // o @Bean serve para que o spring saiba quem é este método no seu contexto.
+	public OpenEntityManagerInViewInterceptor getOpenEntityManager() {
+		return new OpenEntityManagerInViewInterceptor();
 	}
 	
 	@Bean

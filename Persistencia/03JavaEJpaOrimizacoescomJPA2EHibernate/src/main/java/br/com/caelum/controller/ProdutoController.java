@@ -48,7 +48,13 @@ public class ProdutoController {
 	public String update(@PathVariable Integer id, Model model) {
 		Produto produto = produtoDao.getProduto(id);
 		
-		model.addAttribute("produto", produto);
+		// Nessa linha ele estourava um LazyInitializationException.
+		// Interceptors são os Filters no Spring.
+		// A idéia é que a requisição abra um EntityManager e ele só seja fechado ao final da requisição, de forma a evitar o LazyInitializationException.
+		// Este padrão chama-se OpenEntityManagerInView.
+		// Veja no Configurador.java a sobrescrita do método addInterceptors
+		model.addAttribute("produto", produto); 
+		
 		return form(produto);
 	}
 	

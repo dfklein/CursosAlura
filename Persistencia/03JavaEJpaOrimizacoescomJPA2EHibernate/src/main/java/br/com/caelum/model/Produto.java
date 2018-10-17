@@ -13,11 +13,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@NamedEntityGraphs({
+    @NamedEntityGraph(name = "produtoComCategoria", 
+                      attributeNodes = { 
+                            @NamedAttributeNode("categorias") 
+                      }) 
+})
 @Entity
 public class Produto {
 
@@ -37,10 +46,10 @@ public class Produto {
 	private double preco;
 	
 	@ManyToMany
-	@JoinTable(name="R_CATEGORIA_PRODUTO",
-			joinColumns = @JoinColumn(name = "id_produto"),
-	        inverseJoinColumns = @JoinColumn(name = "id_categoria")
-	)
+//	@JoinTable(name="R_CATEGORIA_PRODUTO",
+//			joinColumns = @JoinColumn(name = "id_produto"),
+//	        inverseJoinColumns = @JoinColumn(name = "id_categoria")
+//	)
 	List<Categoria> categorias = new ArrayList<>();
 	
 	@Valid
