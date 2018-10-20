@@ -34,11 +34,11 @@ public class ProdutoDao {
 		// A linha abaixo só vai funcionar neste projeto se você estiver usando o padrão OpenEntityManagerInView porque ele 
 		// inicializa os relacionamentos Lazy quando o JSP tenta iterar pela lista (neste caso o EntityManager continua aberto)
 		// Veja no Configurador.java a sobrescrita do método addInterceptors
-		return em.createQuery("p from Produto ", Produto.class).getResultList();
+//		return em.createQuery("p from Produto p ", Produto.class).getResultList();
 		
 		// O código abaixo funciona para carregar a página inicial, mas dará o LazyInitializationException se você clicar em "editar".
 		// Ele funciona TAMBÉM com o OpenEntityManagerInView
-		// return em.createQuery("select distinct p from Produto p inner join fetch p.categorias c ", Produto.class).getResultList();
+		 return em.createQuery("select distinct p from Produto p inner join fetch p.categorias c ", Produto.class).getResultList();
 		
 		// Uma outra alternativa MUITO legal para fazer o equivalente ao distinct é o uso de NamedEntityGraphs. É um tipo de named query para inicializar atributos Lazy.
 		// Abaixo uma implementação. Para ver a implementação completa olhe o método chamado abaixo e as anotações que foram feitas na entidade Produto. 
