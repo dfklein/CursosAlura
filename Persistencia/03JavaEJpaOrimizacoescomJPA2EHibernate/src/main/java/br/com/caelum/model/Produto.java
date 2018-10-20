@@ -9,13 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
@@ -55,6 +54,16 @@ public class Produto {
 	@Valid
 	@ManyToOne
 	private Loja loja;
+	
+	// O atributo anotado com @Version é usado para guardar uma versão do objeto e gerar lock otimista
+	// Quando dois usuários tentam editar um mesmo registro ao mesmo tempo mas 
+	// um submete a alteração antes do segundo, o primeiro está trabalhando com uma versão anterior do
+	// registro e ao atualizá-lo acaba sobrescrevendo a alteração que já tinha sido submetida.
+	// O optmistic lock trava a segunda alteração por saber que aquela versão que o segundo usuário 
+	// tem na tela não é mais válida, lançando uma exceção quando a segunda alteração for feita. 
+	@Version
+	private int versao;
+	
 	
 	
 	public String getDescricao() {
@@ -121,5 +130,13 @@ public class Produto {
 		this.categorias = categorias;
 	}
 
+	public int getVersao() {
+		return versao;
+	}
+
+	public void setVersao(int versao) {
+		this.versao = versao;
+	}
+	
 	
 }
