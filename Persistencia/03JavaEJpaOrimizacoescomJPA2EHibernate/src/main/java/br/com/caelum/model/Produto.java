@@ -18,6 +18,8 @@ import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @NamedEntityGraphs({
@@ -27,6 +29,7 @@ import org.hibernate.validator.constraints.NotEmpty;
                       }) 
 })
 @Entity
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Produto {
 
 	@Id
@@ -45,6 +48,7 @@ public class Produto {
 	private double preco;
 	
 	@ManyToMany
+	@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) // guarda o cache APENAS DOS IDS DOS RELACIONAMENTOS, não as entidades.
 //	@JoinTable(name="R_CATEGORIA_PRODUTO",
 //			joinColumns = @JoinColumn(name = "id_produto"),
 //	        inverseJoinColumns = @JoinColumn(name = "id_categoria")
