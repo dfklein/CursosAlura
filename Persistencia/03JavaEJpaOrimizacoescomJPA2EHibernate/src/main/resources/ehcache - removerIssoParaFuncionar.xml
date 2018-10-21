@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- 
+<ehcache>
+    <diskStore path="java.io.tmpdir" />
+	
+    <defaultCache 
+        maxElementsInMemory="2" 
+        eternal="true"
+        overflowToDisk="false" />
+	<cache name="br.com.caelum.model.Produto"
+		maxElementsInMemory="300" 
+		eternal="true" 
+		overflowToDisk="false" />
+	-->
+
+	<!-- 	
+ 	mais informações em: http://www.ehcache.org/documentation/2.8/configuration/configuration.html 
+</ehcache>
+ 	-->
