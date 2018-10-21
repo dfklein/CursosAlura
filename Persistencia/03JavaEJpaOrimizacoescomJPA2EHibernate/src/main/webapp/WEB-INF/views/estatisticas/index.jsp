@@ -15,23 +15,31 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Hit</th>
+								<!-- (objs encontrado em cache) -->
 								<th>Miss</th>
+								<!-- (objs não encontrado em cache) -->
 								<th>Conexões</th>
+								<!-- (número de conexões no pool) -->
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Cache</td>
 								<!-- Hit -->
-								<td></td>
+								<td>${statistics.queryCacheHitCount}</td>
 								<!-- Miss -->
-								<td></td>
+								<td>${statistics.queryCacheMissCount}</td>
 								<! -- Conections -->
-								<td></td>
+								<td>${statistics.connectCount}</td>
 							</tr>
 						</tbody>
+						
 					</table>
+						Ver mais em: http://blog.caelum.com.br/cacando-seus-gargalos-com-o-hibernate-statistics/<br><br>
+						Também em: http://blog.caelum.com.br/os-7-habitos-dos-desenvolvedores-hibernate-e-jpa-altamente-eficazes/<br><br>
+						Documentação: http://docs.jboss.org/hibernate/core/4.3/javadocs/org/hibernate/stat/Statistics.html
 				</div>
 			</div>
 		</div>
