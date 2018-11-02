@@ -21,16 +21,8 @@ public class ListaEmpresasServelet extends HttpServlet {
 		Banco banco = new Banco();
 		List<Empresa> lista = banco.getEmpresas();
 		
-		PrintWriter out = response.getWriter();
-		
-		out.println("<html><body>");
-		out.print("<ul>");
-		for (Empresa empresa : lista) {
-			out.println("<li>" + empresa.getNome() + "</li>");
-		}
-		out.print("</ul>");
-		out.println("</body></html>");
-		
+		request.setAttribute("empresas", lista);
+		request.getRequestDispatcher("/listaEmpresa.jsp").forward(request, response);
 	}
 
 }
