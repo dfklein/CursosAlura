@@ -48,17 +48,37 @@ public class NovaEmpresaServelet extends HttpServlet {
 			// Nos comentários abaixo você usa o out do response e gera o html diretamente.
 			// PrintWriter out = response.getWriter();
 			// out.println("<html><body>Nome: " + nomeEmpresa + "</body></html>");
-
+			
 			// Mas faz mais sentido chamar um JSP:
 			// Primeiro você processa a requisição que foi enviada ao servelet (o código
 			// acima) e no final set atributos à requisição.
 			request.setAttribute("empresa", empresa.getNome());
-			// Depois você usará o método forward da requisição, que vai transformá-la em
-			// resposta.
-			RequestDispatcher rd = request.getRequestDispatcher("/novaEmpresaCriada.jsp");
-			rd.forward(request, response);
+			
+			// **************************************************************************
+
+			// Depois você usará o método forward da requisição, que vai transformá-la em resposta.
+			// RequestDispatcher rd = request.getRequestDispatcher("/novaEmpresaCriada.jsp");
+			// rd.forward(request, response);
+			
+			// Este bloco foi comentado para poder mostrar o raciocínio sobre os problemas que o dispatcher pode causar no redirecionamento. Veja abaixo disso.
+			
+			// **************************************************************************
+			
+			// Nesta versão aqui, ao invés de chamar um JSP você está chamando outro servlet (feito dentro do próprio servidor, server side, que é o que o dispatcher faz), criando uma espécie corrente entre elas
+			// Para isto você alterou o método implementado de /listaEmpresa para service pois o doGet não daria suporte (uma vez que este formulário aqui usa método POST)
+			// Porém isso causa um problema: se você fizer desta forma e der F5 no navegador, ele vai repetir a requisição, repostando os mesmos dados.
+			// Ou seja: você vai gerar um novo registro idêntico sem nem ter preenchido o formulário.
+			// RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas");
+			// rd.forward(request, response);
 		
-		
+			// Para resolver este problema, você precisa criar um redirecionamento client side
+			// Ou seja: você envia a instrução de redirecionamento para o navegador chamar o próximo servlet, ao invés de chamá-lo diretamente do primeiro servlet.
+			// O redirecionamento devolve para o navegador um código da família 300
+			response.sendRedirect("listaEmpresas"); // ATENÇÃO: não use a /
+			
+			// No entanto, com este redirecionamento, o navegador recebe o seu parâmetro empresa (declarado na linha 55) mas não o redireciona para o servlet (então você não vê a msg de empresa criada com sucesso em cima da lista)
+			// Isto acontece porque o objeto tem a sua vida atrelada a um escopo de requisição e você precisa que ele esteja num escopo maior.
+			
 		} catch (ParseException e) {
 			throw new ServletException(e);
 		}

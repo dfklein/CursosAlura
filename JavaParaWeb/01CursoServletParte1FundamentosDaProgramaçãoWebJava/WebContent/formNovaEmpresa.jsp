@@ -18,7 +18,6 @@
 	<!-- O problema desta abordagem de declarar o form é que o contexto ("gerenciador") pode ser alterado. -->
 	<!-- Você pode fazer isso, por exemplo, indo nos properties do projeto e em Web Project Settings e alterar o Context Root -->
 	<!-- <form action="/gerenciador/novaEmpresa" method="post"> -->
-	W
 	<!-- Para resolver isto você pode usar a tag URL do core, que vai buscar a definição de contexto do projeto. -->
 	<!-- <form action="<c:url value="/novaEmpresa" />" method="post"> -->
 	

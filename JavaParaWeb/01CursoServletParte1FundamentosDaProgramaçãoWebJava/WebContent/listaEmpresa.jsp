@@ -16,6 +16,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<c:if test="${not empty empresa}">
+		<h1>A empresa ${ empresa } foi criada</h1>
+	</c:if>
+	
+	<hr>
+	
 	Lista de empresas (versão sem o JSTL): <br />
 	<!-- Atente-se para os imports necessários para o funcionamento dos scriplets nas primeiras linhas do código desta página!!! -->
 	<ul>
@@ -47,6 +54,6 @@
      </c:forEach>
 	<hr>
 	
-	<a href="/gerenciador/formNovaEmpresa.html">Nova empresa</a>
+	<a href="/gerenciador/formNovaEmpresa.jsp">Nova empresa</a>
 </body>
 </html>
