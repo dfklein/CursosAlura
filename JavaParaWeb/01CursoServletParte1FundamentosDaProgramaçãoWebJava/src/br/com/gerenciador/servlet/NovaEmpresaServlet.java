@@ -79,6 +79,8 @@ public class NovaEmpresaServlet extends HttpServlet {
 			// No entanto, com este redirecionamento, o navegador recebe o seu parâmetro empresa (declarado na linha 55) mas não o redireciona para o servlet (então você não vê a msg de empresa criada com sucesso em cima da lista)
 			// Isto acontece porque o objeto tem a sua vida atrelada a um escopo de requisição e você precisa que ele esteja num escopo maior.
 			
+			// Não se engane: acima estamos falando do ciclo de vida do objeto Empresa que morre no navegador. A servlet, por outro lado, é um singleton
+			
 		} catch (ParseException e) {
 			throw new ServletException(e);
 		}

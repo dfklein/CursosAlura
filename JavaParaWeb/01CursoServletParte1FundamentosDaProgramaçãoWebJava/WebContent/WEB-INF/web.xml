@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <!-- O web.xml é um arquivo opcional nas últimas versões de servlets, mas pode ser encontrado em legados -->
+  <!-- Em geral as configurações foram substituídas por anotações. -->
+  <!-- Por exemplo: o @WebServlet(urlPatterns="/oi") substituiu o mapeamento de servlets que é feito aqui -->
+  
   <display-name>gerenciador</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
     <welcome-file>formNovaEmpresa.jsp</welcome-file>
   </welcome-file-list>
+  <!-- Abaixo um exemplo de mapeamento de servlet sem anotação -->
+  <servlet>
+  	<servlet-name>QQCoisa</servlet-name>
+  	<servlet-class>br.com.gerenciador.servlet.OiMundoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>QQCoisa</servlet-name>
+  	<url-pattern>/ola</url-pattern>
+  </servlet-mapping>
+  <!-- Nada te impede de colocar dois urls que apontam para um mesmo servlet -->
 </web-app>

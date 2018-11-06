@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns="/oi")
+//@WebServlet(urlPatterns="/oi") // comentado para demonstrar o mapeamento pelo web.xml
 public class OiMundoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3665823450861138203L;
@@ -23,5 +23,8 @@ public class OiMundoServlet extends HttpServlet {
 		out.println("</html>");
 		
 	}
+	
+	// OBS: Todas as servlets são singletons por padrão. São instanciadas pelo middleware por inversão de controle.
+	// Claro que isto falando de servlets e não de frameworks de mais alto nível como o JSF.
 
 }
