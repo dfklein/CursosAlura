@@ -9,6 +9,9 @@
 <!-- prefix = define o prefixo a ser utilizado quando for acionada uma tag desta lib -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<c:url value="/removeEmpresaServlet" var="linkRemoveEmpresa" />
+<c:url value="/editarEmpresaServlet" var="linkEditarEmpresa" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +44,13 @@
 		<c:forEach items="${empresas}" var="empresa">
 			<!-- Observe que você coloca o nome do atributo, mas que só funciona se ele tiver um getter -->
 			
-			<li>Nome: ${ empresa.nome } / Data abertura: <fmt:formatDate value="${ empresa.dataAbertura }" pattern="dd/MM/yyyy HH:mm"/></li>
+			<li>
+				Id: ${ empresa.id }
+				| Nome: ${ empresa.nome } 
+				| Data abertura: <fmt:formatDate value="${ empresa.dataAbertura }" pattern="dd/MM/yyyy HH:mm"/>
+				| <a href="${ linkEditarEmpresa }?id=${ empresa.id }">editar</a>
+				| <a href="${ linkRemoveEmpresa }?id=${ empresa.id }">remover</a>
+			</li>
 		</c:forEach>
 	</ul>
 	

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * JSP: Veja o arquivo novaEmpresaCriada.jsp
  */
 @WebServlet("/novaEmpresa")
-public class NovaEmpresaServelet extends HttpServlet {
+public class NovaEmpresaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -37322050198019998L;
 

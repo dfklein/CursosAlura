@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns="/oi")
-public class OiMundoServelet extends HttpServlet {
+public class OiMundoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3665823450861138203L;
 	

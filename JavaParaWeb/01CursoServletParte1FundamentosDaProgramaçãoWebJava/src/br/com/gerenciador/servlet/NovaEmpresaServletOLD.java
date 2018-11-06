@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class NovaEmpresaServelet
  */
 @WebServlet("/old/novaEmpresa")
-public class NovaEmpresaServeletOLD extends HttpServlet {
+public class NovaEmpresaServletOLD extends HttpServlet {
 
 	private static final long serialVersionUID = -37322050198019998L;
 
