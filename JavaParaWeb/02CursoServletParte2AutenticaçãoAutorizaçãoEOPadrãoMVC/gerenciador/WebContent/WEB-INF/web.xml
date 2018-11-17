@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>bem-vindo.html</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <servlet-name>OiMundoServlet</servlet-name>
     <servlet-class>br.com.alura.gerenciador.servlet.OiMundoServlet</servlet-class>
@@ -12,4 +13,55 @@
     <servlet-name>OiMundoServlet</servlet-name>
     <url-pattern>/ola</url-pattern>
   </servlet-mapping>
+
+	<!--
+	SE VOCÊ FOSSE UTILIZAR A API DO JAAS - que não é utilizado em aplicações web,
+	VOCÊ TERIA QUE IMPLEMENTAR ALGO PARECIDO COM O SEGUINTE:
+	 
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<security-role>
+		<role-name>ADMINISTRADOR</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>USUARIO</role-name>
+	</security-role>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>acesso controlador</web-resource-name>
+			<url-pattern>/entrada</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMINISTRADOR</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>acesso a paginas html</web-resource-name>
+			<url-pattern>*.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>USUARIO</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	*******
+	PARA FINALIZAR O PERMISSIONAMENTO, VOCÊ DEVERIA INCLUIR NO
+	ARQUIVO tomcat-users.xml O SEGUINTE:
+	*******
+	
+	<tomcat-users>
+	  <role rolename="ADMINISTRADOR"/>
+	  <role rolename="USUARIO"/>
+	  <user username="admin" password="123" roles="ADMINISTRADOR, USUARIO"/>
+	  <user username="user" password="123" roles="USUARIO"/>
+	</tomcat-users>
+	
+	 -->
+  
 </web-app>
