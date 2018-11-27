@@ -2,6 +2,7 @@ package br.com.alura.gerenciador.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,5 +82,5 @@ public class UnicaEntradaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 	}
-
+	
 }
