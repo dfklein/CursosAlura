@@ -3,10 +3,20 @@ package br.com.caelum.livraria.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Usuario;
 
+// O @Singleton é autoexplicativo: Com esta anotação você garante que o container não irá criar mais
+// que uma única instância deste session bean para toda a aplicação.
+@Singleton
+// Por padrão o EJB carrega um session bean apenas quando o mesmo é requisitado. No entanto você pode
+// alterar este comportamento e carregá-lo ao subir a aplicação com a anotação @Startup
+// Isto é conhecido como Eager Initialization.
+@Startup
 public class Banco {
 	
 	public static List<Livro> livros = new ArrayList<Livro>();
