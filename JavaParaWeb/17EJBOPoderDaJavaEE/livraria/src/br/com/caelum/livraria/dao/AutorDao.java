@@ -12,6 +12,11 @@ import br.com.caelum.livraria.modelo.Autor;
 // Se outra thread chama este bean e ele tem uma instância ocupada, o container vai necessariamente direcionar o uso para uma outra instância do bean (criando a, caso ainda não exista no pool)
 // Ou seja: ele é absolutamente thread safe sem que você precise fazer qualquer configuração ou lógica durante o desenvolvimento.
 // *********************************************************************
+// Você não está usando aqui, mas no curso ele explica que o @Stateful é um EJB que possui um estado específico para cada cliente que o acessa.
+// Pense que o ciclo de vida dele é como o de um HttpSession (ou seja: o navegador acessa e possui aquela instância de EJB até ele se desligar do EJB)
+// Ao contrário do @Stateful ele não está em um pool com várias instâncias já prontas aguardando por uso. O que quer dizer uma perda de performance.
+// Justamente por você ter um estado com o cliente que é armazenado pelo HttpSession é que ele é pouco interessante em uma aplicação web (performance pior para algo que já existe)
+// *********************************************************************
 // O bean do tipo stateless é aquele que não possui estado e é criado pelo container sob demanda.
 // O container por baixo dos panos pode criar algumas instâncias dele e deixar em um pool, utilizando estas instâncias conforme este tipo de bean é requerido.
 // Você configura este pool de conexões nas configurações do container, e não na aplicação (ex: Wildfly -> standalone.xml -> tag  <subsystem xmlns="urn:jboss:domain:ejb3:X.X">)
