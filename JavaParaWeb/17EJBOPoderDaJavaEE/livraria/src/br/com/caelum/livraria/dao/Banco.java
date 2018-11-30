@@ -85,7 +85,7 @@ public class Banco {
 		livros.add(new Livro("JPA Efficaz",coelho));
 		livros.add(new Livro("JSF Efficaz",coelho));
 		
-		usuarios.add(new Usuario("admin", "pass"));
+		usuarios.add(new Usuario("admin", "123"));
 	}
 
 }

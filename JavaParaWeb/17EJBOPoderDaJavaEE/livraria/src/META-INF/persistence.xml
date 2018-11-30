@@ -1,0 +1,87 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="livraria">
+	
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<!-- 
+		Abaixo você declara o JNDI name que você deu para o container com a configuração do seu datasource (tag <datasource>). 
+		Leia abaixo como isso foi feito
+		-->		
+		<jta-data-source>java:/livrariaDS</jta-data-source>
+		<!-- CONFIGURAÇÃO DE DATASOURCE:
+		
+		A EXPLICAÇÃO A SEGUIR LEVA EM CONTA A IMPLEMENTAÇÃO FEITA NO WILDFLY 14 COM UM BANCO MYSQL
+		
+		Como você está invertendo o controle do banco de dados para o servidor de aplicação,
+		a conexão com o mesmo deve ser feita (e portanto configurada) no próprio servidor de aplicação
+		
+		Para que a mesma seja feita você deve possuir o driver e um arquivo de configuração
+		chamado module.xml no local que o servidor de aplicação exige que o mesmo esteja.
+		
+		No WildFly a estrutura dos módulos deve estar no caminho ${JBOSS_HOME}\modules\system\layers\
+		
+		Aqui a estrutura de pastas deve seguir de acordo com o nome do pacote do jar 
+		do driver: ${JBOSS_HOME}\modules\system\layers\base\com\mysql\main\
+		
+		Depois disso você configurará o arquivo de configurações do application server para
+		incluir o driver e as configurações de conexão que normalmente você faria aqui no persistence.xml.
+		
+		Neste caso o arquivo é o ${JBOSS_HOME}\standalone\configuration\standalone.xml
+		
+		no mesmo você deve incluir dentro da tag  que controla o pool de conexões as configurações 
+		do banco e driver, localizada em <subsystem xmlns="urn:jboss:domain:datasources:5.0">
+		
+			**** <datasources>... JÁ EXISTE:
+				<datasource jndi-name="java:/livrariaDS"
+					pool-name="livrariaDS" enabled="true" use-java-context="true">
+			
+					<connection-url>jdbc:mysql://localhost:3306/livraria</connection-url>
+					<driver>com.mysql</driver>
+					<pool>
+						<min-pool-size>10</min-pool-size>
+						<max-pool-size>100</max-pool-size>
+						<prefill>true</prefill>
+					</pool>
+					<security>
+						<user-name>root</user-name>
+						<password></password>
+					</security>
+				</datasource>
+			**** <drivers>
+	                    ...
+	                    <driver name="com.mysql" module="com.mysql">
+							<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+						</driver>
+            ****    </drivers>
+            ****</datasources>
+		
+		 -->
+
+		<class>br.com.caelum.livraria.modelo.Autor</class>
+		<class>br.com.caelum.livraria.modelo.Livro</class>
+		<class>br.com.caelum.livraria.modelo.Usuario</class>
+
+		<properties>
+
+			<!-- Configuracoes da conexao -->
+			<!-- Ver explicação destas configurações acima! -->
+			<!-- 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/fj25" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="" />
+			-->
+			
+			<!-- Configuracoes especificas do Hibernate -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+
+		</properties>
+	</persistence-unit>
+</persistence>

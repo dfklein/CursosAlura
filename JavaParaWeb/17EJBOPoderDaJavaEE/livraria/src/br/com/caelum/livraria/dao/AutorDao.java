@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import br.com.caelum.livraria.modelo.Autor;
 
@@ -23,6 +25,11 @@ import br.com.caelum.livraria.modelo.Autor;
 @Stateless
 public class AutorDao {
 
+	// Esta é a anotação utilizada para indicar inverção de controle de instanciação do Entity Manager para o application server (JTA).
+	// Se você estivesse utilizando JPA sem um servidor de aplicação (num servlet container ou outro tipo de aplicação com JPA) a anotação seria o @PersistenceUnit e você controlaria toda a abertura e fechamento de transação "no braço".
+	@PersistenceContext(name="livraria")
+	private EntityManager manager;
+	
 	@Inject
 	private Banco banco;
 	
@@ -36,15 +43,18 @@ public class AutorDao {
 	}
 
 	public void salva(Autor autor) {
-		banco.save(autor);
+		manager.persist(autor);
+//		banco.save(autor);
 	}
 	
 	public List<Autor> todosAutores() {
-		return banco.listaAutores();
+		return manager.createQuery("SELECT a FROM Autor a ", Autor.class).getResultList();
+//		return banco.listaAutores();
 	}
 
 	public Autor buscaPelaId(Integer autorId) {
-		Autor autor = this.banco.buscaPelaId(autorId);
+		Autor autor = this.manager.find(Autor.class, autorId);
+//		Autor autor = this.banco.buscaPelaId(autorId);
 		return autor;
 	}
 	
