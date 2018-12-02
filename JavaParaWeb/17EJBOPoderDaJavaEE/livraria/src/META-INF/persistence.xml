@@ -9,7 +9,8 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- 
-		Abaixo você declara o JNDI name que você deu para o container com a configuração do seu datasource (tag <datasource>). 
+		Abaixo você declara o JNDI name que você deu para o container com a configuração do seu datasource (tag <datasource>).
+		Foi você quem deu o nome "livrariaDS" lá no standalone.xml, lembre-se disso. 
 		Leia abaixo como isso foi feito
 		-->		
 		<jta-data-source>java:/livrariaDS</jta-data-source>
