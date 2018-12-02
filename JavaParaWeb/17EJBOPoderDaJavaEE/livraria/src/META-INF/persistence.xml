@@ -9,10 +9,17 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- 
+		
 		Abaixo você declara o JNDI name que você deu para o container com a configuração do seu datasource (tag <datasource>).
 		Foi você quem deu o nome "livrariaDS" lá no standalone.xml, lembre-se disso. 
 		Leia abaixo como isso foi feito
-		-->		
+		
+		JTA é Java Transaction API, a especificação que cuida da interface de inversão de controle de transação do JavaEE.
+		
+		Isto é conhecido como CMT: Container Managed Transaction
+		
+		-->
+				
 		<jta-data-source>java:/livrariaDS</jta-data-source>
 		<!-- CONFIGURAÇÃO DE DATASOURCE:
 		

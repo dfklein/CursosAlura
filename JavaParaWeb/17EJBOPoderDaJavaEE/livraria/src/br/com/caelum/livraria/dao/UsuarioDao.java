@@ -11,16 +11,16 @@ import br.com.caelum.livraria.modelo.Usuario;
 @Stateless
 public class UsuarioDao {
 	
-	@PersistenceContext(name="livraria")
-	private EntityManager manager;
+//	@PersistenceContext(name="livraria")
+//	private EntityManager manager;
 
-//	private Banco banco = new Banco();
+	private Banco banco = new Banco();
 
 	public Usuario buscaPeloLogin(String login) {
-		TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class);
-		query.setParameter("login", login);
-		return query.getSingleResult();
-//		return this.banco.buscaPeloNome(login);
+//		TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class);
+//		query.setParameter("login", login);
+//		return query.getSingleResult();
+		return this.banco.buscaPeloNome(login);
 	}
 	
 }
