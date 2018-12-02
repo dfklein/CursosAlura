@@ -23,6 +23,8 @@ public class AutorService {
 		//				  No curso é sugerido que se anote os métodos do DAO como MANDATORY e que exista uma classe de serviço onde seus métodos abrem as transações são abertas (com REQUIRED, por exemplo)
 		// 3 - REQUIRES_NEW: Significa que sempre será criada uma nova transação para aquela operação. Caso o método seja chamado dentro de uma transação em curso, esta transação será SUSPENSA e a nova transação será criada.
 		// 4 - NEVER: Significa que o método nunca poderá ser executado em um contexto transacional. Ou seja: você receberá uma exceção caso ele seja chamado dentro de uma transação.
+		// 5 - SUPPORTS: O código será executado com ou sem transação.
+		// 6 - NOT_SUPPORTED o código deverá ser executado sem transação, caso alguma transação esteja aberta, ela será suspensa temporariamente até a execução do método acabar.
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void adiciona(Autor autor) {
 		// **** Regras de negócio
