@@ -7,6 +7,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
+import br.com.caelum.livraria.bean.LivrariaException;
 import br.com.caelum.livraria.modelo.Autor;
 
 @Stateless
@@ -26,9 +27,29 @@ public class AutorService {
 		// 5 - SUPPORTS: O código será executado com ou sem transação.
 		// 6 - NOT_SUPPORTED o código deverá ser executado sem transação, caso alguma transação esteja aberta, ela será suspensa temporariamente até a execução do método acabar.
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void adiciona(Autor autor) {
+	public void adiciona(Autor autor) throws Exception {
 		// **** Regras de negócio
 		autorDao.salva(autor);
+		
+		// SOBRE EXCEÇÕES E ROLLBACK:
+		// ********************
+		// O padrão do EJB prevê que o lançamento de uma exceção checked é considerada um application exception.
+		// Em outras palavras: um application exception é algo previsto em código e, portanto, não é motivo para invalidar o session bean e a transação.
+		// A linha abaixo lançaria uma exceção sem causar rollback.
+		// throw new Exception();
+		// ********************
+		// No entanto uma exceção unchecked (ou seja, RuntimeException ou alguma que a estende) é considerada uma System Exception
+		// Pela gravidade que é atribuída a um System Exception, por padrão o EJB invalida a sessão e a transação causando rollback.
+		// O container empacota a exceção dentro de um EJBTransactionRolledbackException (
+		// A linha abaixo não salvaria o autor porque causaria rollback:
+		// throw new RuntimeException();
+		// ********************
+		// Por fim você pode configurar uma exceção criada por você para que, caso ela seja lançada, que cause o rollback da transação.
+		// É o que você fez com LivrariaException (entre nela para ver o uso da anotação @ApplicationException.
+		// Nesse caso, apesar do rollback, ela não é empacotada em um EJBTransactionRolledbackException
+		// No vídeo a exceção extendeu RuntimeException, tornando-a unchecked e livrando o desenvolvedor da obrigação de tratá-la. Ele a chama de Application Exception unchecked com rollback.
+		throw new LivrariaException();
+		
 		
 	}
 
