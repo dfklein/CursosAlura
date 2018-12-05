@@ -9,10 +9,12 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
+import br.com.caelum.livraria.interceptor.LogInterceptador;
 import br.com.caelum.livraria.modelo.Autor;
 
 // Cada instância de um bean EJB só pode ser acessada por uma thread por vez.
@@ -38,6 +40,10 @@ import br.com.caelum.livraria.modelo.Autor;
 // Com ele você pode usar begin(), commit() e rollback().
 // Observe a implementação de exemplo no método salvarUsandoBMT()
 // @TransactionManagement(TransactionManagementType.BEAN)
+// @Interceptors({LogInterceptador.class})
+// A anotação @Interceptors é a configuração do interceptador deste session bean. Veja a explicação na classe LogInterceptador.
+// Esta configuração também pode ser feita pelo arquivo ejb-jar.xml (há um exemplo neste projeto)
+// Para usar o xml a anotação acima deve estar comentada.
 public class AutorDao {
 
 	// Esta é a anotação utilizada para indicar inverção de controle de instanciação do Entity Manager para o application server (JTA).
