@@ -28,5 +28,13 @@ public class LivroDao {
 		return query.getResultList();
 //		return banco.listaLivros();
 	}
+
+	public List<Livro> livrosPeloNome(String nome) {
+		TypedQuery<Livro> q = this.manager.createQuery("select l from Livro l where l.titulo like :pTitulo", Livro.class);
+		q.setParameter("pTitulo", "%" + nome + "%");
+		return q.getResultList();
+		
+		
+	}
 	
 }
