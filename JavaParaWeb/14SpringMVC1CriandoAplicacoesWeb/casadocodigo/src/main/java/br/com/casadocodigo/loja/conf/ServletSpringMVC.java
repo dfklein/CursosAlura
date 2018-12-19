@@ -17,7 +17,7 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	// Aqui você deve retornar todas as classes de configuração das servlets
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {AppWebCongiruation.class};
+		return new Class[] {AppWebCongiruation.class, JPAConfiguration.class};
 	}
 
 	// Este método é o que mapeia as servlets do Spring. O array de Strings que é retornado

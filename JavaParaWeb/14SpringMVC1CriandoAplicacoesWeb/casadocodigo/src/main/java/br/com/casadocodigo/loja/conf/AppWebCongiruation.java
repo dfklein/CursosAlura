@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.casadocodigo.loja.controllers.HomeController;
+import br.com.casadocodigo.loja.daos.ProdutoDAO;
 
 // Diz para o Spring que esta é uma classe de configuração da servlet principal.
 @EnableWebMvc
@@ -13,9 +14,10 @@ import br.com.casadocodigo.loja.controllers.HomeController;
 // você está criando, utilizando a anotação @ComponentScan e passando o pacote em String como argumento
 // Por exemplo:
 // ---> @ComponentScan(basePackages= {"br.com.casadocodigo.loja.controllers"})
-// Porém você pode fazer isto indicando as classes diretamente, o que é melhor pois você pode pegar
+// Porém você pode fazer isto indicando as classes diretamente (você indica uma classe e ele varre
+// todo o pacote que ela estiver, e não apenas a própria classe), o que é melhor pois você pode pegar
 // alterações de pacotes você pode detectar os problemas em tempo de compilação:
-@ComponentScan(basePackageClasses={HomeController.class})
+@ComponentScan(basePackageClasses={HomeController.class, ProdutoDAO.class})
 public class AppWebCongiruation {
 
 	// A anotação @Bean é um tipo de injeção de controle. Ela indica ao Spring que aquele método
