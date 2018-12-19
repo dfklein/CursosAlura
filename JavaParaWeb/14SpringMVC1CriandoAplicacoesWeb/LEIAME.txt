@@ -1,0 +1,12 @@
+----> COMO CRIAR O PROJETO <----
+
+Este projeto foi criado utilizando JBoss forge.
+
+Baixar em http://forge.jboss.org/download
+
+Descompactar, ir à pasta /bin e rodar o executável chamado forge.
+
+Ele abrirá um shell. Nele foi digitado o comando:
+
+project-new named --casadocodigo
+
