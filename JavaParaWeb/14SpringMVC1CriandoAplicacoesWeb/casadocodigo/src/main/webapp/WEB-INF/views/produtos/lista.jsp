@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<div>${sucesso }</div>
+
 	<table>
 		<tr>
 			<th>Título</th>

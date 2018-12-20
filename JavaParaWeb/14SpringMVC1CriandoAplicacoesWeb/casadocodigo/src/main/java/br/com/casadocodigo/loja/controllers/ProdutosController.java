@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
 import br.com.casadocodigo.loja.model.Produto;
@@ -53,12 +54,42 @@ public class ProdutosController {
 	// ----> public String salvar(String titulo, String descricao, int paginas) {
 	// Ou ele pode procurar pelos nomes de atributos de um objeto que você diz que é o que ele recebe,
 	// como na implementação abaixo:
-	public String gravar(Produto produto) {
+	public ModelAndView gravar(Produto produto, RedirectAttributes att) {
 		
 		System.out.println(produto);
 		produtoDao.gravar(produto);
 		
-		return "/produtos/ok";
+		// Na aula 5 o retorno foi alterado para que ao final de uma inclusão, fosse exibida a listagem de produtos.
+		// ----> return "/produtos/ok";
+		
+		// A primeira tentativa foi chamando o método listar. Mas fazendo desta forma, você permite ao
+		// usuário que dando refresh no navegador, já na página de listagem após incluir um novo livro,
+		// a requisição seja reenviada com os dados do formulário preenchidos anteriormente. Isto criaria
+		// várias inserções na base de dados com o mesmo preenchimento do formulário. Isto porque
+		// você não está fazendo o redirect com o navegador (http status 302).
+		// ----> return listar();
+		
+		// Para mandar o navegador fazer o redirect (por baixo dos panos: devolver um status 302 ao navegador
+		// ao invés do 200 quando o formulário for submetido) e não submeter novamente o formulário:
+		ModelAndView mv = new ModelAndView("redirect:produtos");
+		
+		// Ao fazer um redirect, você está dizendo ao navegador que ele deve alterar o método da última
+		// requisição de POST para GET. Quando o Spring detecta o redirect mas vê que você está tentando
+		// atachar um parâmetro à requisição (como na linha comentada abaixo), ele vai automaticamente
+		// converter este objeto para tentar passá-lo via GET (ou seja: vai adicionar os parâmetros à URL).
+		// Desta forma a mensagem não será exibida:
+		// ----> mv.addObject("sucesso", "Produto cadastrado com sucesso!");
+		
+		// para fazer isso você adicionou aos argumentos deste método um objeto chamado RedirectAttributes
+		// Ele vai carregar na memória flash um objeto que precisa ser mantido até a requisição do redirecionamento.
+		// O Flash Scoped é um escopo onde os objetos que adicionamos nele através do método addFlashAttribute
+		// ficam vivos de um request para outro, enquanto o navegador executa um redirect (usando o código de
+		// status 302).
+		att.addFlashAttribute("sucesso", "Produto cadastrado com sucesso!");
+		
+		
+		return mv;
+		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
