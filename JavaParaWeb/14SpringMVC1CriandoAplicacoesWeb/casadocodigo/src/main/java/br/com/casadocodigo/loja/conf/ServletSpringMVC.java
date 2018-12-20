@@ -1,5 +1,8 @@
 package br.com.casadocodigo.loja.conf;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 // É necessário implementar esta classe abstrata para que o Spring utilize esta classe como
@@ -27,4 +30,14 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 		return new String[] {"/"};
 	}
 
+	// Este método registra os filtros da aplicação. Não é obrigado a sobrescrevê-lo. Você o fez aqui
+	// por ser a maneira de configurar o encoding como UTF-8.
+	@Override
+	protected Filter[] getServletFilters() {
+		// Filtro para encoding
+		CharacterEncodingFilter encodingFlter = new CharacterEncodingFilter();
+		encodingFlter.setEncoding("UTF-8");
+		
+		return new Filter[] {encodingFlter};
+	}
 }
