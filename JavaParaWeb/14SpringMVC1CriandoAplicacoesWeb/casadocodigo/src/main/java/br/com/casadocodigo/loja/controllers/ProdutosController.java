@@ -3,9 +3,11 @@ package br.com.casadocodigo.loja.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
 import br.com.casadocodigo.loja.model.Produto;
+import br.com.casadocodigo.loja.model.TipoPreco;
 
 @Controller
 public class ProdutosController {
@@ -16,9 +18,25 @@ public class ProdutosController {
 	
 	// não é necessário especificar no mapeamento se ele está recebendo um método GET ou POST.
 	@RequestMapping("/produtos/form")
-	public String form() {
+	public ModelAndView form() {
+		// Para exibir a lista de tipos de preço na tela, você precisa atachar eles na requisição para
+		// ser lido na view JSP (form.jsp).
+		// No Spring você não trabalha com o HttpRequest diretamente. Você pode mudar o retorno do método
+		// para um objeto chamado ModelAndView que faz parte do framework, onde você atacha um objeto
+		// da seguinte forma:
+		ModelAndView mv = new ModelAndView("/produtos/form");
+		mv.addObject("tipos", TipoPreco.values());
 		
-		return "/produtos/form";
+		// Se você não precisasse atachar um objeto ao HttpRequest, poderia apenas retornar a String
+		// com o caminho da view.
+		// ----> return "/produtos/form";
+		
+		// Como você precisa atachar o objeto, você mudou o retorno do método para o ModelAndView que
+		// você criou lá em cima. Note que você colocou o caminho do arquivo JSP no construtor desse
+		// ModelAndView. Uma maneira alternativa é setar o caminho do JSP depois da seguinte forma:
+		// ----> mv.setViewName("/produtos/form");
+		
+		return mv;
 	}
 	
 	@RequestMapping("/produtos")
