@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Produto {
@@ -17,9 +18,10 @@ public class Produto {
 
 	private String titulo;
 	
+	@Lob
 	private String descricao;
 	
-	private int paginas;
+	private Integer paginas;
 	
 	// Esta anotação não é do Spring, mas da JPA. Ela adiciona o preço como parte do produto,
 	// em uma nova tabela já criando o relacionamento entre eles. Ele se diferencia do @OneToMany
@@ -46,11 +48,11 @@ public class Produto {
 		this.descricao = descricao.trim();
 	}
 
-	public int getPaginas() {
+	public Integer getPaginas() {
 		return paginas;
 	}
 
-	public void setPaginas(int paginas) {
+	public void setPaginas(Integer paginas) {
 		this.paginas = paginas;
 	}
 

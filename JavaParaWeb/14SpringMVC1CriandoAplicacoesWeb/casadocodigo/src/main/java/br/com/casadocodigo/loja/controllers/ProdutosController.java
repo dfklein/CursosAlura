@@ -2,8 +2,13 @@ package br.com.casadocodigo.loja.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
 import br.com.casadocodigo.loja.model.Produto;
 import br.com.casadocodigo.loja.model.TipoPreco;
+import br.com.casadocodigo.loja.validacao.ProdutoValidation;
 
 @Controller
 @RequestMapping(value="/produtos")
@@ -20,6 +26,15 @@ public class ProdutosController {
 	// Você já sabe, mas @Autowired é a anotação de injeção de dependência do Spring.
 	@Autowired
 	private ProdutoDAO produtoDao;
+	
+	// @InitBinder é a anotação que indica ao Spring qual método faz a ligação entre uma classe
+	// entidade e sua classe de validação. Veja a classe ProdutoValidation.class para ver 
+	// a implementação.
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new ProdutoValidation());
+		
+	}
 	
 	// não é necessário especificar no mapeamento se ele está recebendo um método GET ou POST. A não
 	// ser que você queira utilizar uma mesma URL para duas funções diferentes e especificar qual dos
@@ -54,7 +69,19 @@ public class ProdutosController {
 	// ----> public String salvar(String titulo, String descricao, int paginas) {
 	// Ou ele pode procurar pelos nomes de atributos de um objeto que você diz que é o que ele recebe,
 	// como na implementação abaixo:
-	public ModelAndView gravar(Produto produto, RedirectAttributes att) {
+	// @Valid: exige que para aceitar o objeto como argumento, ele seja aprovado pelo validador
+	// que você fez na classe ProdutoValidation.class. A ligação entre o @Valid e o validador
+	// desejado é feito aqui nesta classe no método initBinder() que precisa da anotação @InitBinder
+	// para ser chamado como quem faz esta ligação. A interface BindingResult recebida aqui como
+	// argumento faz parte desta validação.
+	// ATENÇÃO: a ordem dos argumentos é importante e o construtor do método exige o BindigResult logo
+	// após o argumento que possui o @Valid
+	public ModelAndView gravar(@Valid Produto produto, BindingResult result, RedirectAttributes att) {
+		
+		if(result.hasErrors()) {
+			System.out.println("Erro de validação");
+			return form();
+		}
 		
 		System.out.println(produto);
 		produtoDao.gravar(produto);

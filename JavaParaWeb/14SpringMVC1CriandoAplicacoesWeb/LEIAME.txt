@@ -1,4 +1,6 @@
+--------------------------------
 ----> COMO CRIAR O PROJETO <----
+--------------------------------
 
 Este projeto foi criado utilizando JBoss forge.
 
@@ -10,3 +12,37 @@ Ele abrirá um shell. Nele foi digitado o comando:
 
 project-new named --casadocodigo
 
+--------------------------------------------------
+----> TOMCAT COM VERSÃO DO JAVA SUPERIOR A 9 <----
+--------------------------------------------------
+
+Você está recebendo um erro estranho do tipo:
+
+java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException
+Na hora de subir o Apache Tomcat?
+
+Se isso for o caso, fique tranquilo, pois é algo relacionado com a configuração da JVM na versão 9+ e não é relacionado com o nosso projeto Spring em si.
+
+Solução rápida
+Adicione o módulo JAX-B como parâmetro da JVM:
+
+--add-modules java.xml.bind
+No Eclipse, você pode fazer isso através dos Run Configurations .... Para tal clique no botão indicado abaixo para abrir o sub-menu Run Configurations ...:
+
+Run Configurations
+
+Na janela, verifique se o Tomcat está selecionado, depois vá para a aba Arguments e adicione o seguinte parâmetro no início do campo VM Arguments: --add-modules java.xml.bind
+
+VM Arguments
+
+Explicação
+A partir do Java 9, entrou na plataforma um novo sistema de modules responsável por carregar as bibliotecas da JVM. Isso foi necessário pois o JRE cresceu nos últimos anos e muitas vezes são carregados muitos JARs que não são necessários para a aplicação. Isso não só aumenta o uso da memória como também traz lentidão na hora de inicializar a JVM.
+
+O novo sistema de módulos da JVM não carrega mais algumas bibliotecas que faziam parte do Java 6/7/8, incluindo o JAX-B. A ideia era diminuir o tamanho da JVM e só carregar o mínimo necessário, que é ótimo, mas algumas bibliotecas confiam que o JAX-B já está presente e é isso que é o problema, causando a NoClassDefFoundError.
+
+Para resolver isso, devemos explicitamente pedir à JVM que ela carregue esse módulo JAX-B e isso é feito através do parâmetro na linha de comando:
+
+java --add-modules java.xml.bind SuaClasseARodar
+Nesse caso, a JVM carrega então o JAX-B, no entanto, no nosso projeto usamos o Apache Tomcat para subir a JVM. Por isso manipulamos a configuração do Tomcat no Eclipse (Run Configuration). No final, fizemos a mesma coisa, adicionamos o módulo JAX-B à JVM que inicializa o Apache Tomcat.
+
+Tudo bem? Se tiver com dúvidas, por favor, pergunte no fórum.
