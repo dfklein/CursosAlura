@@ -1,7 +1,9 @@
 package br.com.casadocodigo.loja.conf;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -33,6 +35,20 @@ public class AppWebCongiruation {
 		
 		return resolver;
 		
+	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource msgSource = new ReloadableResourceBundleMessageSource();
+		
+		msgSource.setBasename("/WEB-INF/messages");
+		msgSource.setDefaultEncoding("UTF-8");
+		// A configuração abaixo seta de quanto em quanto tempo ele verifica o cacheamento do seu arquivo
+		// de mensagens, evitando que você tenha que subir o servidor sempre que altera algo. O argumento
+		// indica de quanto em quantos segundos ele recarrega o arquivo.
+		msgSource.setCacheSeconds(1);
+		
+		return msgSource;
 	}
 	
 }

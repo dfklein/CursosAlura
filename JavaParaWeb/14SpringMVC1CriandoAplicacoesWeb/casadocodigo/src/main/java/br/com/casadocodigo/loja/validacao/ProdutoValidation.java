@@ -25,7 +25,13 @@ public class ProdutoValidation implements Validator {
 	public void validate(Object target, Errors errors) {
 		Produto produto = (Produto) target;
 		
-		// O Spring tem uma classe de validação que você pode utilizar:
+		// O Spring tem uma classe de validação que você pode utilizar para facilitar.
+		// o último argumento ("field.required") é a parte inicial da chave da mensagem no Bundle
+		// de mensagens que ele vai utilizar para enviar para a tela. O restante dela está declarado
+		// na própria JSP (ver form.jsp a tag <form:errors path="...">). Se esta chave não existir no
+		// bundle de mensagens, você vai recever um erro de NoSuchMessageException.
+		// Lembre-se de que o message bundle precisa ser configurado na classe de configurações web
+		// da sua aplicação (AppWebConfiguration.class).
 		ValidationUtils.rejectIfEmpty(errors, "titulo", "field.required");
 		ValidationUtils.rejectIfEmpty(errors, "descricao", "field.required");
 				
