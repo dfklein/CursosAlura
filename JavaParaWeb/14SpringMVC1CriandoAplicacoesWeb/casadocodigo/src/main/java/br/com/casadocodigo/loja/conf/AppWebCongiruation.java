@@ -10,7 +10,9 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.casadocodigo.loja.controllers.HomeController;
@@ -27,7 +29,11 @@ import br.com.casadocodigo.loja.infra.FileSaver;
 // todo o pacote que ela estiver, e não apenas a própria classe), o que é melhor pois você pode pegar
 // alterações de pacotes você pode detectar os problemas em tempo de compilação:
 @ComponentScan(basePackageClasses={HomeController.class, ProdutoDAO.class, FileSaver.class})
-public class AppWebCongiruation {
+// A classe WebMvcConfigurerAdapter não é bem explicada no curso. Você a extendeu para poder
+// sobrescrever o método configureDefaultServletHandling. Isto faz com que o Spring conceda permissão
+// ao Tomcat para acessar a pasta resources, o que foi feito para que a aplicação tivesse acesso aos
+// arquivos de CSS.
+public class AppWebCongiruation extends WebMvcConfigurerAdapter {
 
 	// A anotação @Bean é um tipo de injeção de controle. Ela indica ao Spring que aquele método
 	// vai gerar um retorno que ele deve gerenciar (neste caso, gerencia para configurar o retorno
@@ -80,4 +86,13 @@ public class AppWebCongiruation {
 		return new StandardServletMultipartResolver();
 	}
 	
+	// **** EXPLICAÇÃO DO MÉTODO ABAIXO COPIADA DE EXPLICAÇÃO QUE CONSTA NA DECLARAÇÃO DA CLASSE
+	// A classe WebMvcConfigurerAdapter não é bem explicada no curso. Você a extendeu para poder
+	// sobrescrever o método configureDefaultServletHandling. Isto faz com que o Spring conceda permissão
+	// ao Tomcat para acessar a pasta resources, o que foi feito para que a aplicação tivesse acesso aos
+	// arquivos de CSS.
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	    configurer.enable();
+	}
 }

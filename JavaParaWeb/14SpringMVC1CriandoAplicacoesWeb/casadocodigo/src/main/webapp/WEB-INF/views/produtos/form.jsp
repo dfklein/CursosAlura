@@ -64,6 +64,7 @@
 	            <label>${tipoPreco}</label>
 	            <form:input path="precos[${status.index}].valor" />
 	            <!-- Abaixo o equivalente a um input de type=hidden -->
+	            <!-- Este input hidden serve apenas para que você traga na requisição o id do produto e possa utilizá-lo no forEach -->
 	            <form:hidden path="precos[${status.index}].tipo" value="${tipoPreco}" />
 	        </div>
 	    </c:forEach>

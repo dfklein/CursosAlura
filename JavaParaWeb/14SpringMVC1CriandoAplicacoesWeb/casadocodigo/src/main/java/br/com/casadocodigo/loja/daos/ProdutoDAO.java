@@ -42,4 +42,11 @@ public class ProdutoDAO {
 	public List<Produto> listar() {
 		return manager.createQuery("SELECT p FROM Produto p", Produto.class).getResultList();
 	}
+
+	public Produto find(Integer id) {
+		// return manager.find(Produto.class, id); // assim vai dar pau de Lazy
+		return manager.createQuery("SELECT DISTINCT p FROM Produto p INNER JOIN FETCH p.precos precos WHERE p.id = :id", Produto.class)
+				.setParameter("id", id)
+				.getSingleResult();
+	}
 }
