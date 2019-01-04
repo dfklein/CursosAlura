@@ -11,10 +11,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
+import br.com.casadocodigo.loja.infra.FileSaver;
 import br.com.casadocodigo.loja.model.Produto;
 import br.com.casadocodigo.loja.model.TipoPreco;
 import br.com.casadocodigo.loja.validacao.ProdutoValidation;
@@ -26,6 +28,10 @@ public class ProdutosController {
 	// Você já sabe, mas @Autowired é a anotação de injeção de dependência do Spring.
 	@Autowired
 	private ProdutoDAO produtoDao;
+	
+	@Autowired // NÃO ESQUEÇA: a classe FileSaver só pode ser injetada se você colocá-la no @ComponentScan da sua classe de configurações web (AppWebConfiguration.class)
+	private FileSaver fileSaver;
+	
 	
 	// @InitBinder é a anotação que indica ao Spring qual método faz a ligação entre uma classe
 	// entidade e sua classe de validação. Veja a classe ProdutoValidation.class para ver 
@@ -62,26 +68,38 @@ public class ProdutosController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	// Observe que se você colocar nos argumentos do método o mesmo nome que você deu para eles no
+	// *** Observe que se você colocar nos argumentos do método o mesmo nome que você deu para eles no
 	// JSP (atributo "name") o Spring automaticamente faz a conversão do atributo da requisição para
 	// um argumento recebido pelo método que mapeia a requisição. Isto é chamado de "binding".
 	// O binding pode ser feito em atributos do argumento, como no exemplo:
 	// ----> public String salvar(String titulo, String descricao, int paginas) {
 	// Ou ele pode procurar pelos nomes de atributos de um objeto que você diz que é o que ele recebe,
 	// como na implementação abaixo:
-	// @Valid: exige que para aceitar o objeto como argumento, ele seja aprovado pelo validador
+	// *** @Valid: exige que para aceitar o objeto como argumento, ele seja aprovado pelo validador
 	// que você fez na classe ProdutoValidation.class. A ligação entre o @Valid e o validador
 	// desejado é feito aqui nesta classe no método initBinder() que precisa da anotação @InitBinder
 	// para ser chamado como quem faz esta ligação. A interface BindingResult recebida aqui como
 	// argumento faz parte desta validação.
 	// ATENÇÃO: a ordem dos argumentos é importante e o construtor do método exige o BindigResult logo
 	// após o argumento que possui o @Valid
-	public ModelAndView gravar(@Valid Produto produto, BindingResult result, RedirectAttributes att) {
+	// *** MultipartFile é uma interface do Spring que lida com arquivos. Para fazer o upload de
+	// arquivos você vai precisar que:
+	// 	1 - O construtor do seu método receba um MultipartFile
+	//  2 - Que a declaração do form no seu JSP possua o atributo 'enctype="multipart/form-data"' (ver arquivo form.jsp)
+	//  3 - Uma configuração na sua classe de configurações web (ver o arquivo AppWebConfiguration.class - multipartResolver())
+	//  4 - Uma configuração na sua classe de configuração de servlets (ver o arquivo ServletSpringMVC.class - customizeRegistration())
+	public ModelAndView gravar(MultipartFile sumario, @Valid Produto produto, BindingResult result, RedirectAttributes att) {
+		
+		System.out.println(sumario.getOriginalFilename());
+		
 		
 		if(result.hasErrors()) {
 			System.out.println("Erro de validação");
 			return form(produto);
 		}
+		
+		// NÃO ESQUEÇA: a classe FileSaver só pode ser injetada se você colocá-la no @ComponentScan da sua classe de configurações web (AppWebConfiguration.class)
+		produto.setSumarioPath(fileSaver.write("arquivos-sumario", sumario));
 		
 		System.out.println(produto);
 		produtoDao.gravar(produto);
