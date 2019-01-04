@@ -21,7 +21,9 @@
 	
 		<div>
 			<label>Título</label>
-			<input type="text" name="titulo">
+<!-- 			<input type="text" name="titulo"> -->
+			<!-- Note que ao usar o form:input não é necessário especificar o atributo type dele -->
+			<form:input path="titulo" />
 			<!-- O path do form:errors é o nome do 
 			 atributo cuja validação falhou. Veja os arquivos  
 			 ProdutoValidation.java e AppWebConfiguration para ver
@@ -32,24 +34,30 @@
 	
 		<div>
 			<label>Descrição</label>
-			<textarea rows="10" cols="20" 
-				name="descricao">
-			</textarea>
+			<form:textarea rows="10" cols="20" 
+				path="descricao" />
 			<form:errors path="descricao"/>
 		</div>
 	
 		<div>
 			<label>Paginas</label>
-			<input type="text" name="paginas">
+			<form:input path="paginas" />
 			<form:errors path="paginas"/>
+		</div>
+	
+		<div>
+			<label>Data de lançamento</label>
+			<form:input path="dataLancamento" />
+			<form:errors path="dataLancamento"/>
 		</div>
 	
 		<!-- A variável ${tipos} foi atachada à requisição em ProdutosController - public ModelAndView form() -->
 		<c:forEach items="${tipos}" var="tipoPreco" varStatus="status">
 	        <div>
 	            <label>${tipoPreco}</label>
-	            <input type="text" name="precos[${status.index}].valor" />
-	            <input type="hidden" name="precos[${status.index}].tipo" value="${tipoPreco}" />
+	            <form:input path="precos[${status.index}].valor" />
+	            <!-- Abaixo o equivalente a um input de type=hidden -->
+	            <form:hidden path="precos[${status.index}].tipo" value="${tipoPreco}" />
 	        </div>
 	    </c:forEach>
 		

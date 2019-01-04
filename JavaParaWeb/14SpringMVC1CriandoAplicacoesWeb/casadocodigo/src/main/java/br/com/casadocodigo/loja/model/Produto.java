@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.model;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Produto {
@@ -22,6 +25,13 @@ public class Produto {
 	private String descricao;
 	
 	private Integer paginas;
+	
+	// Esta anotação é do Spring pode formatar o campo data com um pattern. No entanto você não utilizou
+	// isso aqui porque você pode configurar isto como padrão para toda a 
+	// aplicação (ver o AppWebConfiguration.class -> mvcConversionService() )
+	// @DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat
+	private Calendar dataLancamento;
 	
 	// Esta anotação não é do Spring, mas da JPA. Ela adiciona o preço como parte do produto,
 	// em uma nova tabela já criando o relacionamento entre eles. Ele se diferencia do @OneToMany
@@ -71,6 +81,15 @@ public class Produto {
     public void setPrecos(List<Preco> precos) {
         this.precos = precos;
     }
+    
+
+	public Calendar getDataLancamento() {
+		return dataLancamento;
+	}
+
+	public void setDataLancamento(Calendar dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
 
 	@Override
 	public String toString() {

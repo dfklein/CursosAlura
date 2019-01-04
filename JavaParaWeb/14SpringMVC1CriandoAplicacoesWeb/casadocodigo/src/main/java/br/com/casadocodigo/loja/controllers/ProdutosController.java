@@ -40,7 +40,7 @@ public class ProdutosController {
 	// ser que você queira utilizar uma mesma URL para duas funções diferentes e especificar qual dos
 	// métodos http você está mapeando (ver gravar(Produto produto) e listar())
 	@RequestMapping(value="/form")
-	public ModelAndView form() {
+	public ModelAndView form(Produto produto) { // O produto recebido aqui como argumento é um tipo de injeção da entidade para atachá-la à requisição. A tela quebra sem isso quando você utiliza o form:input
 		// Para exibir a lista de tipos de preço na tela, você precisa atachar eles na requisição para
 		// ser lido na view JSP (form.jsp).
 		// No Spring você não trabalha com o HttpRequest diretamente. Você pode mudar o retorno do método
@@ -80,7 +80,7 @@ public class ProdutosController {
 		
 		if(result.hasErrors()) {
 			System.out.println("Erro de validação");
-			return form();
+			return form(produto);
 		}
 		
 		System.out.println(produto);
