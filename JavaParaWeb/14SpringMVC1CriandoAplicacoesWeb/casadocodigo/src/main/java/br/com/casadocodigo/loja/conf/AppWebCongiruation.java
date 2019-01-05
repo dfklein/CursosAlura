@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import br.com.casadocodigo.loja.controllers.HomeController;
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
 import br.com.casadocodigo.loja.infra.FileSaver;
+import br.com.casadocodigo.loja.model.CarrinhoCompras;
 
 // Diz para o Spring que esta é uma classe de configuração da servlet principal.
 @EnableWebMvc
@@ -28,7 +29,7 @@ import br.com.casadocodigo.loja.infra.FileSaver;
 // Porém você pode fazer isto indicando as classes diretamente (você indica uma classe e ele varre
 // todo o pacote que ela estiver, e não apenas a própria classe), o que é melhor pois você pode pegar
 // alterações de pacotes você pode detectar os problemas em tempo de compilação:
-@ComponentScan(basePackageClasses={HomeController.class, ProdutoDAO.class, FileSaver.class})
+@ComponentScan(basePackageClasses={HomeController.class, ProdutoDAO.class, FileSaver.class, CarrinhoCompras.class})
 // A classe WebMvcConfigurerAdapter não é bem explicada no curso. Você a extendeu para poder
 // sobrescrever o método configureDefaultServletHandling. Isto faz com que o Spring conceda permissão
 // ao Tomcat para acessar a pasta resources, o que foi feito para que a aplicação tivesse acesso aos
@@ -45,6 +46,13 @@ public class AppWebCongiruation extends WebMvcConfigurerAdapter {
 		
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
+		
+		// Esta configuração torna todos os beans da aplicação atributos expostos para a JSP.
+		// ---> resolver.setExposeContextBeansAsAttributes(true);
+		// No entanto isto deixaria muito código exposto. Você pode incluir apenas classes específicas.
+		// Abaixo segue o que realmente foi utilizado (feito para acessar o carrinho de compras direto da
+		// jsp e visualizar a quantidade do carrinho de compras.
+		resolver.setExposedContextBeanNames("carrinhoCompras");
 		
 		return resolver;
 		

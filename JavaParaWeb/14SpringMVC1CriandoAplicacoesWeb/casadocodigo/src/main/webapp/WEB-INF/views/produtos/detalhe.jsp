@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,11 @@
 				<nav id="main-nav">
 
 					<ul class="clearfix">
-						<li><a href="/carrinho" rel="nofollow">Carrinho</a></li>
+						<li>
+					        <a href="#">
+					            Seu carrinho (${carrinhoCompras.quantidade})
+					        </a>
+					    </li>
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">Sobre Nós</a></li>
 						<li><a href="/pages/perguntas-frequentes" rel="nofollow">Perguntas Frequentes</a></li>
 					</ul>
@@ -71,7 +76,9 @@
 		</header>
 
 		<section class="buy-options clearfix">
-			<form action="/carrinho/add" method="post" class="container">
+			<!-- o c:url é quem vai garantir que o contexto não será substituído na nova requisição, concatenando ele ao valor passado como parâmetro -->
+			<!-- Note que você pode substituir as aspas duplas de fora por aspas simples para não conflitar com a interna do c:url -->
+			<form action='<c:url value="/carrinho/add" />' method="post" class="container">
 				<!-- Este input hidden serve apenas para que você traga na requisição o id do produto e possa utilizá-lo no forEach -->
 				<input type="hidden" value="${produto.id}" name="produtoId" >
 				<ul id="variants" class="clearfix">
@@ -103,7 +110,11 @@
 					Número de páginas: <span>${ produto.paginas }</span>
 				</p>
 				<p></p>
-				<p>Data de publicação: ${ produto.dataLancamento }</p>
+				<p>Data de publicação:
+					<fmt:formatDate pattern="dd/MM/yyyy" 
+            			value="${produto.dataLancamento.time}"/>
+				
+				</p>
 				<p>
 					Encontrou um erro? <a href='/submissao-errata' target='_blank'>Submeta uma errata</a>
 				</p>
