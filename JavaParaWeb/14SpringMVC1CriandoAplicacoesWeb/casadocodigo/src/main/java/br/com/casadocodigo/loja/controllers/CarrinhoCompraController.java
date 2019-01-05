@@ -1,8 +1,10 @@
 package br.com.casadocodigo.loja.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
@@ -13,6 +15,8 @@ import br.com.casadocodigo.loja.model.TipoPreco;
 
 @Controller
 @RequestMapping("/carrinho")
+// Lembre-se de que sem indicar o escopo, tudo que é injetado no Spring tem escopo de aplicação (singleton)
+@Scope(value=WebApplicationContext.SCOPE_REQUEST)
 public class CarrinhoCompraController {
 	
 	@Autowired

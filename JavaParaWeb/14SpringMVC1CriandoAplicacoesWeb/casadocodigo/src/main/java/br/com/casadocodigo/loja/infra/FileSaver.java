@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-//@Component é um componente genérico do Spring (não é um DAO, não é um controller, etc...). Isto torna o recurso injetável pelo Spring
-//NÃO ESQUEÇA: a classe FileSaver só pode ser injetada se você colocá-la no @ComponentScan da sua classe de configurações web (AppWebConfiguration.class)
+// @Component é um componente genérico do Spring (não é um DAO, não é um controller, etc...). Isto torna o recurso injetável pelo Spring
+// NUNCA SE ESQUEÇA QUE POR PADRÃO UMA CLASSE @Component É UM SINGLETON - > Ver maiores explicações em CarrinhoCompras.java
+// NÃO ESQUEÇA: a classe FileSaver só pode ser injetada se você colocá-la no @ComponentScan da sua classe de configurações web (AppWebConfiguration.class)
 @Component 
 public class FileSaver {
 	

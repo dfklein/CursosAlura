@@ -15,6 +15,7 @@ import br.com.casadocodigo.loja.model.Produto;
 // No entanto, para os DAOs, é utilizada a @Repository. Ela deixa o Spring ciente de que esta é
 // uma classe de acesso a dados que herda @Component (em outras palavras: também torna esta classe
 // gerenciável pelo Spring utilizando @Autowired onde ela precisar ser instanciada).
+// NUNCA SE ESQUEÇA QUE POR PADRÃO UMA CLASSE @Component É UM SINGLETON - > Ver maiores explicações em CarrinhoCompras.java
 // OBS: não se esqueça de incluir o pacote deste DAO no @ComponentScan do seu arquivo de configurações
 // (neste projeto em AppWebConfiguration.class)
 @Repository
