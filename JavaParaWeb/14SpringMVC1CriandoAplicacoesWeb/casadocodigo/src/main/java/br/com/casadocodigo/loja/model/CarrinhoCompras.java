@@ -1,5 +1,8 @@
 package br.com.casadocodigo.loja.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,8 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
 // neste caso aqui você tem um CarrinhoCompraController com escopo de requisição que recebe a injeção
 // de um CarrinhoCompras que é um bean com escopo de sessão).
  @Scope(value=WebApplicationContext.SCOPE_SESSION)
-public class CarrinhoCompras {
+public class CarrinhoCompras implements Serializable {
 
+	private static final long serialVersionUID = 1605314890348342136L;
+	
 	// O Integer é a quantidade
 	private Map<CarrinhoItem, Integer> itens = new LinkedHashMap<>();
 	
@@ -27,7 +32,7 @@ public class CarrinhoCompras {
 		
 	}
 
-	private int getQuantidade(CarrinhoItem item) {
+	public Integer getQuantidade(CarrinhoItem item) {
 		if(!itens.containsKey(item)) {
 			itens.put(item, 0);
 		} 
@@ -39,5 +44,22 @@ public class CarrinhoCompras {
 	    return itens.values().stream()
 	        .reduce(0, (proximo, acumulador) -> proximo + acumulador);
 	}
+
+	public BigDecimal getTotal(CarrinhoItem item) {
+		return item.getTotal(getQuantidade(item));
+	}
+	
+	public BigDecimal getTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+		for(CarrinhoItem item : itens.keySet()) {
+			total = total.add(getTotal(item));
+		}
+		return total;
+	}
+	
+	public Collection<CarrinhoItem> getItens() {
+		return itens.keySet();
+	}
+
 
 }
