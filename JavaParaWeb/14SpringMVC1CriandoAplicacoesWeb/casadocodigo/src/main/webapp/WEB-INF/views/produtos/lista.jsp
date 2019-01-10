@@ -11,6 +11,7 @@
 <body>
 
 	<div>${sucesso }</div>
+	<div>${falha }</div>
 
 	<table>
 		<tr>

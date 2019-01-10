@@ -8,6 +8,7 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -39,6 +40,10 @@ public class AppWebCongiruation extends WebMvcConfigurerAdapter {
 	// A anotação @Bean é um tipo de injeção de controle. Ela indica ao Spring que aquele método
 	// vai gerar um retorno que ele deve gerenciar (neste caso, gerencia para configurar o retorno
 	// de views da aplicação).
+	// Na verdade o que você faz aqui é dizer ao Spring que toda vez que ele tiver
+	// a injeção de um recurso (@Autowired em qualquer outra classe) com um tipo de retorno igual 
+	// ao de qualquer método desta classe aqui anotado com @Bean que a injeção deve chamar este
+	// método para construir o objeto, permitindo que ele seja configurado.
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		
@@ -103,4 +108,10 @@ public class AppWebCongiruation extends WebMvcConfigurerAdapter {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 	    configurer.enable();
 	}
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+	
 }

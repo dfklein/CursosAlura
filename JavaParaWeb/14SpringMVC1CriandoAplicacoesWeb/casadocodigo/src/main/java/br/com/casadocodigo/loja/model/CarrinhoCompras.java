@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -19,7 +20,13 @@ import org.springframework.web.context.WebApplicationContext;
 // controllers precisam ter um escopo MENOR ou igual ao do Bean que ele estiver injetando (lembre-se:
 // neste caso aqui você tem um CarrinhoCompraController com escopo de requisição que recebe a injeção
 // de um CarrinhoCompras que é um bean com escopo de sessão).
- @Scope(value=WebApplicationContext.SCOPE_SESSION)
+ @Scope(value=WebApplicationContext.SCOPE_SESSION,
+ // O atributo "proxyMode" vai criar um proxy na classe alvo para indicar ao Spring que ele mesmo
+ // deve lidar com a diferença de escopos. Este recurso foi apresentado quando foi criado o PagamentoController,
+ // como uma alternativa para mantê-lo no escopo padrão (ou seja: escopo de aplicação). No entanto o instrutor
+ // do curso frisou que ele concorda que um controller sem particularidades especiais deve ter escopo de
+ // requisição.
+		 proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class CarrinhoCompras implements Serializable {
 
 	private static final long serialVersionUID = 1605314890348342136L;
@@ -59,6 +66,14 @@ public class CarrinhoCompras implements Serializable {
 	
 	public Collection<CarrinhoItem> getItens() {
 		return itens.keySet();
+	}
+
+	public void remover(Integer produtoId, TipoPreco tipoPreco) {
+		Produto produto = new Produto();
+		produto.setId(produtoId);
+		
+		itens.remove(new CarrinhoItem(produto, tipoPreco));
+		
 	}
 
 
