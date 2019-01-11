@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -45,6 +46,9 @@ public class ProdutosController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
+	// Isto invalida o cache de nome "produtosHome"
+	// allEntries=true diz que ele deve limpar todas as entradas encontradas no cache.
+	@CacheEvict(value="produtosHome", allEntries=true)
 	public ModelAndView gravar(MultipartFile sumario, @Valid Produto produto, BindingResult result, 
 				RedirectAttributes redirectAttributes){
 		
