@@ -89,6 +89,11 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
     
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//    	registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//    }
+    
     // Método de cacheamento de requisições. 
     // Não esquecer de usar a anotação @EnableCaching na declaração da classe.
     // Não se esqueça que para o cache funcionar numa requisição, o método do controller precisa ser anotado com @Cacheable
