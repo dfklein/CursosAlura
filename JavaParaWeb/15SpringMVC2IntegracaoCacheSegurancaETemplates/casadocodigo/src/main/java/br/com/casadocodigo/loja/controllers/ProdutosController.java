@@ -79,6 +79,20 @@ public class ProdutosController {
 	    ModelAndView modelAndView = new ModelAndView("/produtos/detalhe");
 	    Produto produto = dao.find(id);
 	    modelAndView.addObject("produto", produto);
+	    
 	    return modelAndView;
 	}
+	
+	// Este aqui é um exemplo de como retornar um JSON ao invés de uma view, para realizar integrações
+	// com outros sistemas. O método está comentado porque a ideia era mostrar o uso do content negotiation
+	// Para prover este mesmo retorno a partir de um método que já existe.
+	// (Ver o método contentNegotiationViewResolver() de AppWebConfiguration.class).
+	// O @ResponseBody vai converter a sua entidade em JSON.
+	// Só funciona se você tiver o Jackson nas dependências do seu projeto.
+	//		@RequestMapping("/{id}")
+	//		@ResponseBody
+	//		public Produto detalheJson(@PathVariable("id") Integer id){
+	//			Produto produto = dao.find(id);
+	//			return produto;
+	//		}
 }

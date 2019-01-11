@@ -1,5 +1,7 @@
 package br.com.casadocodigo.loja.conf;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.cache.CacheManager;
@@ -13,12 +15,15 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.google.common.cache.CacheBuilder;
@@ -35,6 +40,8 @@ import br.com.casadocodigo.loja.models.CarrinhoCompras;
 @EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
+	// Observe em contentNegotiationViewResolver() que você precisou utilizar este método para o seu
+	// negociador de retorno.
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -101,6 +108,31 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
     	GuavaCacheManager cm = new GuavaCacheManager();
     	cm.setCacheBuilder(builder);
     	return cm;
+    }
+    
+    // Este é o Bean que foi criado para o método detalhe() de ProdutosController com o objetivo
+    // de fazer com que o Spring resolva, a partir de um mesmo método, se o retorno dele será uma
+    // view (JSP) ou um JSON.
+    // A partir da implementação abaixo, ao adicionar ".json" ao final da sua URL, o sistema retornará
+    // uma representação JSON dos objetos que foram atachados ao seu ModelAndView.
+    // Por exemplo:
+    //	---> http://localhost:8080/casadocodigo/produtos/detalhe/1 -> retorna a página de detalhes do produto de id 1
+    //	---> http://localhost:8080/casadocodigo/produtos/detalhe/1.json -> retorna JSON do produto de id 1
+    // Uma forma de obter o JSON sem colocar o ".json" no final da URL é seguindo os seguites passos:
+    // 1 - Usar o método GET
+    // 2 - Adicionar ao header da requisição a propriedade "Accept" com o valor "application/json"
+    @Bean
+    public ViewResolver contentNegotiationViewResolver(ContentNegotiationManager manager) {
+    	List<ViewResolver> viewResolvers = new ArrayList<>();
+    	viewResolvers.add(internalResourceViewResolver());
+    	viewResolvers.add(new JsonViewResolver());
+    	
+
+    	ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+		resolver.setViewResolvers(viewResolvers);
+		resolver.setContentNegotiationManager(manager);
+    	
+    	return resolver;
     }
 }
 	
