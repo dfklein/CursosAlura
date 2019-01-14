@@ -9,14 +9,23 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletInitializer{
 
+	// Neste método você possui configurações que são executadas já quando o container estiver subindo,
+	// e não apenas ao acessar a aplicação (como acontece no getServletConfigClasses()).
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return null;
+		// Além de declarar o SecurityConfiguration (implementação do Spring Security) nas classes 
+		// que sobem junto com o Spring, foi necessário passar a JPAConfiguration do getServletConfigClasses()
+		// para cá. Isto porque o security possui um UsuarioDAO injetado e se você não carregar as configurações
+		// de JPA antes você vai ter um erro de NoSuchBeanDefinition ao subir a aplicação (o Spring ainda não
+		// possui conhecimento das configurações da JPA para fazer a injeção).
+		// No curso ele acabou passando o AppWebConfiguration para cá também como precaução, mas não sei se 
+		// isso é mesmo necessário
+		return new Class[] {SecurityConfiguration.class, JPAConfiguration.class, AppWebConfiguration.class};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {AppWebConfiguration.class, JPAConfiguration.class};
+		return new Class[] {};
 	}
 
 	@Override
