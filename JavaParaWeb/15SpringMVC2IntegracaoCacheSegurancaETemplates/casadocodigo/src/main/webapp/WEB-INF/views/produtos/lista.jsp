@@ -18,9 +18,9 @@
 	sobrescrever o método configureDefaultServletHandling(...) 
  -->
  <c:url value="/resources/css" var="cssPath" />
-<%-- <link rel="stylesheet" href="${ cssPath }/bootstrap.min.css"  /> --%>
-<%-- <link rel="stylesheet" href="${ cssPath }/bootstrap-theme.min.css"  /> --%>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="${ cssPath }/bootstrap.min.css"  />
+<link rel="stylesheet" href="${ cssPath }/bootstrap-theme.min.css"  />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
 <style type="text/css">
 	body {
 		padding-top:60px; 
