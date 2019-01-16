@@ -48,8 +48,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	    // como "ROLE_ADMIN"
 	    // ----> .antMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN")
 	    // ----> .antMatchers(HttpMethod.GET, "/produtos").hasRole("ADMIN")
-	    .antMatchers("/carrinho/**").permitAll()
+	    .antMatchers("/produtos").hasRole("ADMIN")
 	    .antMatchers("/produtos/").hasRole("ADMIN")
+	    .antMatchers("/carrinho/**").permitAll()
 	    // Segundo o instrutor, o ideal é você escrever os bloqueios antes das permissões. Isto garante
 	    // que no exemplo da linha seguinte você esteja liberando o acesso a todas as requisições ao
 	    // /produtos exceto as que foram bloqueadas anteriormente.
