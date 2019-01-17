@@ -24,8 +24,13 @@ public class ProdutoDAO {
 		manager.persist(produto);
 	}
 
+	// Aqui você não fez o inner join fetch para trazer os preços. Você fez uma configuração para fazer com
+	// que a transação durasse todo o tempo da requisição, dentro do filtro. Por isso, ao abrir a página que evoca o preço ele
+	// consegue inicializar a coleção de preços.
+	// Veja seu arquivo de configurações de servlets (ServletSpringMVC.class) no método getServletFilters
+	// OBS: Isso não é necessariamente uma vantagem. Pode gerar uma quantidade alta de queries (para a performance eu pessoalmente acho isso ruim) porque ele faz uma query por cada ítem da coleção. Para isso é melhor usar o JOIN FETCH mesmo.
 	public List<Produto> listar() {
-		return manager.createQuery("select p from Produto p", Produto.class)
+		return manager.createQuery("select distinct(p) from Produto p", Produto.class)
 				.getResultList();
 	}
 
