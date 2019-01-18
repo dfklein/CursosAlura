@@ -32,7 +32,12 @@ public class JPAConfiguration {
 		return factoryBean;
 	}
 
-	private Properties aditionalProperties() {
+	@Bean
+	// IMPORTANTE: ao utilizar diversos perfis de conexão com o banco você precisa também configurar
+	// a sua aplicação para que ela saiba qual perfil utilizará. Ver a classe ServletSpringMVC.class no
+	// método onStartUp
+	@Profile("dev")
+	public Properties aditionalProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		properties.setProperty("hibernate.show_sql", "true");
