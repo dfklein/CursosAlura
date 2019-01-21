@@ -1,0 +1,23 @@
+Como foi visto nas aulas, o processo de build da nossa aplicação pode ser tornar cada vez mais complexo. Por esse motivo, é interessante utilizar uma ferramenta que o automatize, como o Maven.
+
+O comando utilizado para compilar nossas classes para um diretório que não é o mesmo do fonte é mais complexo.
+
+No lugar de executar o javac, vamos utilizar o Maven para compilar a classe App.java que o projeto produtos contém. Para isto, execute mvn compile. Verifique se dentro do diretório target/classes, o arquivo class foi devidamente gerado.
+
+Utilize o Maven para rodar os testes do projeto. Para isto execute o comando mvn test. Além de verificar a saída do comando no terminal, verifique dentro do diretório target quais diretórios foram gerados e seus conteúdos.
+
+Para finalizar, utilize o comando mvn clean para limpar o diretório target e manter apenas os arquivos fonte.
+
+
+-----
+
+Os comandos do Maven devem ser executados na raiz do diretório do projeto. Portanto não se esqueça de acessar o diretório:
+
+cd produtos
+Para compilar o código-fonte do nosso projeto, o comando utilizado é mvn compile. As classes serão geradas no diretório target/classes.
+
+Para rodar os testes, utilizamos mvn test. No terminal, o comando nos mostra o resultado da execução de cada um dos arquivos de teste, bem como um resumo geral: quantos testes foram executados, quantos falharam, etc.
+
+Além disso, o mvn test gera dois diretórios dentro de target: o test-classes, que contém os arquivos class dos arquivos de teste, e o surefire-reports onde podemos ver arquivos com o resultado da execução dos testes nos arquivos de teste.
+
+Para limpar o diretório target, utilizamos o comando mvn clean.

@@ -1,0 +1,10 @@
+Vamos criar um projeto simples com o Maven. O nome do projeto será produtos e o pacote principal será br.com.alura.maven.
+
+Para isso você deve executar o seguinte comando no diretório em que deseja que o projeto seja criado:
+
+mvn archetype:generate -DartifactId=produtos -DgroupId=br.com.alura.maven -DinteractiveMode=false -DarchetypeArtifactId=maven-archetype-quickstart
+Observação: No Windows, talvez seja necessário utilizar aspas duplas (" ") nos parâmetros -D:
+
+mvn archetype:generate -DartifactId="produtos" -DgroupId="br.com.alura.maven" -DinteractiveMode="false" -DarchetypeArtifactId="maven-archetype-quickstart"
+
+Após realizar download de bastante coisa, caso seja a primeira vez que você executou o comando, o maven deve mostrar uma mensagem indicando que o projeto foi criado com sucesso.

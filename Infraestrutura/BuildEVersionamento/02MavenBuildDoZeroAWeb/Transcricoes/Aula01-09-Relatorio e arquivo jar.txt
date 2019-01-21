@@ -1,0 +1,24 @@
+Utilize os plugins do Maven para gerar um relatório dos testes do projeto no formato .html.
+
+Gere o pacote do projeto no formato .jar.
+
+Execute o programa através do .jar que foi gerado. Você pode usar os seguintes comandos para entrar no diretório target, executar o programa, e retornar ao diretório produtos:
+
+cd target/
+java -cp produtos-1.0-SNAPSHOT.jar br.com.alura.maven.App
+cd ..
+Como o Maven sabe que deve gerar um arquivo no formato .jar e não .war, por exemplo? O pacote gerado estará com o nome produtos-1.0-SNAPSHOT.jar. De onde o Maven tira as informações para gerar o arquivo com esse nome?
+
+Reflita antes de ver nossa resposta!
+
+--------------------
+
+Para gerar um relatório em formato .html, utilizamos o plugin Surefire Report. O goal que utilizamos é o report:
+
+mvn surefire-report:report
+Dentro do diretório target/site será possível encontrar o relatório no arquivo surefire-report.html.
+
+Para gerar o arquivo .jar do nosso projeto executamos:
+
+mvn package
+O Maven busca as informações sobre o tipo de pacote que deve gerar, bem como o nome do pacote e versão, no arquivo pom.xml. É nesse arquivo que concentramos as configurações sobre o build do nosso projeto, assim como as bibliotecas (dependências) necessárias para o projeto funcionar.
