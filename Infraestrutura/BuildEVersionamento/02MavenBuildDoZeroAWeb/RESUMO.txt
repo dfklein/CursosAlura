@@ -1,0 +1,17 @@
+clean
+	Limpa todo o conteúdo da pasta target (classes geradas, empacotamentos, relatórios de teste, etc.
+	
+compile
+	Compila todas as classes do seu projeto e coloca os .class gerados na pasta ../target/classes
+
+test
+	Faz o mesmo que o compile. Depois executa testes unitários e gera relatórios
+
+package
+	Faz o mesmo que o test e empacota sua aplicação no formato especificado no pom.xml (JAR, WAR, etc...)
+
+surefire-report:report
+	Executa testes com o plugin do surefire que gera uma versão html do relatório de testes unitários.
+	
+-o
+	Executa offline: significa que ele não vai procurar por atualizações no repositório (você usa como no exemplo: mvn -o compile)
