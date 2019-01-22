@@ -14,16 +14,65 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
+			<!-- 
+				Quando o escopo é de teste, isto significa que o pacote é usado apenas até a fase
+			 	de testes, não sendo incluído, por exemplo, no empacotamento 
+			-->
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>br.com.caelum.stella</groupId>
+            <artifactId>caelum-stella-core</artifactId>
+            <version>2.1.2</version>
+			<!-- 
+				O escopo padrão de uma dependência é "compile" (que seria a fase seguinte aos testes).
+				Significa que ela precisa ser compilada e precisa ser empacotada com o seu projeto.
+			 -->
+			<!-- escopo não declarado ou <scope>compile</scope> -->
+        </dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
-			<!-- Escopo provided quer dizer que a biblioteca é fornecida pelo container/servidor 
-				de aplicação -->
+			<!-- 
+				Escopo provided quer dizer que a biblioteca é fornecida pelo
+				container/servidor de aplicação 
+			-->
 			<scope>provided</scope>
 		</dependency>
+	
+		<!--
+			++++ COLOCANDO PROJETOS LOCAIS COMO DEPENDÊNCIA ++++
+		
+			Quando você declara uma dependência que não existe no repositório remoto o Maven
+			vai procurá-la no seu repositório local.
+			
+			Neste exemplo primeiro declaramos uma dependência do projeto produto e obtivemos o erro:
+			
+			++++ Description	Resource	Path	Location	Type The container 'Maven Dependencies' references non existing library 'C:\Users\dfrederi\.m2\repository\br\com\alura\maven\produtos\1.0-SNAPSHOT\produtos-1.0-SNAPSHOT.jar'	lojaweb		Build path	Build Path Problem
+			
+			Quando você faz isto via eclipse ele sabe que você está referenciando um projeto
+			que já está na sua workspace. Ao invés de empacotá-lo e gerar um JAR, ele apenas
+			referncia o outro projeto. Isto é bom porque ao alterar um projeto as alterações já
+			refletem no outro (em termos de compilação). Porém, se você tentar empacotá-lo você
+			terá um erro (porque ele não encontra o projeto em nenhum repositório). Além disso, o código TODO do outro projeto se torna acessível (como
+			as classes de teste, o que não faz nenhum sentido).
+			
+			A primeira coisa que você precisa fazer para resolver isso é instalar o projeto no seu 
+			repositório	com mvn install. No entanto, isto não empacota classes de teste (porque não
+			deve mesmo). Se por acaso você utilizar alguma classe do pacote de testes no seu código,
+			ele quebra em tempo de execução (por mais que seja óbvio que você não vai usar, vale explicar
+			a consequência).
+			
+		-->
+		<dependency>
+			<groupId>br.com.alura.maven</groupId>
+			<artifactId>produtos</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
