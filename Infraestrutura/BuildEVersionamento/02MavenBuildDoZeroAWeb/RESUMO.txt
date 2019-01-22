@@ -1,17 +1,46 @@
+------------------------ Fases da build (sempre roda nesta sequência) ------------------------
+validate
+	???
+
 clean
 	Limpa todo o conteúdo da pasta target (classes geradas, empacotamentos, relatórios de teste, etc.
 	
 compile
-	Compila todas as classes do seu projeto e coloca os .class gerados na pasta ../target/classes
+	Compila todas as classes do seu projeto (projeto em si, depois os testes) e coloca os .class gerados na pasta ../target/classes
 
 test
-	Faz o mesmo que o compile. Depois executa testes unitários e gera relatórios
+	Executa testes unitários e gera relatórios
+	OBS: é possível pular os testes com o parâmetro -Dskitests=true
 
 package
-	Faz o mesmo que o test e empacota sua aplicação no formato especificado no pom.xml (JAR, WAR, etc...)
+	Empacota sua aplicação no formato especificado no pom.xml (JAR, WAR, etc...)
+
+integration-test
+	Faz o deploy em um ambiente para testes integrados (exemplo: testes com selenium)
+
+verify
+	Verifica a qualidade dos testes de acordo com padrões que podem ser estabelecidos no desenvolvimento (por exemplo: 90% de testes bem sucedidos, 70% da aplicação coberta por testes, etc)
+	
+install
+	Instala o seu pacote (projeto) no seu repositório local (sua máquina) 
+	
+deploy
+	Envia seu projeto (projeto) para o repositório remoto compartilhado
+
+------------------------ outros parâmetros ------------------------
+
 
 surefire-report:report
 	Executa testes com o plugin do surefire que gera uma versão html do relatório de testes unitários.
 	
 -o
 	Executa offline: significa que ele não vai procurar por atualizações no repositório (você usa como no exemplo: mvn -o compile)
+	
+-Dskitests=true (ou false)
+	Pula a fase de testes
+
+mvn versions:use-latest-versions
+	Atualiza a versão de todos os seus pacotes para as mais recentes. (Ver mais sobre o Versions aqui: http://www.mojohaus.org/versions-maven-plugin/)
+	
+mvn versions:display-dependency-updates
+	Apenas exibe quais das dependências do seu projeto possuem versões mais recentes.

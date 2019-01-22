@@ -1,28 +1,92 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>br.com.alura.maven</groupId>
-  <artifactId>produtos</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>produtos</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-	<dependency>
-		<groupId>com.thoughtworks.xstream</groupId>
-		<artifactId>xstream</artifactId>
-		<version>1.4.8</version>
-	</dependency>
-  </dependencies>
-  <!-- Indica a versão do java para compilação -->
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.alura.maven</groupId>
+	<artifactId>produtos</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>produtos</name>
+	<url>http://maven.apache.org</url>
+
+	<!-- Indica a versão do java para compilação -->
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.8</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- 
+				Este é o primeiro exemplo de plugin. O PMD é um plugin que testa seu código 
+				durante a build e pode emitir avisos sobre possíveis erros e falhas nele.
+				
+				Por exemplo: ao omitir getters e setters de uma variável ele pode alertá-lo de que
+				sua classe possui variáveis não utilizadas (igual ao warning de compilação).
+				
+				Você pode executá-lo com mvn pmd:pmd. Se ele encontrar alguma falha, criará
+				um subdiretório "site" da sua pasta "target" e criará um html com o relatório.
+				
+				Na implementação abaixo você atrelou a execução do pmd à fase de verify da build.
+				Desta forma, se o seu comando maven chegar até a fase de verify e seu código possuir
+				algum erro, ele impedirá a continuação da build com um erro (e o criará o relatório).
+				
+				A documentação do PMD está no site do maven.
+				
+			 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.6</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- 
+				Este é outro exemplo de plugin, também voltado para testes. Este é um 
+				plugin que verifica o nível de cobertura de testes do seu código.
+				
+				veja a documentação em https://www.eclemma.org/jacoco/trunk/doc/maven.html
+				
+				A implementação está comentada porque esta versão não funcionava 
+				com a JDK 8 que você estava utilizando para este projeto.
+			 -->
+			 <!-- 
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.5.201505241946</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+		</plugins>
+	</build>
+
 </project>
