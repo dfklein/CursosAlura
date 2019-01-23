@@ -25,11 +25,16 @@
             <groupId>br.com.caelum.stella</groupId>
             <artifactId>caelum-stella-core</artifactId>
             <version>2.1.2</version>
-			<!-- 
-				O escopo padrão de uma dependência é "compile" (que seria a fase seguinte aos testes).
-				Significa que ela precisa ser compilada e precisa ser empacotada com o seu projeto.
-			 -->
-			<!-- escopo não declarado ou <scope>compile</scope> -->
+            <!-- 
+            	O escopo de runtime significa que ele não é usado em tempo de compilação mas é usado
+            	em tempo de execução. No eclipse ele continuará aparecendo no classpath porque o eclipse
+            	também executa um projeto. Infelizmente no eclipse ele compilará (está no classpath).
+            	No entanto se você compilar por fora (dar mvn compile em linha de comando, por exemplo)
+            	você terá um erro de compilação.
+            	
+            	É importante saber que esta dependência estará disponível também em tempo de testes.
+             -->
+            <scope>runtime</scope>
         </dependency>
 		
 		<dependency>
@@ -38,7 +43,8 @@
 			<version>3.1.0</version>
 			<!-- 
 				Escopo provided quer dizer que a biblioteca é fornecida pelo
-				container/servidor de aplicação 
+				container/servidor de aplicação. Ele é colocado no classpath para ser
+				compilado, mas na hora de empacotar ele não é enviado.
 			-->
 			<scope>provided</scope>
 		</dependency>
@@ -71,6 +77,26 @@
 			<groupId>br.com.alura.maven</groupId>
 			<artifactId>produtos</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<!-- 
+				O escopo padrão de uma dependência é "compile" (que seria a fase seguinte aos testes).
+				Significa que ela precisa ser compilada e precisa ser empacotada com o seu projeto.
+			 -->
+			<!-- escopo não declarado ou <scope>compile</scope> -->
+		</dependency>
+		
+		<!-- 
+			No exemplo abaixo mostramos como excluir uma dependência de dentro de uma outra dependência.
+		 -->
+		<dependency>
+		    <groupId>com.thoughtworks.xstream</groupId>
+		    <artifactId>xstream</artifactId>
+		    <version>1.4.1</version>
+		        <exclusions>
+		            <exclusion>
+		                <groupId>xmlpull</groupId>
+		                <artifactId>xmlpull</artifactId>
+		            </exclusion>
+		        </exclusions>
 		</dependency>
 		
 	</dependencies>
