@@ -10,6 +10,14 @@
 		<!-- 
 			Esta é a dependência base do SpringBoot. Ela já traz consigo uma série de bibliotecas
 			como as do Spring MVC, Hibernate, Embedded Tomcat, Log4j e outros. 
+			
+			A ideia do Spring Boot é trazer uma aplicação web com menos coisas para configurar porque
+			ela já assume uma série de configurações como padronizadas para aplicações SpringMVC.
+			
+			Quando você criou esta aplicação você apenas criou um projeto maven simples, adicionou 
+			esta dependência ao pom e criou a classe Configuracao.java. Ela possui uma anotação que
+			a classifica como uma classe de configuração e um método main que, ao ser rodado, já
+			sobe um Tomcat embutido na porta 8080. 
 		 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
