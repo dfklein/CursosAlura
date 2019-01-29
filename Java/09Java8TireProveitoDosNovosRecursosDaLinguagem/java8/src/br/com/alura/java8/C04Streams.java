@@ -3,6 +3,7 @@ package br.com.alura.java8;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class C04Streams {
 
@@ -46,7 +47,7 @@ public class C04Streams {
 		
 		System.out.println("\n");
 		
-		System.out.println("Mapeando o número de alunos de cada curso retornando um int (tipo primitivo):");
+		System.out.println("Mapeando o número de alunos como tipo primitivo e usando métodos específicos:");
 		
 		/**
 		 * Quando você retorna um tipo primitivo (como o mapToInt) você possui métodos específicos que
@@ -54,10 +55,17 @@ public class C04Streams {
 		 * isto não existe pois é uma stream de Object.
 		 */
 		int sum = cursos.stream()
-			.filter(c -> c.getAlunos() >= 100)
 			.mapToInt(Curso::getAlunos)
 			.sum();
-		System.out.println(sum);
+		
+		OptionalDouble avg = cursos.stream()
+			.mapToInt(Curso::getAlunos)
+			.average();
+		
+		long count = cursos.stream()
+			.count();
+		
+		System.out.println("soma de alunos: " + sum + " | média de alunos por curso: " + avg.getAsDouble() + " | quantidade de cursos contabilizados na Stream: " + count);
 		
 		System.out.println("\n");
 		
