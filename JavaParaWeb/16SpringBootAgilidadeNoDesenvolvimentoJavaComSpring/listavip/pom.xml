@@ -8,7 +8,7 @@
 
 	<dependencies>
 		<!-- 
-			Esta é a dependência base do SpringBoot. Ela já traz consigo uma série de bibliotecas
+			Esta é a dependência é o starter do SpringBoot. Ela já traz consigo uma série de bibliotecas
 			como as do Spring MVC, Hibernate, Embedded Tomcat, Log4j e outros. 
 			
 			A ideia do Spring Boot é trazer uma aplicação web com menos coisas para configurar porque
@@ -24,6 +24,57 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>1.4.1.RELEASE</version>
 		</dependency>
+	
+		<!-- 
+			O thymeleaf é o framework de templates para front-end do Spring.
+			
+			Lembre-que no Spring Boot você adota o conceito de convenções sobre configurações. 
+			Para o caso do templates de front-end existe a convenção de que os arquivos do front
+			ficam dentro da pasta src/java/resources. Páginas ficam na subpasta ./template e
+			recursos de CSS e JS em ./static. O Spring Boot já sabe que é lá que ele vai
+			buscar suas páginas.
+			
+			Não é mais necessárias todas aquelas configurações para a servlet de entrada da aplicação
+			que você precisou fazer nos cursos anteriores de Spring.
+		 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>1.4.1.RELEASE</version>
+		</dependency>
+		
+		<!-- 
+			DATASOURCE
+			
+			Abaixo as dependências do starter do Spring Boot Data JPA e o conector MySQL.
+		 -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>1.4.1.RELEASE</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.40</version>
+		</dependency>
+		
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
