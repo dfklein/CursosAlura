@@ -73,6 +73,8 @@ public class C03MethodReference {
 		 */
 		palavras.forEach(System.out::println);
 		
+		// Só por curiosidade, o curso mostrava isso aqui na parte escrita:
+		palavras.sort(String.CASE_INSENSITIVE_ORDER);
 	}
 	
 }
