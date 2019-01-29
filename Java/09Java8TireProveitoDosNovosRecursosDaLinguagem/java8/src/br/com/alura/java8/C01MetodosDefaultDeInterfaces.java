@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class MetodosDefaultDeInterfaces {
+public class C01MetodosDefaultDeInterfaces {
 
 	public static void main(String[] args) {
 		
@@ -32,6 +32,10 @@ public class MetodosDefaultDeInterfaces {
 		 * 
 		 * Para declarar métodos em interfaces eles devem possuir o operador default, que indica
 		 * que o método não precisa ser implementado por classes que declaram esta interface.
+		 * 
+		 * As diferenças entre um método default e um static em uma interface são:
+		 * 		1 - Um método estático pertence apenas à interface, e não à classe que a implementa
+		 * 		2 - Métodos estáticos podem ser sobrescritos nas classes que implementam a interface.
 		 * 
 		 * O que permanece diferente entre uma interface e uma classe abstrata é que a interface
 		 * nunca tem estado: ou seja, ela não possui atributos (pode possuir constantes, mas não
