@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>1.4.1.RELEASE</version>
+			<version>1.4.2.RELEASE</version>
 		</dependency>
 	
 		<!-- 
@@ -40,19 +40,24 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>1.4.1.RELEASE</version>
+			<version>1.4.2.RELEASE</version>
 		</dependency>
 		
 		<!-- 
 			DATASOURCE
 			
 			Abaixo as dependências do starter do Spring Boot Data JPA e o conector MySQL.
+			
+			Ele tem um monte de métodos já impementados por padrão. Vale a pena olhar a documentação:
+			
+			https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
+			
 		 -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>1.4.1.RELEASE</version>
+			<version>1.4.2.RELEASE</version>
 		</dependency>
 	
 		<dependency>
@@ -60,6 +65,21 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.40</version>
 		</dependency>
+		
+		<!-- 
+			O Devtools é a ferramenta de hot deploy do Spring. Ele reinicia o servidor toda vez que
+			você altera o código fonte. Inclusive você pode instalar o plugin do live reload no
+			navegador para criar um listener que atualiza a view também.
+			
+			Está comentado só porque eu não queria o servidor reiniciando o tempo todo durante o curso.
+		 -->
+		 <!-- 
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		    <version>1.4.2.RELEASE</version>
+		</dependency>
+		-->
 		
 	</dependencies>
 	

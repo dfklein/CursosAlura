@@ -23,6 +23,44 @@
 			</table>
 		</div>
 	</div>
+
+	<hr />
+	<div class="container">
+	<form action="salvar" method="POST">
+		<div class="row form-group">
+			<div class="col-4">
+				<label for="nome">Nome completo</label>
+			</div> 
+			<div class="col-8">
+				<input type="text"
+				class="form-control" id="nome" name="nome" placeholder="Nome"/>
+			</div> 
+		</div>
+		<div class="row form-group">
+			<div class="col-4">
+				<label for="email">E-mail</label>
+			</div> 
+			<div class="col-8">
+				<input type="email"
+					class="form-control" id="email" name="email" placeholder="Email" />
+			</div> 
+		</div>
+		<div class="row form-group">
+			<div class="col-4">
+				<label for="telefone">Telefone</label> 
+			</div>
+			<div class="col-8">
+			<input type="text"
+				class="form-control" id="telefone" name="telefone"
+				placeholder="Telefone" />
+			</div>
+		</div>
+		<div class="row">
+			<button type="submit" class="btn btn-success">Convidar</button>
+		</div>
+	</form>
+	</div>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
