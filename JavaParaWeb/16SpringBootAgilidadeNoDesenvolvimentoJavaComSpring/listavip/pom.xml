@@ -6,12 +6,18 @@
 	<artifactId>listavip</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 	<!-- 
 	<packaging>war</packaging>
 	<properties>
 	    <failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
-	-->
+	 -->
 	
 	<dependencies>
 		<!-- 
@@ -29,8 +35,24 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>1.4.2.RELEASE</version>
+			<!-- Se você não quisesse utilizar o tomcat embedded: -->
+			<!-- 
+			<exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		    </exclusions>
+			 -->
 		</dependency>
+		<!-- Se você quisesse utilizar o Jetty no lugar do tomcat:  -->
+		<!-- 
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-jetty</artifactId>
+			    <version>1.4.2.RELEASE</version>
+			</dependency>
+		 -->
 	
 		<!-- 
 			O thymeleaf é o framework de templates para front-end do Spring.
@@ -47,7 +69,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>1.4.2.RELEASE</version>
 		</dependency>
 		
 		<!-- 
@@ -64,13 +85,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>1.4.2.RELEASE</version>
 		</dependency>
 	
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.40</version>
 		</dependency>
 		
 		<!-- 
@@ -94,6 +113,22 @@
 		    <version>0.0.1-SNAPSHOT</version>
 		    <scope>runtime</scope>
 		</dependency>
+
+		<!-- 
+			O actuator é uma biblioteca que cria uma série de endpoints de diagnóstico do
+			desempenho da sua aplicação.
+			
+			Ao subir a aplicação você verá uma série de endpoints que ele cria. Eles geram
+			JSONs com informações de diagnóstico da sua aplicação
+			
+			Para isso funcionar você precisa ter o starter web
+			
+			Mais detalhes em: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints
+		 -->		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		
 	</dependencies>
 	
@@ -102,12 +137,35 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
+			<!--
+				O plugin abaixo é um empacotador do Spring Boot. Teoricamente ele já
+				gera o fat jar (ou o war) que você precisa. Mas você não conseguiu fazê-lo 
+				funcionar (ele empacota, mas o JAR não roda). 
+				
+				Provavelmente é um conflito de versões, você pode depois tentar com um projeto
+				que utiliza versões mais novas dos pacotes.
+				
+				Ficou comentado por não ter funcionado de fato nenhuma vez.
+			-->
+			<!-- 
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
 		</plugins>
 	</build>
 

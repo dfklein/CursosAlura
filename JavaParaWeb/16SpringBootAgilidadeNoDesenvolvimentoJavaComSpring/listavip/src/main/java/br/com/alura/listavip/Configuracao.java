@@ -1,11 +1,7 @@
 package br.com.alura.listavip;
 
-import javax.sql.DataSource;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 // Esta é a anotação que configura esta classe como a de configuração do Spring Boot. Ela agrega
 // diversas anotações do SpringMVC em uma só. Ver mais em 
@@ -21,14 +17,16 @@ public class Configuracao {
 	    SpringApplication.run(Configuracao.class, args);
 	}
 	
-	@Bean
-	public DataSource dataSource(){
-	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	    dataSource.setUrl("jdbc:mysql://localhost:3306/listavip");
-	    dataSource.setUsername("root");
-	    dataSource.setPassword("");
-	    return dataSource;
-	}
+	// O Bean abaixo não é necessário pois no Spring Boot configurações de propriedade
+	// podem ser colocadas no application.properties.
+	//	@Bean
+	//	public DataSource dataSource(){
+	//	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	//	    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	//	    dataSource.setUrl("jdbc:mysql://localhost:3306/listavip");
+	//	    dataSource.setUsername("root");
+	//	    dataSource.setPassword("");
+	//	    return dataSource;
+	//	}
 	
 }
