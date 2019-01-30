@@ -17,4 +17,6 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Long>{
 
 	// Neste exemplo você buscando um objeto Convidado pelo atributo nome.
 	List<Convidado> findByNome(String nome);
+	
+	
 }

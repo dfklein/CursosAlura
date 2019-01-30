@@ -1,0 +1,5 @@
+O projeto enviadordeemail é um exemplo de como criar uma aplicação standalone e de como utilizá-la na sua aplicação web.
+
+Foi criada com o Spring Initializer (https://start.spring.io/), com uma pequena alteração no pom.xml por conta de problemas na rede para baixar dependências.
+
+Lembre-se que para funcionar você precisa instalar o seu projeto (empacotando como jar) e depois declarar a dependência no pom do projeto que irá usá-lo.

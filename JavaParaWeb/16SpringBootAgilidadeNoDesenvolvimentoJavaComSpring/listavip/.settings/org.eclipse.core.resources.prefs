@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
-encoding/<project>=UTF-8
+encoding//src/main/java/br/com/alura/listavip/controller/ConvidadoController.java=UTF-8
+encoding//src/main/java/br/com/alura/listavip/model/Convidado.java=UTF-8
+encoding//src/main/java/br/com/alura/listavip/repository/ConvidadoRepository.java=UTF-8
+encoding//src/main/java/br/com/alura/listavip/service/ConvidadosService.java=UTF-8

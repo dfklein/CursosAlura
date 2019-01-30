@@ -5,7 +5,14 @@
 	<groupId>br.com.alura.listavip</groupId>
 	<artifactId>listavip</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	
+	<!-- 
+	<packaging>war</packaging>
+	<properties>
+	    <failOnMissingWebXml>false</failOnMissingWebXml>
+	</properties>
+	-->
+	
 	<dependencies>
 		<!-- 
 			Esta é a dependência é o starter do SpringBoot. Ela já traz consigo uma série de bibliotecas
@@ -80,6 +87,13 @@
 		    <version>1.4.2.RELEASE</version>
 		</dependency>
 		-->
+		
+		<dependency>
+		    <groupId>br.com.alura.enviadordeemail</groupId>
+		    <artifactId>enviadordeemail</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		    <scope>runtime</scope>
+		</dependency>
 		
 	</dependencies>
 	

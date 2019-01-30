@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.alura.listavip.model.Convidado;
-import br.com.alura.listavip.repository.ConvidadoRepository;
+import br.com.alura.listavip.service.ConvidadosService;
 
 @Controller
 public class ConvidadoController {
 	
 	@Autowired
-	private ConvidadoRepository repository;
+	private ConvidadosService service;
 
 	@RequestMapping("/")
 	public String index() {
@@ -31,7 +31,7 @@ public class ConvidadoController {
 	 */
 	@RequestMapping("listaconvidados")
 	public String listaConvidados(Model model){
-		Iterable<Convidado> convidados = repository.findAll();
+		Iterable<Convidado> convidados = service.obterTodos();
 		
 		// Ele não utilizou o ModelAndView, passou a receber um objeto Model como argumento.
 		model.addAttribute("convidados", convidados);
@@ -44,7 +44,7 @@ public class ConvidadoController {
             @RequestParam("telefone") String telefone, Model model ){
 		
 		Convidado novoConvidado = new Convidado(nome, email, telefone);
-	    repository.save(novoConvidado);
+	    service.salvar(novoConvidado);
 
 	    // No curso ele fez o código abaixo. Eu achei tosco e por isso fiz um redirect
 	    // O objeto Model que esse método recebe como argumento serve só pra isso.
