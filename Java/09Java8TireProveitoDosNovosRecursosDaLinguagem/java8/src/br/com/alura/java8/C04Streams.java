@@ -58,6 +58,7 @@ public class C04Streams {
 			.mapToInt(Curso::getAlunos)
 			.sum();
 		
+		// Veja na aula 05 o que são os objetos optional
 		OptionalDouble avg = cursos.stream()
 			.mapToInt(Curso::getAlunos)
 			.average();
@@ -81,20 +82,3 @@ public class C04Streams {
 	}
 }
 
-class Curso {
-    private String nome;
-    private int alunos;
-
-    public Curso(String nome, int alunos) {
-        this.nome = nome;
-        this.alunos = alunos;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public int getAlunos() {
-        return alunos;
-    }
-}
