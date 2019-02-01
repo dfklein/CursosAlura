@@ -27,7 +27,7 @@ public class Alurator {
 			return null;
 			
 		} catch (InvocationTargetException e) {
-			System.out.println("O controller não foi encontrado: " + e.getTargetException().getClass().getName());
+			System.out.println("O controller lançou uma exceção ao ser instanciado: " + e.getTargetException().getClass().getName());
 			throw new RuntimeException(e);
 			
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException e) {
