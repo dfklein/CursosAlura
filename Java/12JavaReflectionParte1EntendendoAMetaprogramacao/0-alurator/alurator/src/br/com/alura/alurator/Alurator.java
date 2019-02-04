@@ -1,6 +1,7 @@
 package br.com.alura.alurator;
 
-import java.lang.reflect.InvocationTargetException;
+import br.com.alura.alurator.protocolo.Request;
+import br.com.alura.alurator.reflexao.Reflexao;
 
 public class Alurator {
 	
@@ -11,28 +12,26 @@ public class Alurator {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Object executa(String url) {
-		try {
-			String[] partesUrl = url.startsWith("/") ? url.replaceFirst("/", "").split("/") : url.split("/");
-		
+			Request request = new Request(url);
 			
-			String nomeController = partesUrl[0].concat("Controller");
-			nomeController = nomeController.substring(0, 1).toUpperCase() + nomeController.substring(1);
-			Class<?> classeControle = Class.forName(pacoteBase + nomeController);
+			String nomeController = request.getNomeController();
+			String nomeMetodo = request.getNomeMetodo();
 			
-			Object instanciaController = classeControle.getConstructor().newInstance();
+			// O código abaixo foi passado para outra classe apenas por questões de design.
+			// O instrutor julga mais adequado você fazer uma classe Builder para isso.
+			// ** -	Class<?> classeControle = Class.forName(pacoteBase + nomeController);
+			// ** -	Object instanciaController = classeControle.getConstructor().newInstance();
+			Object instanciaController = new Reflexao()
+				.refleteClasse(pacoteBase, nomeController)
+				.criaInstancia()
+				.getMetodo(nomeMetodo)
+				.invoca();
 			
 			System.out.println(instanciaController);
 			
-			return null;
+			return instanciaController;
 			
-		} catch (InvocationTargetException e) {
-			System.out.println("O controller lançou uma exceção ao ser instanciado: " + e.getTargetException().getClass().getName());
-			throw new RuntimeException(e);
-			
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException e) {
-			System.out.println("Exceção lançada: " + e.getClass().getName());
-			throw new RuntimeException(e);
-		}
 	}
 }

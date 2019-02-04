@@ -32,6 +32,10 @@ public class Pessoa {
 		
 	}
 	
+	private void metodoPrivado() {
+		System.out.println("método privado");
+	}
+	
 	public String getNome() {
 		return nome;
 	}
