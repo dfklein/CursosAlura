@@ -30,6 +30,10 @@ public class Alurator {
 				.refleteClasse(pacoteBase, nomeController)
 				.criaInstancia()
 				.getMetodo(nomeMetodo, params)
+				.comTratamentoDeExcecao((metodo, e) -> {
+                    System.out.println("Erro no método " + metodo.getName() + " da classe " + metodo.getDeclaringClass().getName() + ".\n\n");
+                    throw new RuntimeException("ERRO!");
+                })
 				.invoca();
 			
 			System.out.println(instanciaController);
