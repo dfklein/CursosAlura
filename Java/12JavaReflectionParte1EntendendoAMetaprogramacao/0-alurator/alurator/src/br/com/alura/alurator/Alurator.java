@@ -1,5 +1,7 @@
 package br.com.alura.alurator;
 
+import java.util.Map;
+
 import br.com.alura.alurator.protocolo.Request;
 import br.com.alura.alurator.reflexao.Reflexao;
 
@@ -18,6 +20,7 @@ public class Alurator {
 			
 			String nomeController = request.getNomeController();
 			String nomeMetodo = request.getNomeMetodo();
+			Map<String, Object> params = request.getQueryParams();
 			
 			// O código abaixo foi passado para outra classe apenas por questões de design.
 			// O instrutor julga mais adequado você fazer uma classe Builder para isso.
@@ -26,7 +29,7 @@ public class Alurator {
 			Object instanciaController = new Reflexao()
 				.refleteClasse(pacoteBase, nomeController)
 				.criaInstancia()
-				.getMetodo(nomeMetodo)
+				.getMetodo(nomeMetodo, params)
 				.invoca();
 			
 			System.out.println(instanciaController);

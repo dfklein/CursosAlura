@@ -3,6 +3,7 @@ package br.com.alura;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 public class C03EvocandoMetodosPorReflection {
@@ -32,6 +33,7 @@ public class C03EvocandoMetodosPorReflection {
 			System.out.println("*** - Obtendo métodos pelo seu nome:");
 			Method methodGetNome = pessoaClass.getMethod("getNome");
 			Method methodSetNome = pessoaClass.getMethod("setNome", String.class);
+			Method methodSetIdade = pessoaClass.getMethod("setIdade", Integer.TYPE);
 			System.out.println(methodGetNome);
 			System.out.println(methodSetNome);
 			
@@ -45,20 +47,22 @@ public class C03EvocandoMetodosPorReflection {
 			System.out.println("\n");
 			
 			// Executando métodos (serve para métodos com qualquer modificador, evidentemente):
-			// O primeiro argumento precisa ser um objeto que representa a instância da qual o método em questão será invocado:
+			// O primeiro argumento precisa ser um objeto que representa a instância da qual o método em questão será invocado
+			// Se você estiver evocando métodos que recebem argumentos, basta passá-los na ordem de declaração dos argumentos:
 			System.out.println("*** - Evocando métodos:");
 			Constructor<?> c = pessoaClass.getConstructor(String.class, Integer.TYPE);
 			Object newInstance = c.newInstance("Pedro", 22);
 			Object retornoMetodoPrivado = metodoPrivado.invoke(newInstance);
 			Object retornoMetodoGetNome = methodGetNome.invoke(newInstance);
-			System.out.println(retornoMetodoPrivado);
-			System.out.println(retornoMetodoGetNome);
+			System.out.println("Retorno do método privado: " + retornoMetodoPrivado);
+			System.out.println("Retorno do método getNome(): " + retornoMetodoGetNome);
 			Object retornoMetodoSetNome = methodSetNome.invoke(newInstance, "João");
-			System.out.println(retornoMetodoSetNome);
-			System.out.println(methodGetNome.invoke(newInstance));
+			Object retornoMetodoSetIdade = methodSetIdade.invoke(newInstance, 39);
+			System.out.println("Retorno do método getNome() depois de alterar o atributo via reflection:" + methodGetNome.invoke(newInstance));
+			System.out.println("Objeto Pessoa após executar setters via reflection: " + newInstance);
 			
 			
-			
+			Parameter[] parameters = methodSetIdade.getParameters();
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
