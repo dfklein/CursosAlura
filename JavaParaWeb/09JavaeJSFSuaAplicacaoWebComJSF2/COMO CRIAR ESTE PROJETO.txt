@@ -1,0 +1,77 @@
+Criação do projeto JSF
+
+
+O próximo passo é criar o projeto web. Vamos no menu File -> New -> Dynamic Web Project. Chamaremos o projeto de jsf-livraria. É preciso verificar se o Tomcat está escolhido como servidor, inclusive se o module version encontra-se na versão 3.0.
+
+No combo box Configuration, escolhemos Java Server Faces. Confirmaremos as duas próximas telas até chegar na tela JSF Capabilities.
+
+Aqui configuraremos de onde vem a biblioteca JSF. Para este projeto, copiaremos o JAR após a criação do projeto. Ou seja, desabilitamos o uso de qualquer biblioteca fornecida pelo Eclipse.
+
+Um pouco mais abaixo há a configuração do servlet que representa o controlador. Usaremos praticamente a mesma configuração. Apenas o mapeamento será alterado. Queremos que qualquer requisição que termine com *.xhtml seja processada pelo FacesServlet.
+
+Ao confirmar, será gerado o novo projeto, visível ao lado esquerdo, no view project-explorer. Vamos arrastar o projeto ao servidor Tomcat para simplificar o deploy da aplicação.
+
+Ao abrir o projeto, veremos a estrutura básica com as classes Java dentro da pasta src e todos os arquivos Web dentro da pasta WebContent.
+
+Dentro do WebContent encontramos uma pasta WEB-INF com dois arquivos de configuração. O primeiro, web.xml, é relacionado com o especificação servlet. Ele contém a declaração do FacesServlet, com aquela configuração que alteramos na criação do projeto.
+
+O segundo XML é o arquivo de configuração relacionado com o mundo JSF. Como o JSF na versão dois encoraja o uso de anotações, este arquivo torna-se pouco usado, sendo muito mais importante na primeira versão do JSF.
+
+Como vimos no web.xml, há a configuração do FacesServlet. Essa classe faz parte da implementação JSF e deve estar presente. É preciso copiar o JAR do Mojarra para o nosso projeto.
+
+Já baixamos a biblioteca e como se trata de um projeto web, o JAR deve ser copiado para a pasta WEB-INF/lib e assim fará parte do buildpath do projeto.
+
+-------------------------------
+
+No Eclipse vá em New > Project e selecione Dynamic Web Project e clique Next;
+
+Coloque o nome do projeto como jsf-livraria, selecione como Target Runtime a versão do Tomcat que acabamos de configurar e na combobox Configuration selecione JavaServer Faces v2.0 Project. Clique em Next
+
+Nas duas próximas telas (Source folders on build path e Configure web module settings, clique em Next só para confirmar as opções;
+
+Na tela JSF Capabilities, selecione Disable Library Configuration no combobox do JSF Implementation Library e se na seção URL Mapping Patterns estiver /faces/* (ou algo diferente de *.xhtml), clique em remover (remova todos) e adicione (ou mantenha) somente *.xhtml. Clique em Finish;
+
+-------------------------------
+
+Em nosso projeto, clique com o botão direito do mouse na pasta WebContent e escolha New > HTML File;
+
+Dê o nome livro.xhtml ao arquivo e em clique em Next;
+
+ATENÇÃO: Cuidado com a extensão que deve ser .xhtml
+
+Selecione agora o template New XHTML File (1.0 transitional) e clique em Finish;
+
+ATENÇÃO: Se você estiver usando MS-Windows, altere a propriedade encoding="ISO-8859-1" do cabeçalho do arquivo .xhtml para encoding="UTF-8"
+
+Agora, apague tudo que estiver entre as tags HTML, pois utilizaremos os componentes JSF;
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+</html>
+Adicione à tag HTML o xmlns: (xml namespace) dos componentes básicos do JSF. Use o Ctrl + espaço para facilitar e autocompletar (cuidado para não confundir com o xmlns: do JSTL):
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+</html>
+Podemos agora usar o apelido h: para chamar os componentes do JSF. O primeiro componente será o h:body e dentro dele o h:form:
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:body>
+        <h:form>
+
+        </h:form>
+    </h:body>
+
+</html>
+Adicione o componente h:inputText para capturar uma entrada de dados do usuário e outro componente, h:commandButton, para executar uma ação ao ser clicado. O atributo value do h:commandButton deve ser preenchido com o texto Gravar:
+<!-- código omitido -->
+    <h:form>
+        <h:inputText />
+    <h:commandButton value="Gravar" />
+    </h:form>
+<!-- código omitido -->
+ATENÇÃO: Não esqueça de sempre Salvar os arquivos editados para que o Eclipse faça o Hot Deploy das nossas páginas para o servidor.
