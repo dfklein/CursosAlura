@@ -36,6 +36,9 @@ public class LivroBean {
         }
 	}
 	
+	public String formAutor() {
+		return "autor?faces-redirect=true";
+	}
 	public void gravarAutor() {
 		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(this.autorId);
 		this.livro.adicionaAutor(autor);

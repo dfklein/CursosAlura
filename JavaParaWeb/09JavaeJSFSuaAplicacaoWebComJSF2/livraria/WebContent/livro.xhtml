@@ -80,6 +80,11 @@
 				<f:ajax execute="autorComboBox" render="autoresAssociadosGrid" />
 				<!-- o execute é a mesma coisa que o process do primefaces -->
 			</h:commandButton>
+			<br />
+			<h:commandLink value="Cadastrar novo autor" 
+				action="#{livroBean.formAutor}"
+				immediate="true" /><!-- Neste caso aqui a action é como se você estivesse retornando a String "autor", que é uma referência a autor.xhtml -->
+			
 			<h:dataTable id="autoresAssociadosGrid"
 				value="#{livroBean.autoresDoLivro}" var="autor">
 				<h:column>

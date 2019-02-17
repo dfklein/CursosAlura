@@ -76,13 +76,11 @@ public class Livro {
 	}
 
 	public Calendar getDataLancamento() {
-		System.out.println(dataLancamento);
 		return dataLancamento;
 	}
 
 	public void setDataLancamento(Calendar dataLancamento) {
 		this.dataLancamento = dataLancamento;
-		System.out.println(dataLancamento);
 	}
 
 	public void setAutores(List<Autor> autores) {
