@@ -1,0 +1,16 @@
+Este curso é basicamente sobre a api do RestAssured para testes de WS (só mostra serviços Rest).
+
+/**
+ * Documentação do RestAssured: https://code.google.com/p/rest-assured/wiki/Usage
+ */
+
+Ele se baseia em dois projetos.
+
+O primeiro chama-se "leiloes". Para subi-lo é necessário ter o Ant instalado na máquina para fazer a build do projeto. Você roda ele com o comando:
+
+C:\Dev\apache-ant-1.10.5\bin\ant jetty.run
+
+Você não conseguiu fazê-lo subir de fato.
+
+
+O projeto "leiloes-rest-assured" é onde os testes foram efetivamente desenvolvidos.
