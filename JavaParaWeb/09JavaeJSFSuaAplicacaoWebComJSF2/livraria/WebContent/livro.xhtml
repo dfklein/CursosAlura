@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <!-- 
 	Ao criar um xhtml aqui você utilizou um template novo. Ele se chamava "New XHTML File (1.0 transitional)"
 	Por conta própria você alterou o encoding dele (e do projeto) para UTF-8
@@ -11,21 +12,16 @@
 	
 	http://localhost:8080/jsf-livraria/livro.xhtml
  -->
-
-<!-- 
- 	o h:head é obrigatório para a utilização de chamadas ajax pois o JSF vai anexar um javascript
- 	para que isto funcione.
-  -->
-<h:head />
-
-<h:body>
-	<h1>Novo Livro</h1>
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">Novo Livro</ui:define>
+	<ui:define name="conteudo">
 	<h:form>
 
 		<!--
 			o h:messages vai exibir QUALQUER mensagem gerada. Em autor.xhtml você mostrou
 			que é possível você fazer um message específico para as validações de um único campo. 
 		-->
+		
 		<h:messages id="mensagens" />
 
 		<fieldset>
@@ -126,6 +122,9 @@
 			</h:column>
 		</h:dataTable>
 	</fieldset>
-</h:body>
-
+	</ui:define>
+	<ui:define name="texto">
+  		Cadastro de Livros
+	</ui:define>
+</ui:composition>
 </html>

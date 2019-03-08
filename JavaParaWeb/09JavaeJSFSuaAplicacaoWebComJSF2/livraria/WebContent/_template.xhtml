@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+ 	o h:head é obrigatório para a utilização de chamadas ajax pois o JSF vai anexar um javascript
+ 	para que isto funcione.
+  -->
+<h:head />	
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage library="img" name="logo.png"/> <!-- O atributo library aponta para a subpasta de ../WebContent/resources em que está seu recurso -->
+		<h1><ui:insert name="titulo"></ui:insert></h1>
+	</div>
+	<div id="conteudo">
+		<ui:insert name="conteudo"></ui:insert>
+	</div>
+	<div id="rodape">
+		copyright 2012
+		<ui:insert name="texto">
+		</ui:insert>
+
+	</div>
+</h:body>
+</html>
