@@ -1,18 +1,20 @@
 package br.com.caelum.livraria.bean;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
 
 @ManagedBean
+@ViewScoped
 public class AutorBean {
 
 	private Autor autor = new Autor();
+	
+	private Integer autorId;
+	
 
-	public Autor getAutor() {
-		return autor;
-	}
 
 	public String gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
@@ -27,6 +29,30 @@ public class AutorBean {
 		// Um jeito de contornar isto é devolvendo um redirect (como feito abaixo).
 		// Quando você retorna um redirect, o controller não devolve a próxima view para o navegador, mas sim a view em que ele está atualmente junto com um comando para fazer a requisição que ele deve fazer para ir para a view que você quer exibir.
 		return "livro?redirect=true";
+	}
+	
+	public void carregaPelaId() {
+	    Integer id = this.autor.getId();
+	    this.autor = new DAO<Autor>(Autor.class).buscaPorId(id);
+	    if (this.autor == null) {
+	            this.autor = new Autor();
+	    }
+	}
+	
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
 	}
 	
 }

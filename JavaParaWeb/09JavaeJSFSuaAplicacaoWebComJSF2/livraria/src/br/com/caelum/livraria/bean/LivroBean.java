@@ -20,8 +20,26 @@ public class LivroBean {
 	private Livro livro = new Livro();
 	private Integer autorId;
 
+	private Integer livroId;
+
+	public Integer getLivroId() {
+		return livroId;
+	}
+
+	public void setLivroId(Integer livroId) {
+		this.livroId = livroId;
+	}
+	   
+	public void carregaPelaId() {
+		this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livroId);
+	}
+	
 	public Livro getLivro() {
 		return livro;
+	}
+	
+	public void setLivro(Livro livro) {
+		this.livro = livro;
 	}
 
 	public void gravar() {
@@ -31,12 +49,33 @@ public class LivroBean {
             FacesContext.getCurrentInstance().addMessage("autor",  new FacesMessage("Livro deve ter pelo menos um Autor"));
             return;
         } else {
-            new DAO<Livro>(Livro.class).adiciona(this.livro);
+        	if (livro.getId() == null) {
+        		new DAO<Livro>(Livro.class).adiciona(this.livro);
+        	} else {
+        		new DAO<Livro>(Livro.class).atualiza(this.livro);
+        	}
+        	
             this.livro = new Livro();
         }
 	}
 	
+	public void carregar(Livro livro) {
+		System.out.println("Alterando livro");
+		this.livro = livro;
+	}
+	
+	public void remover(Livro livro) {
+		System.out.println("Removendo livro");
+		new DAO<Livro>(Livro.class).remove(livro);
+	}
+	
+	public void removerAutor(Autor autor) {
+		System.out.println("Removendo autor");
+		this.livro.removeAutor(autor);
+	}
+	
 	public String formAutor() {
+		System.out.println("formAutor()");
 		return "autor?faces-redirect=true";
 	}
 	public void gravarAutor() {
