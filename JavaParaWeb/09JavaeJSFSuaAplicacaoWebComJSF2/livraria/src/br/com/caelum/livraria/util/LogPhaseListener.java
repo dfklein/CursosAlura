@@ -4,6 +4,7 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+//Lembre-se de que sempre que você fizer um PhaseListener você deve cadastrá-lo no faces-config.xml
 public class LogPhaseListener implements PhaseListener {
 
 	@Override

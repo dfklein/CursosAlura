@@ -13,6 +13,7 @@
 <h:body>
 	<div id="cabecalho">
 		<h:graphicImage library="img" name="logo.png"/> <!-- O atributo library aponta para a subpasta de ../WebContent/resources em que está seu recurso -->
+		<h:outputText value="Usuário logado: #{sessionScope['usuarioLogado'].email}" />
 		<h1><ui:insert name="titulo"></ui:insert></h1>
 	</div>
 	<div id="conteudo">
