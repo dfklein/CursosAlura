@@ -3,7 +3,11 @@ package br.com.caelum.livraria.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
+
+import br.com.caelum.livraria.modelo.Usuario;
 
 public class DAO<T> {
 
@@ -67,6 +71,23 @@ public class DAO<T> {
 		T instancia = em.find(classe, id);
 		em.close();
 		return instancia;
+	}
+	
+	public Usuario buscarUsuario(Usuario u) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		Usuario result;
+		try {
+			TypedQuery<Usuario> q = em.createQuery("SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha", Usuario.class);
+			q.setParameter("email", u.getEmail());
+			q.setParameter("senha", u.getSenha());
+			
+			result = q.getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		} finally {
+			em.close();
+		}
 	}
 
 	public int contaTodos() {
