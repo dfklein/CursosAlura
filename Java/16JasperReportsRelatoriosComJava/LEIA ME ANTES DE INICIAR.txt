@@ -1,0 +1,8 @@
+O iReport versão 5.6.0 (que você utilizou) só funciona com a JDK 7 (não funciona nem com versões posteriores). Sendo assim você deve:
+
+1 - Instalar JDK 7
+
+2 - Baixar o iReport: https://community.jaspersoft.com/download
+
+3 - Alterar o arquivo C:\{CAMINHO DO IREPORT}\iReport-5.6.0\etc\ireport.conf e inserir o parâmetro:
+	- jdkhome="C:\{CAMINHO DA JDK 7}"
