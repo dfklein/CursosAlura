@@ -1,0 +1,29 @@
+Relatório sem template
+Para esta aula veremos como o iReport organiza nosso relatório. Criaremos um novo relatório, mas desta vez sem template, utilizaremos um blank letter, ou seja, um relatório sem formatação. Este relatório ficará dentro da pasta relatório e terá o nome gastos_por_mes. O próximo passo é definir a query através da nossa conexão com MySQL que se chama financas.
+Buscas customizadas com Query Designer
+O iReport oferece um designer, uma maneira visual para criação de query. Ele já detecta as tabelas do nosso banco. Temos a tabela categorias que esta ligada à tabela movimentacoes, que por sua vez liga-se à tabela contas. Os joins das tabelas são representados visualmente através de links. Do lado esquerdo há o select automaticamente gerado pelo iReport. Para cada tabela, selecionamos apenas os campos de interesse. De categorias, queremos apenas o campo nome, de movimentacoes ignoramos as chaves estrangeiras e de contas, apenas selecionamos o titular.
+Além disso precisamos ordenar pelo titular e pela data da movimentação. Será necessário filtrar a query, porque apenas saídas devem ser consideradas, isto é, estamos interessados apenas nos gastos das movimentações. Simplificaremos o nome de alguns campos e como resultado teremos: id, data, descricao, tipo, valor e categoria.
+
+Com a query definida, o próximo passo é indicar os fields que utilizaremos, neste caso, todos. Em seguida, agruparemos os dados pelo titular da conta. Após a finalização, teremos como resultado a definição do relatório.
+
+Seções e componentes de um relatório
+No lado esquerdo do report inspector, podemos ver as variáveis mais importantes da estrutura do relatório. Por exemplo, temos os campos que definimos em nossa query. Baseados nesses campos, criaremos o nosso relatório. O próximo passo agora é escolhermos uma seção do nosso relatório para arrastarmos estes campos.
+Podemos ver uma seção chamada detail. Este é o lugar onde ficam os dados que o iReport utilizará, sendo assim, os campos do report inspector serão arrastados para esta área. O iReport, além de criar automaticamente este campos, também adiciona o cabeçalho para cada um deles.
+
+Ao gerar o relatório, visualizamos os campos e seus cabeçalhos, mas com uma formatação que deixa a desejar. O espaço da página é pouco utilizado, algo que pode ser resolvido pelo próprio designer. Por ele, ajustaremos o espaço de cada dado e linha. A mesma coisa para os cabeçalhos das colunas. Por uma questão estética, os cabeçalhos ficarão em negrito. A visualização mostra um relatório mais apresentável.
+
+Existem mais opções no relatório. Por exemplo, no cabeçalho da página, abrindo a paleta com os componentes disponíveis, vamos utilizar o texto estático arrastando-o para a seção page header definindo seu valor com Gastos por Contas. Ao visualizar novamente o relatório, veremos o texto sendo repetido em cada página, mas queremos que ele seja impresso apenas uma vez. Para isto, basta arrastá-lo para a seção title acima da seção na qual ele se encontra. Além disso, ele será colocado em negrito e será impresso apenas no início do relatório.
+
+Ainda é possível mostrar no page footer, nosso rodapé, o número total de páginas, inclusive a data atual. Basta visualizar mais uma vez para ver o resultado.
+
+Agrupando e somando os gastos da conta
+Vamos também utilizar o rodapé da coluna e para isso arrastaremos o campo valor para a seção column footer da coluna valor. Com esta ação, o iReport nos mostrará duas opções: apenas manter o valor do campo ou aplicar uma função de soma. Com a opção de soma selecionada, o iReport calculará o valor total das movimentações por página.
+Faremos a mesma coisa para a seção summary, nosso sumário. Novamente iremos selecionar a opção soma para mostrar no final do relatório o valor total dos gastos. Visualizando novamente o relatório vemos o total por página e no final o valor total de todos os gastos.
+
+Apesar do resultado, queremos saber os gastos por contas e uma conta em nosso relatório é identificada através de um titular. Por isso agrupamos os dados no início do relatório e olhando no report inspector temos um group header e um group footer para titular, falta adicioná-los no relatório. Da mesma maneira que podemos adicionar seções, podemos apagá-las do relatório. Apagaremos o column footer, porque não faz sentido para o nosso relatório.
+
+O processo é bem semelhante ao que já fizemos: arrastamos o campo, selecionamos a função de soma e posicionamos o campo dentro do relatório. Verificando o resultado, vemos que há o total de todos os gastos do titular João Souza e logo abaixo dele vem as informações de outro titular.
+
+Adicionando novos grupos ao relatório
+Queremos ver também a soma total de todos os gastos por mês. Por isso adicionaremos um novo report group. Vamos chamá-lo de por_mes. Precisamos selecionar data, mas excluiremos o dia e ano pois queremos apenas o seu mês. Utilizaremos novamente um filtro por meio de uma expressão usando a data, mas agora selecionando apenas o mês. Agora falta apenas posicioná-lo no rodapé.
+Temos o nosso por_mes group footer. Nele adicionaremos o valor, realizaremos a soma e apagaremos o que não estamos utilizando. Finalmente, temos um agrupamento do mês de janeiro e mais a frente um agrupamento do mês de maio.
