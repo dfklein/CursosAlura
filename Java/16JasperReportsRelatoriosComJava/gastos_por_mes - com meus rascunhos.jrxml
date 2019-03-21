@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gastos_por_mes" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04721462-be7b-4655-bfda-096a2c909087">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="758"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="grafico" uuid="2488cb8c-1fc9-468a-8f6f-27da7d7b036f">
+		<queryString>
+			<![CDATA[SELECT
+     sum(movimentacoes.`valor`) AS soma,
+     categorias.`nome` AS categoria,
+     contas.`titular` AS titular
+FROM
+     `categorias` categorias INNER JOIN `movimentacoes` movimentacoes ON categorias.`id` = movimentacoes.`categoria_id`
+     INNER JOIN `contas` contas ON movimentacoes.`conta_id` = contas.`id`
+WHERE
+     movimentacoes.`tipoMovimentacao` LIKE 'SAIDA'
+GROUP BY
+     titular,
+     categoria]]>
+		</queryString>
+		<field name="soma" class="java.math.BigDecimal"/>
+		<field name="categoria" class="java.lang.String"/>
+		<field name="titular" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="DATA_INI" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").parse("01/08/2012")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATA_FIM" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").parse("31/12/2012")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     categorias.`nome` AS categoriasNome,
+     movimentacoes.`id` AS id,
+     movimentacoes.`data` AS data,
+     movimentacoes.`descricao` AS descricao,
+     movimentacoes.`tipoMovimentacao` AS tipo,
+     movimentacoes.`valor` AS valor,
+     contas.`titular` AS contaTitular
+FROM
+     `contas` contas INNER JOIN `movimentacoes` movimentacoes ON contas.`id` = movimentacoes.`conta_id`
+     INNER JOIN `categorias` categorias ON movimentacoes.`categoria_id` = categorias.`id`
+WHERE
+     tipoMovimentacao LIKE 'SAIDA'
+	AND data BETWEEN $P{DATA_INI} AND $P{DATA_FIM}
+ORDER BY
+     contas.`titular` ASC,
+     movimentacoes.`data` ASC]]>
+	</queryString>
+	<field name="categoriasNome" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contaTitular" class="java.lang.String"/>
+	<variable name="valor_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_3" class="java.math.BigDecimal" resetType="Group" resetGroup="por_mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<group name="contaTitular">
+		<groupExpression><![CDATA[$F{contaTitular}]]></groupExpression>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="324" y="0" width="81" height="20" uuid="8de4e479-ebbb-4187-b2d3-24191dc65fbf"/>
+					<textFieldExpression><![CDATA[$V{valor_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="291" height="50" uuid="75fd3139-6e6a-4bbd-90dc-c6f94090b2cd"/>
+					<text><![CDATA[Quando você fez a query que alimenta este relatório, ela tinha um group by por conta do titular. Isto criou uma sessão que não é adicionada automaticamente ao relatório (ela pode ser vista na estrutura do relatório à esquerda). Para adicioná-la ao relatório você deve clicar nela com o botão direito e selecionar "Add Band". Isso adicionará a sessão ao relatório e você poderá arrastar campos para ele e com as funções de agregação de acordo com o que ele estiver agrupando (neste exemplo as contas dos titulares)]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="por_mes">
+		<groupExpression><![CDATA[$F{data}.getMonth()]]></groupExpression>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="324" y="0" width="100" height="20" uuid="764fdd1f-a84f-4f7e-90aa-cd42805b377f"/>
+					<textFieldExpression><![CDATA[$V{valor_3}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="291" height="50" uuid="b329321b-74f4-41eb-a6dc-dd1bbcdb9fb7"/>
+					<text><![CDATA[Você criou esta seção que agrupa os gastos por mês. Clique com botão direito no projeto -> Add Report Group -> dê um Group Name que quiser -> Group By Following Expression (ícone ao lado da caixa de preencher) -> selecione o campo e o método (clique DUAS VEZES no método, vai aparecer uma EL com a informação gerada) -> apply -> arrastar o campo de valor para a seção do relatório e selecionar soma.]]></text>
+				</staticText>
+				<textField pattern="MMMMM-yy">
+					<reportElement x="441" y="0" width="100" height="20" uuid="e6804779-fd15-4809-b9c9-259397cab13d"/>
+					<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="34" backcolor="#00CCFF" uuid="889f5be6-cdf3-4d1f-85b7-76563ab2c677"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="34" uuid="9d1e1283-bffd-40d2-9762-e07e2730262f"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gastos por conta]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="8" width="572" height="20" backcolor="#CCCCCC" uuid="50c65f9c-5632-40e0-a454-7b78eeff18ec"/>
+			</rectangle>
+			<textField>
+				<reportElement x="173" y="7" width="227" height="20" backcolor="#CCCCCC" uuid="123f8f2c-7be5-492e-8266-57c5520e590e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contaTitular}.toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="81" height="20" uuid="d7dd1aa1-d023-4823-b8a7-14b5044588d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="0" width="81" height="20" uuid="df8278c7-f7e8-41ac-9c68-168b107fd7fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="0" width="81" height="20" uuid="454e18c1-11f9-40a2-8fb3-48c8ac84bb86"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="0" width="81" height="20" uuid="4f849882-4324-4ee3-bb9e-f3fb7c4f7e81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="81" height="20" uuid="5e482f0b-b546-4e90-a505-b40c9783d9d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="81" height="20" uuid="e495d569-8b32-4833-8adc-c15406e6b891"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TITULAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="0" width="81" height="20" uuid="0e76c772-5fb1-4847-a7ab-b9fe6c90c825"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CATEGORIA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="81" height="20" uuid="34ee93fb-80ab-447d-ab75-83ef0df09f51"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="81" y="0" width="81" height="20" uuid="1cdff1e3-2707-4635-963d-6e6c3b6053f4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="162" y="0" width="81" height="20" uuid="3e2963d8-8ad2-492e-8376-6c5255b2fd80"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="0" width="81" height="20" uuid="beab05f5-13a5-4f99-8ddb-c5b769f15733"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tipo}.substring( 0, 1 )]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="324" y="0" width="81" height="20" uuid="94c183fc-c0ab-4653-a8c5-4298bced6813"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="0" width="81" height="20" uuid="01b1fc96-37cc-4746-8561-4e546623a8f0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{contaTitular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="0" width="81" height="20" uuid="7482eef3-1932-48ac-8738-5d2515de1c8b"/>
+				<textFieldExpression><![CDATA[$F{categoriasNome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="324" y="0" width="81" height="20" uuid="007838b7-c172-4430-8b42-add736dbed5f"/>
+				<textFieldExpression><![CDATA[$V{valor_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="291" height="45" uuid="8850c052-2bb5-4a47-bf9a-aa8405e139aa"/>
+				<text><![CDATA[Se você arrasta um campo para o column footer, ele permite que você faça uma agrecação de valor por página. Aqui você tem a soma dos valores desta coluna de cada página]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="441" y="0" width="80" height="20" uuid="29a9ff50-a75b-4b7e-91de-7ec003ed7bfd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="521" y="0" width="51" height="20" uuid="798579eb-1117-4f1d-8384-e6620e75e59c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="18" y="0" width="100" height="20" uuid="2e78a31b-e012-4b57-8f2d-f97bac37b7dc"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="525" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="324" y="0" width="81" height="20" uuid="d57f6ff6-77f2-46f3-a2f0-c07f42d66dd8"/>
+				<textFieldExpression><![CDATA[$V{valor_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="291" height="42" uuid="a0c55ba0-a5c4-4c9a-b5d1-bdd31de17db0"/>
+				<text><![CDATA[Mas se você arrastar o campo para o Summary, ele exibirá a soma deste campo em TODAS as páginas. O sumário só é exibido na última página do relatório]]></text>
+			</staticText>
+			<barChart>
+				<chart>
+					<reportElement x="18" y="75" width="535" height="301" uuid="c5f76205-2dc8-409b-8d4f-94afde0eab45"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="grafico" uuid="94cdc56b-68fc-4534-a55f-1a45638134b5"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{categoria}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{soma}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<break>
+				<reportElement x="0" y="514" width="572" height="1" uuid="ae17c84f-6a5c-48cc-932e-48c5ddf4c730"/>
+			</break>
+			<crosstab>
+				<reportElement x="18" y="391" width="535" height="106" uuid="1c13f57d-28b2-4d37-9f86-dc7eeb508600"/>
+				<rowGroup name="contaTitular" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{contaTitular}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="baaf6a89-3d1e-47ba-b8d4-a93ba45da15f"/>
+								<textFieldExpression><![CDATA[$V{contaTitular}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="fea4a9f0-90ca-4527-b415-aaf9a59b9e3b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total contaTitular]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="data" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[(new SimpleDateFormat("yyyy-MM")).format($F{data})]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="6ab63b30-7665-4ca8-b7f2-6f6500bf0319"/>
+								<textFieldExpression><![CDATA[$V{data}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="e903cc39-bb28-4458-a60b-52329f69e21a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total data]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="valorMeasure" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{valor}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="70a0ca8d-c5aa-47fe-8e58-cb6f4b74b169"/>
+							<textFieldExpression><![CDATA[$V{valorMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="contaTitular">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="affaeefd-82f2-4767-8023-657343fc5a5f"/>
+							<textFieldExpression><![CDATA[$V{valorMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="data">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="a59cbf5c-d13d-495f-b643-ca5ddd7ee6fe"/>
+							<textFieldExpression><![CDATA[$V{valorMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="contaTitular" columnTotalGroup="data">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="3dbb328a-ab2d-4ed3-a8ed-261e4b129835"/>
+							<textFieldExpression><![CDATA[$V{valorMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
