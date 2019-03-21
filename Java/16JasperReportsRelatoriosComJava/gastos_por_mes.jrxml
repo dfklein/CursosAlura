@@ -30,7 +30,7 @@ GROUP BY
 		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").parse("31/08/2012")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/Users/gordo/Desktop/StepsAlura/jasper/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Dev\\Projetos\\CursosAlura\\Java\\16JasperReportsRelatoriosComJava\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -145,6 +145,11 @@ ORDER BY
 			<break>
 				<reportElement x="0" y="119" width="100" height="1" uuid="cad21b3f-fe40-4ac6-8592-aa95601d74d6"/>
 			</break>
+			<subreport>
+				<reportElement x="0" y="34" width="572" height="85" uuid="baa7fa9d-38c4-4586-a501-4c1889fd31dc"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gastos_por_mes_subreport1.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<pageHeader>
