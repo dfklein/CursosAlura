@@ -1,0 +1,3 @@
+Para fazer este projeto funcionar você teve que trocar o jar para o da mesma versão que você utilizou no iReport durante o curso.
+
+Além disso você teve que baixar dois JARs do Groovy porque o projeto não conseguia gerar o relatório sem ele mesmo você não utilizando ele (você alterou a propriedade Language do relatório e dos subrelatórios para "Java" e mesmo assim ele não funcionou sem o Groovy).
