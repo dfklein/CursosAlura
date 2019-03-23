@@ -25,6 +25,9 @@
 - docker run -d -p 12345:80 dockersamples/static-site
 	Você está ativamente escolhendo que a porta 80 do container será a 12345 da sua máquina
 	
+- docker run -v "/var/www" ubuntu
+	Você cria um container (neste exemplo rodando uma imagem de Ubuntu) associado com (ou criando) um volume, que é pasta na sua máquina local para a imagem (que será a /var/www neste exemplo). Esta pasta não é removida ao ser removido o container mas é compartilhado entre ele e sua máquina local. Desta forma você guarda configurações para containers que você subir futuramente para aquela imagem.
+	
 - docker port {ID DO CONTAINER}
 	Para saber as portas utilizadas por um container usar o comando:
 	
@@ -48,6 +51,9 @@
 	
 - docker stop -t 0 {ID DO CONTAINER}
 	O -t indica quanto tempo levará para ele executar a interrupção do container (o default é 10 segundos)
+
+- docker inspect {ID_CONTAINER}
+	Exibe diversas informações úteis sobre o container
 	
 - docker container prune
 	Limpa (apaga) todos os containers QUE ESTIVEREM PARADOS do docker
