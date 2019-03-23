@@ -1,0 +1,26 @@
+Vamos agora detalhar o processo de instalação do Docker for Windows e do Docker Toolbox.
+
+Instalando com Docker for Windows
+Primeiramente você deve se atentar aos requisitos do uso do Docker for Windows, ou seja, deve possuir um Windows com:
+
+- Arquitetura 64 bits
+- Versão Pro, Enterprise ou Education.
+- Virtualização habilitada
+- Em relação a este último ponto, o Windows por padrão já deixa a virtualização habilitada, mas você pode conferir acessando o Gerenciador de Tarefas, e indo na aba Perfomance:
+
+Verificando se a virtualização está habilitada
+
+Se no seu caso a virtualização não estiver habilitada, por favor poste no fórum do curso a versão do seu Windows e modelo do seu computador para tentarmos ajudá-lo pois cada fabricante de Hardware configura isto de modos diferentes
+
+Na página do Docker for Windows, baixe o instalador clicando aqui. Siga o passo a passo do instalador para aceitar a licença, autorize o instalador e siga com a instalação. Ao clicar em Finish, encerre a sessão do Windows e inicie-a novamente. Ao fazer o login, habilitar o Hyper-V, clicando em Ok, para que o computador seja reiniciado.
+
+Quando o computador terminar a reinicialização, irá aparecer um ícone do Docker na barra inferior, à direita, ao lado do relógio. O Docker pode demorar um pouco para inicializar, mas quando a mensagem Docker is running for exibida, significa que ele foi instalado com sucesso e você já pode utilizá-lo.
+
+**********************************************************************
+
+Instalando com Docker Toolbox
+Para instalar o Docker Toolbox, primeiramente baixe-o aqui. Ainda assim, garanta que o seu Windows seja 64bits e que ele tenha a virtualização habilitada.
+
+O Docker Toolbox vai instalar tudo que é necessário para que você possa trabalhar com o Docker em seu computador, pois ele irá instalar também a Oracle VirtualBox, a máquina virtual da Oracle que vai permitir executar o Docker sem maiores problemas.
+
+A diferença é que, quando você trabalha com o Docker for Windows, você pode utilizar o terminal nativo do Windows, já no Docker Toolbox, ele instalará o Docker Machine, que deverá ser utilizado no lugar do terminal nativo do Windows.

@@ -1,0 +1,59 @@
+*********** IMPORTANTE: ao invés do CMD do windows, utilize o Power Shell (procurar no menu iniciar) ***********
+	
+
+- docker run {NOME DA IMAGEM}
+	Procura pela imagem na sua máquina - caso não ache, baixa ela do repositório (Docker Hub)
+	Segue as instruções da imagem para criar um NOVO container
+	Executa o container.
+	
+	exemplo: docker run hello-world
+
+- docker run -it {NOME DA IMAGEM}
+	Irá atrelar a linha de comando que você está à imagem que você está executando
+	
+	exemplo: docker run -it ubuntu
+	
+- docker run -d {NOME DA IMAGEM}
+	Roda dettached, OU SEJA: roda o seu container mas sem travar sua linha de comando enquanto o processo estiver rodando (sem atrelar seu terminal à execução).
+	
+- docker run -d -P {NOME DA IMAGEM}
+	Roda a imagem traduzindo portas do container para a sua máquina (ou seja: expondo portas no container e informando em quais portas da sua máquina você acessa as do container - ver o arquivo da aula 02 que explica como ver as portas utilizadas pelo docker na sua máquina)
+	
+- docker run -d -P --name meu-site dockersamples/static-site
+	É o comando acima, mas atribuindo um alias para o seu container. Você não precisa usar {ID DO CONTAINER} nos comandos, mas os nomes que você deu ao container
+	
+- docker run -d -p 12345:80 dockersamples/static-site
+	Você está ativamente escolhendo que a porta 80 do container será a 12345 da sua máquina
+	
+- docker port {ID DO CONTAINER}
+	Para saber as portas utilizadas por um container usar o comando:
+	
+- docker ps <<OU>> docker container ls 
+	Lista todos os containers ativos
+	
+- docker ps -a <<OU>> docker container ls -a
+	Lista todos os containers criados
+	
+- docker start {ID DO CONTAINER}
+	Reinicia o container
+	
+- docker start -a -i {ID DO CONTAINER}
+	Reinicia o container, atrela sua linha de comando a ele e liga o modo interativo (em outras palavras: sua linha de comando está executando o container)
+	
+- docker container attach {ID DO CONTAINER}
+	Torna a sua linha de comando a linha de comando do container do ID informado (ele tem que estar rodando)
+
+- docker stop {ID DO CONTAINER}
+	Para o container
+	
+- docker stop -t 0 {ID DO CONTAINER}
+	O -t indica quanto tempo levará para ele executar a interrupção do container (o default é 10 segundos)
+	
+- docker container prune
+	Limpa (apaga) todos os containers QUE ESTIVEREM PARADOS do docker
+	
+- docker rmi {NOME DA IMAGEM}
+	Remove a imagem com o nome informado
+	
+
+	

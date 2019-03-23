@@ -1,0 +1,19 @@
+Siga o exemplo:
+
+1 - Execute docker run -d -P dockersamples/static-site
+
+	o parâmetro -P é o que vai fazer com que ele crie uma porta que pode ser visualizada externamente ao docker.
+	
+2 - Se você der um docker ps (para ver todos os containers ativos), na informação PORTS você terá algo similar ao seguinte:
+
+	PORTS
+	0.0.0.0:9001->80/tcp, 0.0.0.0:9000->443/tcp
+
+Isto significa que ele está utilizando as portas 80 e 443 do container e que elas podem ser visualizadas nas portas 9001 e 9000 (respectivamente) da sua máquina
+
+3 - Para saber as portas utilizadas por um container usar o comando:
+
+	docker port {ID DO CONTAINER}
+	
+	
+OBS: Caso você esteja utilizando o Docker Toolbox, como ele está rodando em cima de uma máquina virtual, o endereço http://localhost:9001/ não funcionará, pois você deve acessar a porta através do IP da máquina virtual. Para descobrir o IP dessa máquina virtual, basta executar o comando docker-machine ip. Com o IP em mãos, basta acessá-lo no navegador, utilizando a porta que o Docker atribuiu, por exemplo http://192.168.0.38:9001/.
