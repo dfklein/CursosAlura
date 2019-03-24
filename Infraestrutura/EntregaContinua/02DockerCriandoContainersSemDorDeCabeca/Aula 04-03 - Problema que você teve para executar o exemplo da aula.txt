@@ -1,0 +1,7 @@
+Você teve algum problema relacionado a lock do node na hora de baixar as dependências do projeto (execução do "npm install". Não investigou muito a respeito mas é algo que pode acontecer no Node na versão 5 ou superior.
+
+Resolução do problema:
+
+1 - Criar um arquivo de nome ".npmrc" na raiz do seu projeto
+
+2 - Escrever nele: "package-lock=false"
