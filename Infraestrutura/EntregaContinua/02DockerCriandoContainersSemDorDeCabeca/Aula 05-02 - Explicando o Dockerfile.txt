@@ -1,0 +1,30 @@
+CONSTRUINDO UMA IMAGEM:
+
+
+Você alterou o projeto da aula anterior removendo todas as dependências do node instaladas nele e adicionando um arquivo com a extensão Dockerfile (.\exemplo-node\exemplo.dockerfile). 
+
+O Dockerfile é o que vai orientar a construção da sua imagem. O seu exemplo possui:
+
+- FROM {node:latest} -> indica a partir de que outra imagem (que pode estar no repositório do docker) a sua será criada. O ":latest" indica qual versão do node você quer usar.
+- MAINTAINER Denis Klein -> É apenas um texto com o nome de quem cria e mantém esta imagem.
+- COPY . /var/www -> Instruções de criação de volume (compartilhamento de arquivos). O "." indica que são todos os arquivos do diretório atual e "/var/www" é a pasta do seu container onde estes arqivos estarão.
+- WORKDIR /var/www -> É o diretório do container de onde ele executará o seu comando
+- RUN npm install -> comanto a ser executado quando seu container é criado
+- ENTRYPOINT ["npm", "start"] -> comando que é executado toda vez que seu container é iniciado. OBS: os comandos podem ser redigidos normalmente (como você fez acima no RUN) ou colocados na forma de um array json (como nesse caso aqui). Ambos funcionam igual.
+- EXPOSE 3000 -> expõe a porta 3000 do seu container (isto significa expor, não mapear... você mapeia quando executa o container)
+
+Você executa a criação desta imagem com o comando:
+
+	docker build -f exemplo.dockerfile
+
+Lembre que você pode por uma tag na sua imagem passando um nome para ela:
+
+	docker build -f exemplo.dockerfile -t denisklein/node
+	
+E agora dizemos onde está o Dockerfile. Como já estamos rodando o comando dentro da pasta volume-exemplo, vamos utilizar o ponto (.)
+
+	docker build -f exemplo.dockerfile -t denisklein/node .
+		
+Por fim você vai seguir o padrão normal de criação e execução de containers para utilizá-lo
+
+	docker run -d -p 8080:3000 denisklein/node

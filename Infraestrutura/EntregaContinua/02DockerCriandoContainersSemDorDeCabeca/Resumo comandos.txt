@@ -35,7 +35,7 @@
 	Lista todos os containers ativos
 	
 - docker ps -a <<OU>> docker container ls -a
-	Lista todos os containers criados
+	Lista todos os containers criados (ativos e inativos)
 	
 - docker start {ID DO CONTAINER}
 	Reinicia o container
@@ -58,6 +58,12 @@
 - docker container prune
 	Limpa (apaga) todos os containers QUE ESTIVEREM PARADOS do docker
 	
+- docker rm {ID DO CONTAINER}
+	Remove um container
+	
+- docker rm -f {ID DO CONTAINER}
+	Remove um container forçando sua parada
+
 - docker rmi {NOME DA IMAGEM}
 	Remove a imagem com o nome informado
 	
