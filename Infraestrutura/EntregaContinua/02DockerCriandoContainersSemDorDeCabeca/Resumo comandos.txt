@@ -1,5 +1,6 @@
 *********** IMPORTANTE: ao invés do CMD do windows, utilize o Power Shell (procurar no menu iniciar) ***********
-	
+
+*********** IMPORTANTE 2: sempre que você tiver alguma dúvida sobre algum comando lembre que você pode executar "{COMANDO} --help" que ele exibe opções para você
 
 - docker run {NOME DA IMAGEM}
 	Procura pela imagem na sua máquina - caso não ache, baixa ela do repositório (Docker Hub)
@@ -28,6 +29,9 @@
 - docker run -v "/var/www" ubuntu
 	Você cria um container (neste exemplo rodando uma imagem de Ubuntu) associado com (ou criando) um volume, que é pasta na sua máquina local para a imagem (que será a /var/www neste exemplo). Esta pasta não é removida ao ser removido o container mas é compartilhado entre ele e sua máquina local. Desta forma você guarda configurações para containers que você subir futuramente para aquela imagem.
 	
+- docker run -it --name meu-container-de-ubuntu --network minha-rede ubuntu
+	Cria um container chamado "meu-container-de-ubuntu" dentro da rede "minha-rede" a partir de uma imagem de Ubuntu
+
 - docker port {ID DO CONTAINER}
 	Para saber as portas utilizadas por um container usar o comando:
 	
@@ -51,9 +55,12 @@
 	
 - docker stop -t 0 {ID DO CONTAINER}
 	O -t indica quanto tempo levará para ele executar a interrupção do container (o default é 10 segundos)
+	
+- docker container stop $(docker container ls -q)
+	Parar todos os containers ativos
 
 - docker inspect {ID_CONTAINER}
-	Exibe diversas informações úteis sobre o container
+	Exibe diversas informações úteis sobre o container (especialmente útil para ver configurações de rede)
 	
 - docker container prune
 	Limpa (apaga) todos os containers QUE ESTIVEREM PARADOS do docker
@@ -62,10 +69,12 @@
 	Remove um container
 	
 - docker rm -f {ID DO CONTAINER}
-	Remove um container forçando sua parada
+	Remove um container forçando sua parada se ele estiver ativo
 
 - docker rmi {NOME DA IMAGEM}
 	Remove a imagem com o nome informado
 	
+- docker network create --driver bridge local
+	Cria uma rede docker (no caso utilizando o driver bridge e uma rede com nome de "local")
 
 	
