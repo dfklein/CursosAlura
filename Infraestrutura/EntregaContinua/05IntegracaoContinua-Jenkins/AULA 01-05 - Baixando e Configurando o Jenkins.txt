@@ -1,0 +1,25 @@
+Baixando e Configurando o Jenkins
+Vamos começar configurando o Jenkins e preparando nosso ambiente.
+
+1) Vá ao site do Jenkins e baixe a versão 2 do Jenkins, formato war.
+
+2) Vamos iniciar o Jenkins, na pasta onde você colocou o war, rode o comando:
+
+$ java -jar jenkins.war --httpPort=8180
+Lembre-se de copiar a senha que é exibida no console durante a inicialização do Jenkins.
+
+3) Acesse o Jenkins no Chrome, através do caminho: http://localhost:8180. Vai aparecer um tela com uma caixa de texto, onde você deve colar a senha que copiamos no console.
+
+4) Na tela seguinte escolha a opção Instalar Plugins Sugeridos (Install suggested plugins).
+
+5) Quando a instalação dos plugins finalizar preencha o formulário com as informações do usuário administrador do Jenkins, que você está criando nesse momento.
+
+6) Agora, vamos fazer as configurações necessárias no Jenkins:
+
+Primeiro, configure o JDK, apontando o JAVA_HOME na opção: Gerenciar Jenkins > Global Tool Configuration > JDK
+
+Preencha os campos Nome e JAVA_HOME
+
+Ainda em Global Tool Configuration vá na opção Maven
+
+Preencha os campos Nome e MAVEN_HOME

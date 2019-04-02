@@ -1,0 +1,31 @@
+Existem diversos servidores de integração contínua no mercado, mas o mais famoso e provavelmente o mais utilizado é o Jenkins. Devido a sua caracteristica open-source e a sua flexibilidade, ele se tornou muito popular entre os desenvolvedores e é ele que utilizaremos ao longo do curso.
+
+Para fazer a instalação do Jenkins, o primeiro passo é visitarmos seu website, o http://jenkins.io. Lá, busque o download do .war versão 2 do Jenkins, que é a qual utilizaremos no curso.
+
+Em seguida, para executá-lo , abra um terminal e navegue até a pasta aonde você fez o download. Para rodar, você utiliza o comando:
+
+java -jar jenkins.war --httpPort=8180
+O Jenkins inicializará, e ele já possuí um servidor interno, que irá funcionar na porta 8180, como indicamos com o parametro --httpPort.
+
+Inicializando o Jenkins
+Ao executar pela primeira vez o Jenkins, você vai reparar que ele exibe no terminal uma mensagem indicando que é preciso fazer um setup inicial.
+
+Imagem do jenkins
+
+Repare que na imagem acima ele mostra um password, que devemos utilizar quando estamos configurando o jenkins pela primeira vez.
+
+Acesse o Jenkins através do browser, no endereço localhost:8120. Você verá algo assim:
+
+Configuração do Jenkins: Colocando a senha de admin Preencha com a senha que você obteve no terminal e você deve encontrar uma página assim:
+
+Configuração do Jenkins: Escolhendo plugins
+
+Escolha a opção da esquerda, que já instala alguns plugins pré sugeridos pela comunidade:
+
+Configuração do Jenkins:Instalando Plugins
+
+Depois da instalação dos vários plugins, você irá cair na tela abaixo:
+
+Configuração do Jenkins: Criando usuario admin
+
+Aqui você deve criar o primeiro usuário admin do Jenkins, que utilizaremos diversas vezes ao longo do curso para manusear o Jenkins. Crie um usuário com um login e senha que você não vá esquecer. Ao final. clique em SALVAR.
