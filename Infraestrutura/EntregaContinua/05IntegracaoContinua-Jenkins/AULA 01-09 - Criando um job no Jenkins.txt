@@ -1,0 +1,82 @@
+Agora vamos adicionar no Jenkins o job responsável por buildar o nosso projeto .Entre no Jenkins e clique em Novo Job , dê o nome de argentum-web, pois será um job para construir este projeto.
+
+Criando uma job no Jenkins
+
+No tipo de projeto, vamos clicar na opção Construir um projeto de software free-style.
+
+Lá, o primeiro passo é configurar como o Jenkins irá baixar o código-fonte do repositório Git. Para isto, vamos na aba Gerenciamente de Código Fonte e preenchê-la com o endereço do nosso repositório Git. Como queremos utilizar a própria branch master, não vamos precisar alterar esta parte.
+
+Aba gerenciamento de código fonte do Jenkins
+
+O nosso próximo passo é configurar o comportamento do Maven, para isto vamos visitar a aba build e na opção Adicionar passo no build selecione a opção Chamar alvos Maven de alto nível. Informe no campo Goals os comandos clean package,sendo o clean para que ele limpe a pasta /target e faça isto completamente do zero. Já o comando package é para que ele empacote o código no war.
+
+
+***************************************
+
+No repositório que foi criado após o fork do projeto do Github, vá em Clone or Download, no lado direito da tela. Escolha a opção HTTPS e copie a url que vamos usar para fazer o clone.
+
+Voltando à tela do Jenkins e, na página principal, clique na opção Novo Job.
+
+Informe um nome para o seu Job e selecione a opção Construir um projeto de software free-style, então clique em OK.
+
+Na opção Gerenciamento de código fonte, clique no radio button Git e cole a url do repositório, copiada do Github, no campo de texto Respository URL, mantenha as demais opções na forma padrão.
+
+Para configurar as metas do Maven, clique em Build* na parte superior da página (ou, simplesmente role até o local das configurações de Build) e selecione a opção Chamar alvos Maven de alto nível, na caixa de seleção Adicionar passo no build**.
+
+No campo Goals preencha com clean package.
+
+Clique em Salvar e depois, na tela seguinte, clique em Construir agora.
+
+Depois de executado, é possível clicar no número do build e na opção Saída do console, para visualizar o log de execução da construção (também é possível clicar na barra de progresso durante a execução da construção e ir direto para a saída do console).
+
+Para retornarmos para as configurações do nosso Job clique, no canto superior esquerdo, no link argentum-web e depois na opção Configurar.
+
+Vá até as configurações de Build e, na caixa de seleção Adicionar passo no build, selecione a opção Executar shell.
+
+Na caixa de texto Comando, informe o seguinte:
+
+cp target/argentum-web.war /caminho/para/o/seu/tomcat
+Lembre-se de trocar o caminho acima para o caminho onde você descompactou o Tomcat na sua máquina.
+
+Inicie o seu Tomcat: na pasta $CATALINA_HOME/bin (onde $CATALINA_HOME é a pasta raiz do seu Tomcat), execute:
+
+$ ./startup.sh
+Clique em Salvar e depois, na tela seguinte, clique em Construir agora.
+
+Agora vamos fazer a instalação do plugin Deploy to container.
+
+A partir da página inicial do Jenkins, clique em Gerenciar Jenkins e depois em Gerenciar plugins, clicando na aba Disponíveis. Utilize o filtro para localizar o plugin, digitando Deploy to container na caixa de texto do filtro.
+
+Agora, marque o checkbox e clique no botão Instalar sem reiniciar.
+
+Volte para a página inicial do Jenkins, selecione o Job argentum-web e clique em Configurar.
+
+Vá até as opções de Build, remova a configuração de Executar Shell clicando no X.
+
+Na caixa de seleção Adicionar ação de pós-build, selecione a opção "Deploy war/ear to a container".
+
+Preencha os campos com os seguintes valores:
+
+WAR/EAR files: target/argentum-web.war Context path: argentum-web
+
+Na caixa de seleção Add Container, selecione a opção Tomcat 7.x e preencha os campos com os seguintes valores:
+
+Manager user name: jenkins Manager password: jenkins Tomcat URL: http://localhost:8080
+
+Observe que esse usuário ainda não foi criado no Tomcat, nós precisamos configurar o usuário lá no Tomcat e fornecer as devidas permissões.
+
+Vá até a pasta $CATALINA_HOME/conf e abra o arquivo tomcat-user.xml.
+
+No final do arquivo, imediatamente antes da tag </tomcat-users> adicione o seguinte:
+
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+
+<user username="jenkins" password="jenkins" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
+Agora vamos parar e iniciar novamente o Tomcat, na pasta $CATALINA_HOME/bin use os comandos:
+
+$ ./shutdown.sh
+$ ./startup.sh
+Volte para o Jenkins e no Job argentum-web clique em Construir agora. Se tudo estiver ok, a construção vai ocorrer com sucesso e, ao final, o seu war será instalado no Tomcat pelo plugin

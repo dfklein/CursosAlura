@@ -2,10 +2,10 @@ Diferente do orientado no curso você não instalou o jenkins na sua máquina. V
 
 1 - Baixar a imagem do Jenkins: docker pull jenkins/jenkins
 
-2 - Criar o container: docker run --name jenkins2 -v c:\Dev\Projetos\CursosAlura\Infraestrutura\EntregaContinua\05IntegracaoContinua-Jenkins\jenkins_home:/var/jenkins_home -p 8180:8080 -p 50000:50000 jenkins/jenkins
+2 - Criar o container: docker run --name jenkins -v c:\Dev\Projetos\CursosAlura\Infraestrutura\EntregaContinua\05IntegracaoContinua-Jenkins\jenkins_home\workspace:/var/jenkins_home/workspace -p 8180:8080 -p 5000:5000 jenkins/jenkins
 
 
 OBS 1: Não suba o containar como dettached (-d) da primeira vez: no log de subida ele vai exibir um código que você precisa utilizar para finalizar a instalação dele.
 
-OBS 2: a pasta base do jenkins está sendo compartilhada em \Dev\Projetos\CursosAlura\Infraestrutura\EntregaContinua\05IntegracaoContinua-Jenkins\jenkins_home
+OBS 2: a pasta do workspace do jenkins (onde estarão seus projetos para deploy) está sendo compartilhada em \Dev\Projetos\CursosAlura\Infraestrutura\EntregaContinua\05IntegracaoContinua-Jenkins\jenkins_home\workspace. NÃO FAÇA ISSO EM UM NÍVEL ANTERIOR pois pode haver conflito de permissionamento para gravação de arquivos e muitos plugins podem dar erro.
 
