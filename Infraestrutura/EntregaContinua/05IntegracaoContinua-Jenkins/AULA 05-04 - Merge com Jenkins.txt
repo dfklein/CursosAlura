@@ -1,0 +1,125 @@
+Para passarmos por esse tipo de cenário criamos duas branches no repositório do argentum-web: filtro-por-quantidade e filtro-por-valor. Basicamente duas branches para duas funcionalidades completamente distintas.
+
+Branches no projeto
+
+Na funcionalidade filtro-por-valor, iremos alterar o arquivo index.xhtml, colocando apenas um outputText de exemplo e aplicando um commit.
+
+index.xhtml
+
+Agora queremos construir nosso projeto testando se essa alteração continua deixando o projeto sem erros tanto na compilação quanto nos testes. Portanto vamos agora voltar para o nosso job e fazer as configurações necessárias. Para isso basta clicar no job e depois em configurar:
+
+Configuração do Job
+
+Na aba de Gerenciamento de código fonte podemos notar que o repositório utiliza-se do controlador de versão GIT com um endereço do github. E o mais importante nessa tela para o assunto que estamos trabalhando é que o branch principal do nosso build já está configurado para ser o MASTER, embora o campo também deixe claro que caso não seja preenchido podemos fazer o build de qualquer branch("blank for any").
+
+Configuração do Branch
+
+Vamos deixar esse campo em branco para que ele construa para a gente em todas as branches. Ou seja, com essa simples alteração o Jenkins vai executar todas as fases do nosso build(compilação, execução de testes, ...) para cada um dos branches que o nosso repositório tiver. Parece bastante interessante e mais efetivo do que criar um job para cada branch não é mesmo? E ela pode nos auxiliar ainda mais.
+
+O que foi feito, e é preciso ficarmos muito atento, é que da forma como está configurado estamos validando que cada branch funciona isoladamente muito bem. Mas seria isso integrar continuamente? Nosso código não deveria funcionar efetivamente junto? Em outras palavras gostaríamos de avisar ao Jenkis para que ele faça um merge desses branches e verifique se todo esse código continua buildando corretamente de forma única.
+
+Vamos então configurar o Jenkins para que ele faça o merge antes do build pra gente. No campo 'Additional Behaviours' vamos adicionar um comportamento que vai ser o 'Merge before build'.
+
+Merge before build
+
+Logo após essa adição, ele pede mais algumas configurações:
+
+Outras informações
+
+O nome do repositório é o que tínhamos feito lá em cima. Para isso vamos nomear o repositório na seção 'Repositories' ao clicar em 'Avançado' abre-se essa opção:
+
+Nomeando o repositório
+
+Observe que agora foi nomeado para 'origin'. Portanto agora podemos voltar as configurações do comportamento e preencher o nome do repositório como 'origin'.
+
+Linkando o repositório
+
+No campo 'Branch to merge' vamos preencher com Master. É bom saber que não necessariamente o branch de integração vai ser sempre o master, poderíamos usar outro. A regra fundamental é que o branch escolhido não seja usado pelos membros da equipe para alterações.
+
+Configurando branch de integração
+
+Agora eu quero que após a realização do merge e o build sendo feito com sucesso, um push seja disparado para o repositório remoto(github). Isso conseguimos fazer lá na aba Ações pós build e na seção 'Git publisher', marcando a opção Push Only if Builds Succeeds.
+
+Push automático
+
+Além disso vamos configurar para que um merge de resultado seja feito no branch de integração, no nosso caso o MASTER, de forma automática quando o build tiver sido feito com sucesso.
+
+Merge automático
+
+Agora que o Jenkis está configurado para fazer um push para o nosso repositório é necessário cadastrarmos as credenciais. Até então isso não foi necessário pois ele não alterava nada no repositório apenas baixava o fonte. Para isso devemos ir na configuração do repositório para adicionar credenciais:
+
+Criando credencial
+
+Agora basta dizermos o usuário e senha lá do Github:
+
+Informando usuário e senha
+
+Depois de adicionar não podemos esquecer de setar essa credencial:
+
+Setando a credencial no Job
+
+Feito tudo isso, basta salvarmos e acionarmos uma construção. Acompanhando o build pelo console podemos notar que o Jenkins está olhando por todos os branches.
+
+Saída do console
+
+E o merging está sendo feito também:
+
+Saída do console
+
+Além disso os testes também estão sendo executados:
+
+Saída do console
+
+E também está subindo o Tomcat para executar os testes de integração:
+
+Saída do console
+
+Em mais alguns instantes ele vai publicar os dados do Sonar:
+
+Saída do console
+
+Além disso envia os dados para o push no Github:
+
+Push console
+
+E faz o deploy para o Tomcat:
+
+Publicação console
+
+Pronto! A primeira coisa que podemos testar é se o nosso deploy carregou as alterações que fizemos no index.xhtml. Se você não lembra, a gente tinha adicionar um outputText via branch filtro-por-valor. Vamos testar se tudo foi feito corretamente acessando http://localhost:8080/argentum-web e verificando aquela mensagem:
+
+Vendo a alteração no index.xhtml
+
+Podemos verificar inclusive que a nossa alteração via branch filtro-por-valor foi efetivamente integrada ao MASTER:
+
+Alteração no master
+
+Exatamente o que queríamos! Um commit feito em uma branch diferente da MASTER foi integrado com toda a segurança de compilação e testes do nosso build.
+
+
+
+*******************************************************************
+
+Para iniciar, crie um novo branch no repositório que você fez o Fork a partir do repositório Github do projeto argentum-web https://github.com/alura-cursos/argentum-web e faça alguma alteração no código-fonte.
+
+Agora, vamos fazer as configurações do nosso Job.
+
+Na página inicial do Jenkins, clique no Job argentum-web e em Configurar.
+
+Vá até a seção Gerenciamento de código fonte.
+
+Altere o campo Branch para deixá-lo em branco.
+
+Em Repositories, clique em Avançado... e informe o nome do repositório: origin.
+
+Em Additional Behaviours clique na caixa de seleção Adicionar e escolha a opção Merge before e preencha os campos com as seguintes informações:
+
+Name of repository: origin Branch to merge to: master
+
+Vá até a seção Ações de pós-build e, na caixa de seleção Adicionar ações de pós-build, escolha a opção Git Publisher. Marque os checkboxes Push Only if Build Succeeds e Merge Results.
+
+Antes de finalizar, vamos configurar nossas credenciais para que o Jenkins possa escrever no repositório Github.
+
+Volte até a seção de configurações de Gerenciamento de código fonte e na opção Credentials clique em Add -> Jenkins, preencha seu usuário e senha do Github e clique em Add, escolha o usuário que você acabou de criar na caixa de seleção de Credentials.
+
+Clique em Salvar e então em Construir agora, verifique se a construção finalizou com sucesso e se o merge foi realizado.
