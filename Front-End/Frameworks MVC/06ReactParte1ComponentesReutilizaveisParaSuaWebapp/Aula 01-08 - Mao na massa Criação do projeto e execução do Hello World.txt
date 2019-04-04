@@ -1,0 +1,28 @@
+Passos para a instalação do Node
+Acesse https://nodejs.org/en/
+Clique no botão de dowload para a versão 6.X do Node.
+Você também pode acessar o menu downloads, em cima da página e escolher uma opção específica.
+Siga os passos do instalador
+Também existe uma explicação no curso de Node => https://cursos.alura.com.br/course/node-js/section/1/task/8
+Instalação do create-react-app
+Escolha uma pasta de sua preferência e crie, dentro dela, uma outra pasta chamada projetos-javascript
+Execute o comando npm install create-react-app@0.5.0, caso esteja no mac ou linux. Está usando windows? Leia a próxima opção.
+No windows, depois de instalado local, o create-react-app apresentou um erro na hora da criação do projeto. Então, para evitar dores de cabeça, instale ele global na sua máquina com o comando npm install -g create-react-app@0.5.0 .
+Observação importante
+Caso você opte por instalar uma versão mais nova do create-react-app e, consequentemente uma versão mais nova do react, pode ser que apareça uma mensagem de warning no seu projeto.
+
+Warning: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.
+Warning: RouterContext: React.createClass is deprecated and will be removed in version 16. Use plain JavaScript classes instead. If you're not yet ready to migrate, create-react-class is available on npm as a drop-in replacement.
+Fique tranquilo, essa mensagem está dentro do react e não atrapalha o seu desenvolvimento.
+
+Criação do nosso projeto e execução do Hello World
+De dentro da pasta projetos-javascript, execute o comando ./node_modules/.bin/create-react-app cdc-admin
+Está no Windows e tentou instalar local? Então, para criar o projeto, execute assim: node node_modules/.bin/create-react-app cdc-admin
+Está no Windows e instalou global? Então, para criar o projeto, execute assim: create-react-app cdc-admin
+Acesse a pasta do projeto que acabou de ser criado, o cdc-admin, e execute o comando npm start
+Abra seu navegador e acesse o endereço http://localhost:3000
+Download do jar para rodarmos a api localmente
+Você pode fazer o download do arquivo seguindo o link http://bit.ly/jar-api-curso-react . Lembrando apenas que vamos usá-lo um pouco mais para frente, quando formos implementar a listagem dinâmica.
+
+Código da API que vai ser consumida pela nossa aplicação
+O código de Back-end da API que vai ser consumida pela aplicação está disponível em https://github.com/alberto-alura/cdcadmin-api.
