@@ -1,0 +1,48 @@
+O Sonar é uma ferramenta de visualização de dados para facilitar a análise dos dados referentes a qualidade do nosso código. Ele não tem objetivo de analisar o código fonte, assim como fizemos com PMD, por exemplo. Ele só usa os insumos gerados por outros plugins e ferramentas.
+
+Há uma outra aplicação criada pela mesma equipe do Sonar chamada SonarQube Scanner (http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner). Neste endereço, podemos quais são as maneiras de adicionar informações no Sonar. Aliás, há uma delas que nos interessa, que é a integração do Sonar com o Jenkins.
+
+Voltando ao Jenkins, na opção "Gerenciar Jenkins", há a opção "Gerenciar Plugins". Nela, podemos clicar em "Plugin ins disponíveis" e filtrar pelo nome Sonar. Selecionaremos a opção SonarQube Plugin. Depois de selecionando, o Jenkins baixará o plugin para nós.
+
+Com o plugin instalado, vamos para a opção "Gerenciar Jenkins -> Configurar sistema". Nela encontraremos a configuração do Sonar em "SonarQube installations". Clicando no botão add SonarQube, ele já adiciona a URL padrão do Sonar, mas ainda assim precisamos dar um nome para essa configuração. Usaremos "SonarQube". Além do que fizemos, precisamos marcar a checkbox "Enable injection of SonarQube server configuration...".
+
+Baixando o SonarQube Scanner pelo Jenkins
+Agora, precisamos dizer para o Jenkins o local do Sonar Scanner, o aplicativo que enviará os dados para o Sonar. Para isso, vamos na configuração do Jenkins na opção de configuração de ferramentas. Nele, há a opção do Sonar Scanner. Quando clicarmos em "Adicionar SonarQube Scanner", precisamos dizer o nome (podemos escolher qualquer um) e precisamos apontar para o local do nosso sistema de arquivos onde ele está. Só que dessa vez, vamos deixar o Jenkins instalar automaticamente para nós, uma vez que a checkbox desse procedimento já vem marcado como padrão. Depois de alguns instantes o SonarQube Scanner será totalmente baixado.
+
+Configurando mais uma vez nosso Job
+Na configuração do nosso Job, em "Ambiente de Build", vamos marcar a opção "Preparar SonarQube Scanner environment". Além disso, precisamos garantir o envio das informações par ao SonarQube Scanner. Para isso, em "goals", vamos adicionar o plugin de Maven "Sonar":
+
+
+***************************************************
+
+Configurando o Plugin do SonarQube no Jenkins
+Vá até a página principal do Jenkins e clique em Gerenciar Jenkins, depois clique em Gerenciar plugins.
+
+Selecione a aba Disponíveis e no campo Filtrar, digite: sonar. Marque o checkbox ao lado da opção SonarQube Plugin e, então, clique em Instalar sem reiniciar.
+
+Quando a instalação finalizar, volte em Gerenciar Jenkins e agora clique em Configurar o sistema.
+
+Navegue até as configurações do Sonar e, na seção SonarQube servers marque o checkbox Environment variables.
+
+Clique em Add SonarQube e preencha os campos com os seguintes valores:
+
+Name: SonarQube Server URL: http://localhost:9000
+
+Vá mais uma vez em Gerenciar Jenkins, agora escolha a opção Global Tool Configuration e navegue até as configurações SonarQube Scanner, clique em Adicionar SonarQube Scanner e preencha com os seguintes dados:
+
+Name: SonarQube Scanner Instalar automaticamente: marque esse checkbox
+
+Agora clique em Salvar.
+
+Configurando o Job para enviar as análises para o Sonar
+Volte para a página principal do Jenkins e clique no Job argentum-web e depois em Configurar.
+
+Vá até as opções de Ambiente de build e marque o checkbox Prepare SonarQube Scanner environment.
+
+Por fim, nas configurações de Build, altere o campo Goals para executar o plugin do Sonar durante a construção:
+
+Goals: clean verify sonar:sonar -Ptestes-integracao -Dphantomjs.binary.path=$PHANTOMJS_DIR/bin/phantomjs
+
+Clique em Salvar e em Construir agora.
+
+Ao final da execução do Job, acesse a URL http://localhost:9000 e navegue a vontade nas métricas do projeto.
