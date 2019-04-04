@@ -1,0 +1,5 @@
+No projeto argentum-web já temos um teste funcional implementado, então não precisamos implementar cada passo, só demonstrá-lo no código já pronto. O teste é o br.com.caelum.argentum.bean.FiltraNegociacoesIT, que fica dentro de src/test/java/.
+
+A classe nada mais é do que um teste JUnit. O passo 1 é feito através de uma anotação do JUnit @RunWith(Arquillian.class), ou seja, "rode com o Arquillian". Arquillian é um framework que utilizamos para subir servidores quando queremos executar um teste, justamente o que queremos. Ele sobe o Tomcat porque é o que nós utilizamos para fazer o deploy da nossa aplicação. Você pode saber mais em http://arquillian.org/.
+
+O passo 2 é feito no método createWar, que é anotado com @Deployment. Essa anotação @Deployment é do Arquillian, e ela procura na classe de teste qual é o método que retorna o artefato que ela poderá fazer deploy.
