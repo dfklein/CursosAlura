@@ -1,3 +1,16 @@
+Deixe o servidor rodando
+Lembre sempre de deixar o seu servidor no ar, para que cada mudança já seja analisada e para que você possa ir analisando o resultado. Entre na pasta do projeto e, a partir do terminal, digite o comando npm start.
+
+Realizando o download do pure.css
+Primeiro passo é fazer o download do projeto base do pure. Acesse o link http://purecss.io/start/ e clique no link "download Pure".
+Agora precisamos fazer o download do css do template. Basta acessar o endereço http://purecss.io/layouts/side-menu/download .
+Trazendo o css para o nosso projeto
+Crie uma pasta chamada css, dentro do diretório src do nosso projeto.
+Faça a extração do zip do projeto base do pure.css e copie o arquivo pure-min.css para a pasta do css.
+Faça a extração do zip do projeto do template do pure.css. Dentro da pasta do template, existe o arquivo side-menu.css em css/layouts. Copie esse arquivo para a pasta css do nosso projeto.
+Alteração o arquivo App.js para aplicar o layout
+Abra o arquivo App.js e altere o conteúdo dele. O resultado deve ser o que segue abaixo:
+
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
@@ -78,3 +91,7 @@ class App extends Component {
 }
 
 export default App;
+Caso você não queira escrever todo o código, você pode simplesmente copiar do endereço https://raw.githubusercontent.com/asouza/projeto-react-alura/d9d00c295949d4187771c766d46160d4d511b0af/src/App.js.
+
+Download do projeto pronto para continuar
+Caso você não queira ir implementando as modificações, você pode baixar o zip do projeto com o código necessário para avançar no curso. Acesse o endereço https://github.com/asouza/projeto-react-alura/releases/tag/aula_2 e baixe o zip. Depois de extrair o zip, entre na pasta e execute o comando npm install. Você vai precisar fazer isso para todos os stages.
