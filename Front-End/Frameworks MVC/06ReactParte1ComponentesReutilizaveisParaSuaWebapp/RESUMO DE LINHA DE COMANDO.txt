@@ -1,0 +1,14 @@
+Resumo de comandos utilizados ao longo do projeto
+
+1 - Instalação do node
+
+2 - CREATE REACT APP: npm install -g create-react-app
+
+3 - CRIAR A APLICAÇÃO: create-react-app {NOME DA APLICAÇÃO}
+
+* 4 - INICIAR O SERVIDOR NODE COM APLICAÇÃO: npm start
+
+* 5 - JQUERY (utilizado para chamadas ajax): npm install jquery --save
+
+
+* = executar na pasta do projeto criado
