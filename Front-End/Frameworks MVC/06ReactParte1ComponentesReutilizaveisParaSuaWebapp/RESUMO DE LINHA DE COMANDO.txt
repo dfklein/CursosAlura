@@ -10,5 +10,6 @@ Resumo de comandos utilizados ao longo do projeto
 
 * 5 - JQUERY (utilizado para chamadas ajax): npm install jquery --save
 
+* 6 - PUBSUB (disparador de eventos) npm install pubsub-js
 
 * = executar na pasta do projeto criado
