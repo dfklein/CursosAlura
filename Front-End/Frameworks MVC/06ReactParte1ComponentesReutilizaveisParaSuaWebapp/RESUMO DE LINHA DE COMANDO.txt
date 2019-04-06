@@ -10,6 +10,12 @@ Resumo de comandos utilizados ao longo do projeto
 
 * 5 - JQUERY (utilizado para chamadas ajax): npm install jquery --save
 
-* 6 - PUBSUB (disparador de eventos) npm install pubsub-js
+* 6 - PUBSUB (disparador de eventos) npm install pubsub-js --save
+
+* 7 - REACT_ROUTER (api de roteamento) npm install --save react-router@3
+	OBS> o @3 força a instalação da versão 3 do router. Isto foi feito neste projeto porque as versões mais atuais do router utilizam uma outra implementação. Veja o arquivo da Aula 06-08 para mais detalhes
+
+
+----------> Nós sempre passamos o argumento --save, para que ele altere o package.json e no fim do build do projeto, ele gere o pacote de instalação, o @x serve para especificar uma versão do pacote. 
 
 * = executar na pasta do projeto criado

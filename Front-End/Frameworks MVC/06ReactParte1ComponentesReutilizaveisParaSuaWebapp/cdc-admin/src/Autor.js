@@ -42,6 +42,10 @@ class FormularioAutor extends Component {
                 { nome: this.state.nome, email: this.state.email, senha: this.state.senha }
             ),
             success: function (novaListagem) {
+                // O PubSub é uma biblioteca de disparo/escuta de eventos. Aqui você está disparando
+                // um evento de nome 'atualiza-lista-autores' que carrega um objeto que será passado
+                // como parâmetro para os métodos que tiverem se registrado como listeners deste
+                // evento (ver componentDidMount() da classe AutorBox).
                 PubSub.publish('atualiza-lista-autores', novaListagem);
                 this.setState({ nome: '', email: '', senha: '' });
             }.bind(this),
@@ -70,9 +74,15 @@ class FormularioAutor extends Component {
 
     render() {
         return (
+            
             <div className="pure-form pure-form-aligned">
                 <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="post">
                     <InputCustomizado id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome} label="Nome" />
+                    {/*  
+                        Quando você está utilizando um componente dentro de outro (um filho dentro de um pai) o filho
+                        herdará uma variável chamada props (this.props) que conterá todos os atributos passados aqui
+                        Exemplo: this.props.id, this.props.onChange, etc...
+                    */}
                     <InputCustomizado id="email" type="email" name="email" value={this.state.email} onChange={this.setEmail} label="Email" />
                     <InputCustomizado id="senha" type="password" name="senha" value={this.state.senha} onChange={this.setSenha} label="Senha" />
                     <div className="pure-control-group">
@@ -145,7 +155,8 @@ export default class AutorBox extends Component {
 
         // O PubSub é uma biblioteca de disparo/escuta de eventos. O método subscribe aqui
         // regristra a escuta para um evento de nome atualiza-lista-autores e executa uma
-        // função quando o mesmo é ouvido.
+        // função quando o mesmo é ouvido. A função recebe como segundo argumento um objeto
+        // que foi atachado a quem disparou o evento (que no nosso exemplo é a lista de autores)
         PubSub.subscribe('atualiza-lista-autores', function (topico, novaLista) {
             this.setState({ lista: novaLista });
         }.bind(this));
@@ -155,9 +166,13 @@ export default class AutorBox extends Component {
     render() {
         return (
             <div>
-                <FormularioAutor />
-                <TabelaAutores lista={this.state.lista} />
-
+                <div className="header">
+                    <h1>Cadastro de autores</h1>
+                </div>
+                <div className="content" id="content">
+                    <FormularioAutor />
+                    <TabelaAutores lista={this.state.lista} />
+                </div>
             </div>
         );
     }
