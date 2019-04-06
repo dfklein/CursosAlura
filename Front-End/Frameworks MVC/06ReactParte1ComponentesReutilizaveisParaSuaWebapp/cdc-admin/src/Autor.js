@@ -24,9 +24,15 @@ class FormularioAutor extends Component {
         // dentro do método declarado (por default, as funções que você declara dentro da sua classe, 
         // não usaram o bound() e não estão associadas com o this do objeto.)
         this.enviaForm = this.enviaForm.bind(this);
-        this.setNome = this.setNome.bind(this);
-        this.setEmail = this.setEmail.bind(this);
-        this.setSenha = this.setSenha.bind(this);
+        
+        // Com a alteração do método de bind para algo genérico, o código abaixo foi removido. O
+        // bind do this ainda é necessário mas ele é feito agora diretamente no atributo onChange
+        // dos inputs customizados (diretamente no html). Além de passar o this como argumento 
+        // deverá passar o nome do atributo no JSON (já que o novo método "salvaAlteracao" recebe
+        // os dois argumentos)
+        // this.setNome = this.setNome.bind(this);
+        // this.setEmail = this.setEmail.bind(this);
+        // this.setSenha = this.setSenha.bind(this);
     }
 
     enviaForm(evento) {
@@ -60,31 +66,44 @@ class FormularioAutor extends Component {
         });
     }
 
-    setNome(evento) {
-        this.setState({ nome: evento.target.value });
+    salvaAlteracao(nomeInput, evento) {
+        var campoSendoAlterado = [];
+        campoSendoAlterado[nomeInput] = evento.target.value;
+        this.setState(campoSendoAlterado);
+        // this.setState({nomeInput:evento.target.value});
     }
 
-    setEmail(evento) {
-        this.setState({ email: evento.target.value });
-    }
+    // Na última aula ele substituiu todos os setters (que antes eram passados como onChange para
+    // o input) pelo que está escrito acima deste comentário, como forma de torná-lo genérico.
 
-    setSenha(evento) {
-        this.setState({ senha: evento.target.value });
-    }
+    // setNome(evento) {
+    //     // Este evento é passado pelo onChange do InputCustomizado.
+    //     this.setState({ nome: evento.target.value });
+    // }
+
+    // setEmail(evento) {
+    //     this.setState({ email: evento.target.value });
+    // }
+
+    // setSenha(evento) {
+    //     this.setState({ senha: evento.target.value });
+    // }
 
     render() {
         return (
             
             <div className="pure-form pure-form-aligned">
                 <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="post">
-                    <InputCustomizado id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome} label="Nome" />
+                    {/* A linha abaixo está comentada apenas para mostrar a maneira anterior de fazer o bind do this. */}
+                    {/* <InputCustomizado id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome} label="Nome" /> */}
+                    <InputCustomizado id="nome" type="text" name="nome" value={this.state.nome} onChange={this.salvaAlteracao.bind(this,'nome')} label="Nome" />
                     {/*  
                         Quando você está utilizando um componente dentro de outro (um filho dentro de um pai) o filho
                         herdará uma variável chamada props (this.props) que conterá todos os atributos passados aqui
                         Exemplo: this.props.id, this.props.onChange, etc...
                     */}
-                    <InputCustomizado id="email" type="email" name="email" value={this.state.email} onChange={this.setEmail} label="Email" />
-                    <InputCustomizado id="senha" type="password" name="senha" value={this.state.senha} onChange={this.setSenha} label="Senha" />
+                    <InputCustomizado id="email" type="email" name="email" value={this.state.email} onChange={this.salvaAlteracao.bind(this,'email')} label="Email" />
+                    <InputCustomizado id="senha" type="password" name="senha" value={this.state.senha} onChange={this.salvaAlteracao.bind(this,'senha')} label="Senha" />
                     <div className="pure-control-group">
                         <label></label>
                         <button type="submit" className="pure-button pure-button-primary">Gravar</button>

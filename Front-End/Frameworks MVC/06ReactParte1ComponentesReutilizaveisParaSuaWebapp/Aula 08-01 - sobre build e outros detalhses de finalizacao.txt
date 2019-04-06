@@ -1,0 +1,65 @@
+Para finalizarmos, veremos como rodar o seu projeto. Da forma como foi feita, o projeto rodou localmente, mas e quando for para a produção? Para isto, o create-react-app possui uma tarefa pronta de build para gerarmos o pacote final.
+
+build
+
+No Terminal, dentro da pasta raiz do projeto, usaremos o seguinte comando:
+
+Alura-Azul:cdc-admin alura$ npm run build
+Com isso, o creact react app ira gerar o pacote final.
+
+npm run build
+
+Ele nos informa que está gerando um built otimizado para a produção. Ele gerou uma nova pasta chamada build que contem o projeto.
+
+pasta build
+
+Ele criou o index.html que deixou apenas o código, sem os espaços.
+
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.icon?fd73a6eb"><title>React App</title><link href="/static/css/main.2a1ac942.css" rel="stylesheet"></head><body><div id="root"></div><script type="text/javascript" src="/static/js/main.6ba6c4e9.js"></script></body></html>
+Observe que ele importou um arquivo JS da pasta static, que possui o nosso projeto.
+
+projeto
+
+Ele gera também um arquivo sourcemap para o caso da sua aplicação deixar de funcionar, ele nos permite identificar o erro no console do navegador.
+
+source map
+
+Ele também gerou o CSS do projeto:
+
+css do projeto
+
+Este é o build do nosso projeto.
+
+Ele nos sugere que se formos rodar o projeto direto de um servidor que já vem pronto no Node.js, podemos instalar o pushstate-server.
+
+pushstate-server
+
+Após o servidor estar instalado, basta rodar apontando para a pasta que tem o pacote final. Nós estamos usando um servidor escrito em JS que roda no Node.js, mas você tem a liberdade de rodar onde quiser.
+
+Como eu instalei global, ele estará dentro do node_modules.
+
+Alura-Azul:cdc-admin alura$ ./node_modules/.bin/pushstate-server build
+Vamos indicar para ele subir na porta 9000.
+
+versão final do projeto
+
+Usamos a versão final do projeto, que poderíamos empacotar e enviar para a produção utilizando o React.
+
+Chegamos a final da nossa jornada, ficou para o fim a parte de empacotarmos o projeto, espero que você tenha gostado do curso.
+
+Mostramos o suficiente para você já começar a fazer as suas aplicações com o React. Ainda existe muito mais para aprender sobre o que pode ser feito com o React. Mas você já possui ferramentas para seguir desbravando este mundo.
+
+Uma última dica: existe um projeto chamado React Toolbox.
+
+React Toolbox
+Como o React possui diversos componentes, o React ToolBox que possui diversos componentes que levam o estilo de design proposto pelo Google, o Material Design.
+
+Toolbox components
+
+Você encontrará diversos componente que seguem este design.
+
+Outro site que disponibiliza componentes é o JS Coach.
+
+Coach React
+
+Pesquise, experimente com um próximo projeto, use o React se for necessário.

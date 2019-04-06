@@ -1,0 +1,9 @@
+Preparando para produção
+Agora que já estamos no fim do nosso projeto, vamos gerar o necessário para colocá-lo em produção. Isso não poderia ser mais fácil! Entre na pasta do projeto e rode o seguinte comando: npm run build. Lembre que essa é uma tarefa que já vem pronta, oferecida pelo create-react-app.
+
+Uma pasta, chamada build, foi gerada. Você pode usar a infraestrutura que quiser para rodar essa versão do projeto. O conteúdo da pasta é formado por HTML, CSS e Javascript, qualquer servidor é capaz de servir isso. Aqui no treinamento, vamos usar um projeto chamado pushstate-server, que é escrito em Javascript e roda sobre o Node.js. Siga os seguintes passos:
+
+De dentro da pasta do seu projeto, rode npm install pushstate-server
+Agora, execute o seguinte comando: ./node_modules/.bin/pushstate-server build
+Caso você esteja no windows, vai rodar o comando da seguinte maneira: node node_modules/.bin/pushstate-server build
+Por default ele vai ter subido o servidor local na porta 9000, basta que você acesse http://localhost:9000
