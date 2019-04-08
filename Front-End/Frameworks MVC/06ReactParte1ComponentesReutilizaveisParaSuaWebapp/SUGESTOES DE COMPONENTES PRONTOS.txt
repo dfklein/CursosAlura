@@ -1,0 +1,12 @@
+Uma última dica: existe um projeto chamado React Toolbox.
+
+React Toolbox
+Como o React possui diversos componentes, o React ToolBox que possui diversos componentes que levam o estilo de design proposto pelo Google, o Material Design.
+
+Toolbox components
+
+Você encontrará diversos componente que seguem este design.
+
+Outro site que disponibiliza componentes é o JS Coach.
+
+Coach React
