@@ -1,0 +1,46 @@
+Para entendermos um pouco melhor o funcionamento inicial da nossa aplicação, vamos abri-la em um editor de código. Você pode utilizar um de sua preferência. Estaremos usando o Atom.
+
+Ao abrir o projeto no editor de código, teremos os arquivos index.android.js e o index.ios.js, onde está localizado o código inicial da nossa aplicação, nosso hello world.
+
+Você pode não ter esses dois arquivos por estar usando uma versão mais recente, para saber mais, acesse o informativo: Para saber mais: Novo template de projeto.
+
+Se olharmos bem de perto, veremos que é um código bem próximo do que já estamos acostumados a escrever usando o React. Temos uma classe que estende a classe Component do React e uma implementação do método render usando a sintaxe do JSX.
+
+export default class App extends Component<{}> {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit index.ios.js
+        </Text>
+        <Text style={styles.instructions}>
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D ro shake for dev menu
+        </Text>
+      </View>
+    );
+  }
+}
+A maior diferença é que no React nossos componentes tinham uma sintaxe mais próxima do HTML, já no React Native temos uma sintaxe que aparenta ser mais próxima dos componentes nativos da plataforma como Text e View. Isso na nomenclatura dos componentes, claro.
+
+Outras APIs que eram mais incomuns nas aplicações React para Web são a de StyleSheet que pode ser vista logo abaixo do código anterior e também a de AppRegistry. Cada uma das APIs receberam sua devida atenção posteriormente, mas vamos observar um pouco mais de perto a linha de código que usa a AppRegistry.
+
+AppRegistry.registerComponent('InstaluraMobile', () => InstaluraMobile);
+Note que ela é o ponto de entrada para o nosso código JavaScript. Usando o método registerComponent estamos nomeando o componente e logo em seguida, usamos uma arrow function que retorna uma referência para a classe do componente principal da nossa app.
+
+Entendido isso, vamos alterar um pouco o código da aplicação pra ver o que acontece. Vamos trocar a mensagem de Welcome to React Native! para Bem-vindo ao curso de React Native da Alura e salvar. Note que o app automaticamente atualiza a tela inicial com a mudança proposta:
+
+app troca mensagem de boas-vindas
+
+Isso por que o recurso de Live Reload encontra-se ativo em nossas configurações para o IOs.
+
+Note que há algumas instruções na tela inicial da nossa aplicação. Essas são para recursos em tempo de desenvolvimento como o atalho CMD + R para recarregar a aplicação no IOs ou apertar a tecla R duas vezes no Android. Podemos acessar o menu de desenvolvimento dentro da app utilizando os atalhos CMD + D para o IOs e CTRL + M no Android.
+
+menu de desenvolvimento no ios
+
+Note que temos algumas opções das quais já vinhamos falando, a primeira delas é o próprio reload e também temos o live reload que atualiza a aplicação assim que detectada alterações pelo packager. No Android, essa opção vem desabilitada por padrão, mas deixaremos habilitada para que tenhamos nossas alterações sendo aplicadas sempre que salvarmos os arquivos.
+
+Para o decorrer do curso, estaremos usando apenas o emulador IOs para não termos dois emuladores executando simultaneamente em nossa máquina, mas sempre que fizer sentido, faremos comparações exibindo as duas aplicações.

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="android/app/src/main/java"/>
+	<classpathentry kind="src" path="node_modules/react-native/ReactAndroid/src/androidTest/java"/>
+	<classpathentry kind="src" path="node_modules/react-native/ReactAndroid/src/main/java"/>
+	<classpathentry kind="src" path="node_modules/react-native/ReactAndroid/src/test/java"/>
+	<classpathentry kind="src" path="node_modules/react-native/template/android/app/src/main/java"/>
+	<classpathentry kind="lib" path="android/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="node_modules/react-native/android/com/facebook/react/react-native/0.59.3/react-native-0.59.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="node_modules/react-native/android/com/facebook/react/react-native/0.59.3/react-native-0.59.3-sources.jar"/>
+	<classpathentry kind="lib" path="node_modules/react-native/ReactAndroid/src/main/third-party/java/buck-android-support/buck-android-support.jar"/>
+	<classpathentry kind="lib" path="node_modules/react-native/template/android/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

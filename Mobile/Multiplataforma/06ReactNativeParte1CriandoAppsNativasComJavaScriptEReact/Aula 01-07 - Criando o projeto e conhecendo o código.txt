@@ -1,0 +1,74 @@
+Com o ambiente devidamente configurado, precisamos criar nosso projeto para iniciar o desenvolvimento com React Native. Pra facilitar bastante o trabalho contamos com a ferramenta de CLI do React Native para montar nossa estrutura de pastas e baixar todas as dependências necessárias pra iniciar uma app.
+
+react-native init InstaluraMobile
+A ferramenta já se encarrega de instalar os módulos como o React e o próprio React Native e disponibilizar um template básico de app, algo como um 'Hello World' com a ferramenta.
+
+Com o template básico do projeto gerado, podemos então rodar a app para conhecer o ambiente e testar seu funcionamento.
+
+cd InstaluraMobile/
+react-native start
+Com o comando react-native start subimos um servidor de desenvolvimento que já se encarrega de tomar controle de todos nossos arquivos na pasta do projeto. O serviço do React Packager escaneia nossos arquivos, usando o file watching do Watchman, para já prover deploy automático do projeto a partir de alterações nos arquivos no file system, por exemplo.
+
+Uma vez que nosso servidor já está disponível, podemos rodar nossa app.
+
+react-native run-ios
+react-native run-android
+Aqui pedimos o comando run, seguido da plataforma onde desejamos que o deploy seja efetuado. Assim a ferramenta vai gerar todo nosso código JS necessário para funcionamento da app, fazer o parse dos componentes React Native para componentes nativos da própria plataforma mobile alvo (ios/android), gerar o pacote com o conteúdo da app pra deploy nos simuladores (.app/.apk) e instalar nos dispositivos.
+
+Um detalhe importante é que no ambiente IOS, o simulador é iniciado junto com o comando run-ios. Já na plataforma Android, precisamos iniciar manualmente nosso Android Virtual Device antes de rodarmos o comando run-android.
+
+... Minutos depois ...
+
+nossa app já estará disponível rodando no simulador da plataforma escolhida. =)
+
+Agora que já temos nosso "Hello World" rodando vamos fazer nossa primeira alteração no código. Abra a pasta do projeto no seu editor favorito para desenvolvimento com JavaScript (Atom, VS Code, Sublime, são algumas opções), e abra o arquivo index js específico da plataforma onde está rodando sua app. Veja que o conteúdo é simples:
+
+...
+
+export default class InstaluraMobile extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit index.ios.js
+        </Text>
+        <Text style={styles.instructions}>
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
+        </Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  ...
+});
+
+AppRegistry.registerComponent('InstaluraMobile', () => InstaluraMobile);
+Temos apenas um componente React simples sendo registrado na API do React Native pra iniciar a renderização do nosso aplicativo.
+
+Vamos então escrever uma mensagem diferente pra perceber as mudanças na aplicação:
+
+export default class InstaluraMobile extends Component {
+  render() {
+    return (
+       ...
+        <Text style={styles.welcome}>
+          Bem-vindo ao curso de React Native da Alura!
+        </Text>
+    ...
+Volte para o simulador e para aplicar suas alterações salvas no arquivo use o atalho de Reload da app: pressione CMD + R no IOS, ou pressione duas vezes a tecla R no Android.
+
+Perceba que as alterações já foram aplicadas na app sem necessidade de recompilação e um novo processo completo de deploy. =)
+
+Para facilitar ainda mais o processo você pode utilizar o recurso de Live Reload do React Native, ativando-o no menu de desenvolvimento. Assim a cada alteração salva nos seus arquivos a aplicação já vai reagir aplicando as mudanças.
