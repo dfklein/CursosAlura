@@ -8,13 +8,8 @@
 
 import React, { Component } from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
-    View,
-    Image,
     Dimensions,
-    ScrollView,
     FlatList
 } from 'react-native';
 import Post from './src/components/Post';
