@@ -5,7 +5,9 @@ import {
     View,
     Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    TextInput,
+    FlatList
 } from 'react-native';
 
 const width = Dimensions.get('screen').width;
@@ -28,6 +30,7 @@ export default class Post extends Component<Props> {
             }
         }
     }
+
 
     carregaIcone(likeada) {
         return likeada
@@ -79,13 +82,37 @@ export default class Post extends Component<Props> {
 
     exibeComentarios(comentarios) {
         return (
-            comentarios.map(comentario =>
-                <View style={styles.comentario} key={comentario.id}>
-                    <Text style={styles.tituloComentario}>{comentario.login}</Text>
-                    <Text>{comentario.texto}</Text>
-                </View>
-            )
+            <View>
+                <FlatList
+                    data={comentarios}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) =>
+                        <View style={styles.comentario}>
+                            <Text style={styles.tituloComentario}>{item.login}</Text>
+                            <Text>{item.texto}</Text>
+                        </View>
+                    } />
+            </View>
         );
+    }
+
+    adicionaComentario() {
+        if (this.state.valorComentario === '')
+            return;
+
+        const novaLista = [...this.state.foto.comentarios, {
+            id: this.state.valorComentario,
+            login: 'meuUsuario',
+            texto: this.state.valorComentario,
+        }];
+
+        const fotoAtualizada = {
+            ...this.state.foto,
+            comentarios: novaLista,
+        }
+
+        this.setState({ foto: fotoAtualizada, valorComentario: '' });
+        this.inputComentario.clear();
     }
 
     render() {
@@ -115,6 +142,19 @@ export default class Post extends Component<Props> {
                     {this.exibeLikes(foto.likers)}
                     {this.exibeLegenda(foto)}
                     {this.exibeComentarios(foto.comentarios)}
+                </View>
+                <View style={styles.novoComentario}>
+                    <TextInput style={styles.input}
+                        placeholder="Adicione um comentário..."
+                        ref={input => this.inputComentario = input}
+                        onChangeText={texto => this.setState({ valorComentario: texto })}
+                         /> 
+                         {/* adicionar autoFocus={true} para ter foco ao renderizar a tela */}
+
+                    <TouchableOpacity onPress={this.adicionaComentario.bind(this)}>
+                        <Image style={styles.icone}
+                            source={require('../../resources/img/send.png')} />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -157,5 +197,22 @@ const styles = StyleSheet.create({
     tituloComentario: {
         fontWeight: 'bold',
         marginRight: 5
+    },
+    input: {
+        // O flex 1 indica que você quer que este componente ocupe a totalidade do seu espaço.
+        // No caso utilizado para ocupar toda a largura da tela.
+        // Ele automaticamente respeita a presença de algum outro elemento ao seu lado (o botão de enviar, neste caso)
+        flex: 1,
+        height: 40
+    },
+    novoComentario: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
+    icone: {
+        width: 30,
+        height: 30
     }
 });
