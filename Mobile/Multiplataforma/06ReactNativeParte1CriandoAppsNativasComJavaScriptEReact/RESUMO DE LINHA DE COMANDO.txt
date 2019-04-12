@@ -1,0 +1,14 @@
+1) Criar o projeto: react-native init {NOME_DO_PROJETO}
+
+2) Rodar o projeto (disponibiliza o projeto em uma porta para a build nativa): react-native start
+
+3) Rodar o projeto no emulador: react-native run-android
+
+
+SOBRE O EMULADOR DE DEVICE DO ANDROID STUDIO:
+
+Ele utiliza a porta 8080 para alguma referência do próprio aparelho emulado. Para contornar este problema o simulador disponibiliza um IP fictício (10.0.2.2l) para você ver aplicações locais que sobem na porta 8080, como no exemplo:
+
+	- http://10.0.2.2l:8080/api/public/fotos/rafael
+	
+OBS: Se você estivesse desenvolvendo para IOS você não teria este problema com o simulador dele.
