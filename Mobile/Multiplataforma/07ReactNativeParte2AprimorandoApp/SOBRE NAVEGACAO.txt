@@ -1,0 +1,11 @@
+Você não seguiu o curso, mas a documentação do React-Native:
+
+http://facebook.github.io/react-native/docs/navigation.html
+
+E depois o getting started da api de navegação:
+
+https://reactnavigation.org/docs/en/getting-started.html
+
+Por fim você se baseou neste post também:
+
+https://blog.rocketseat.com.br/react-navigation-react-native/

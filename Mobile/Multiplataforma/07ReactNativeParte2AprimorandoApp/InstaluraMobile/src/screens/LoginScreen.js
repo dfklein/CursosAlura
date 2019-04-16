@@ -13,6 +13,10 @@ const width = Dimensions.get('screen').width;
 
 export default class Login extends Component {
 
+    static navigationOptions = {
+        title: 'Login',
+    };
+
     constructor() {
         super();
         this.state = {
@@ -57,7 +61,8 @@ export default class Login extends Component {
                 // Para remover um objeto: AsyncStorage.removeItem('usuario');
                 // CUIDADO com o AsyncStorage.clear() : A função clear apaga todas as entradas de todos os clientes, apps, libs, etc. 
             })
-            .then(token => console.warn('Token: ' + AsyncStorage.getItem('token')))
+            // .then(token => console.warn('Token: ' + AsyncStorage.getItem('token')))
+            .then(this.gotoNextActivity)
             .catch(e => this.setState({ mensagem: e.message }))
 
 
@@ -75,6 +80,11 @@ export default class Login extends Component {
     //         }
     //     });
     // }
+
+    gotoNextActivity = () => {
+        this.props.navigation.navigate('Feed');
+
+    }
 
     render() {
         return (
@@ -102,6 +112,7 @@ export default class Login extends Component {
                 <Text style={styles.mensagem}>
                     {this.state.mensagem}
                 </Text>
+                {/* <Button onPress={this.gotoNextActivity} title='Open Second Activity' /> */}
             </View>
         );
 
