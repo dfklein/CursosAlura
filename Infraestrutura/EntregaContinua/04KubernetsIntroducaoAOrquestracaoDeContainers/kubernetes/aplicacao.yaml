@@ -1,0 +1,10 @@
+apiVersion: v1 # Versão da api do kubernetes. O valor é sempre mais ou menos padrão, não se preocupe em mudar.
+kind: Pod
+metadata:
+ name: aplicacao # atribui um nome ao pod
+ spec:
+  containers: # São os dados do container que você utilizará neste pod. Um pod pode ter mais de um container, mas isso não é recomendado para evitar o acoplamento.
+    - name: container-aplicacao-loja
+      image: rafanercessian/aplicacao-loja:v1
+      ports:
+       - containerPort: 80

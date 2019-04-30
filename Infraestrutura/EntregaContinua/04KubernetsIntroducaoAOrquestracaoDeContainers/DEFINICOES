@@ -1,0 +1,19 @@
+1 - KUBERNETES
+
+  Que o Kubernetes é uma plataforma de gerenciamento de aplicações baseadas em containers, com o objetivo de que esses containers sigam um determinado estado de configuração
+
+  O Kubernetes é uma plataforma open-source desenvolvida pela Google com o objetivo de gerenciar containers que formam uma aplicação, automatizando assim processos de implementação, monitoramento e escalonamento.
+
+  o Kubernetes é utilizado para criar um cluster
+  um cluster é um ou mais container para disponibilizar que forma uma aplicação
+  dentro do cluster as maquinas se conhecem mas existe um "gerente"
+  o gerente se chama master (mestre em português)
+  no cluster também tem um ou mais node para rodar a aplicação
+  o Kubernetes tem o seu foco em aplicações que rodam usando containers
+  o Kubernetes é uma plataforma open-source desenvolvida pela Google
+
+2 - PODS
+
+  Os pods são os menores objetos que podem ser criados e gerenciados pelo Kubernetes, tais objetos são utilizados para abstrair os containers que formam uma aplicação.
+
+  Um pod possui um tamanho maior do que um container, podendo assim abstrair um ou mais containers.

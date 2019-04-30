@@ -1,11 +1,58 @@
-Você não seguiu o curso, mas a documentação do React-Native:
+O curso usava uma versão inferior do react-native e por conta disso ele utilizava uma implementação
+que não fazia o menor sentido para você.
 
-http://facebook.github.io/react-native/docs/navigation.html
+Em um tópico do fórum você encontrou esta discussão abaixo:
 
-E depois o getting started da api de navegação:
+-----------------------------------------
 
-https://reactnavigation.org/docs/en/getting-started.html
+Eu tenho um exemplo que talvez ajude.
 
-Por fim você se baseou neste post também:
+No terminal, criar o projeto com react-native init (nome_do_projeto)
 
-https://blog.rocketseat.com.br/react-navigation-react-native/
+Entrar dentro da pasta do projeto e executar:
+
+npm install react-navigation
+npm install react-native-gesture-handler
+react-native link
+Aqui tem um exemplo de um arquivo de rotas:
+
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { colors } from './styles';
+import Main from './pages/main';
+import Favorites from './pages/favorites';
+
+const Rotas = createStackNavigator(
+  {
+    Main: { screen: Main },
+    Favorites: { screen: Favorites },
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: colors.primaryDark,
+      },
+      headerTintColor: colors.white,
+      headerBackTitle: null,
+    },
+  },
+);
+
+const Routes = createAppContainer(Rotas);
+
+export default Routes;
+Aqui tem um exemplo da index (desconsidere a parte do redux)
+
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
+import Routes from './routes';
+
+const App = () => (
+  <Provider store={store}>
+    <Routes />
+  </Provider>
+);
+export default App;
+Aqui tem um tutorial recente:
+
+https://reactnativecode.com/getting-started-with-react-navigation/

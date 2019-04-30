@@ -1,0 +1,21 @@
+para subir os containers do arquivo docker-composer.yaml utilize o comando:
+
+  - docker-compose up -d
+
+Criação do banco de dados:
+
+  - docker exec -it [nome do container com o banco de dados] sh
+  - Acessar o mysql com o usuário root e executar o script:
+      - mysql -u root
+      - use loja
+      - create table produtos (id integer auto_increment primary key, nome varchar(255), preco decimal(10,2));
+        alter table produtos add column usado boolean default false;
+        alter table produtos add column descricao varchar(255);
+        create table categorias (id integer auto_increment primary key, nome varchar(255));
+        insert into categorias (nome) values ("Futebol"), ("Volei"), ("Tenis");
+        alter table produtos add column categoria_id integer;
+        update produtos set categoria_id = 1;
+
+Você realizou o curso utilizando Windows 10 Pro e com isso você possuía o Hyper-V e o Docker for Windows. Para subir os kubernetes você seguiu o seguinte tutorial:
+
+  - https://learnk8s.io/blog/installing-docker-and-kubernetes-on-windows/
