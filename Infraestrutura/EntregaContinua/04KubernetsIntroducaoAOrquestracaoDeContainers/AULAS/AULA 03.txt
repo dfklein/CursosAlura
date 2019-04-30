@@ -1,0 +1,9 @@
+- o comando kubectl describe pods mostra vários detalhes sobre os pods como o endereço IP
+- o comando minikube dashboard mostra o dashboard do nosso cluster
+- podemos escalar o quantidade de Pods facilmente pelo dashboard
+- cada Pod possui o seu IP
+- o objeto Service abstrai o acesso ao Deployment
+- o Service funciona como um balanceador de carga entre os Pods
+- o Service é definido separadamente
+- o Service seleciona os Pods através do elemento selector
+- para descobrir o IP e a porta do serviço podemos utilizar o comando: minikube service service-aplicacao --url

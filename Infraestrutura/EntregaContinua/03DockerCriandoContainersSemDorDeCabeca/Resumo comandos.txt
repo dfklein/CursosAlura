@@ -77,7 +77,7 @@
 - docker network create --driver bridge local
 	Cria uma rede docker (no caso utilizando o driver bridge e uma rede com nome de "local")
 
-	- docker exec -it {NOME DO CONTAINER} {COMANDO}
+- docker exec -it {NOME DO CONTAINER} {COMANDO}
 	executa o {COMANDO} a partir do diretório raiz do container
 
 - docker exec -it {NOME DO CONTAINER} sh
