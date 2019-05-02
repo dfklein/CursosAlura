@@ -1,0 +1,6 @@
+para trabalhar com volumes no Kubernetes existe o objeto StatefulSet
+um StatefulSet também usa um Pod por baixo dos panos.
+um StatefulSet pode definir um volume (e existem vários tipos)
+um StatfulSet garante, através do volume, que os dados serão mantidos mesmo se o POD for reiniciado
+para o volume funcionar devemos configurar a permissão (PersistentVolumeClaim)
+as configuração da permissão fica dentro de um arquivo separado junto à definição do tamanho do volume (storage)
