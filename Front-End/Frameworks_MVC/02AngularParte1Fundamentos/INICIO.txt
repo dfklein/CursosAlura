@@ -1,0 +1,13 @@
+1 - Instalar o node.
+
+2 - Instalar o Angular: npm install --save -g @angular/cli
+
+	*** OBS: No curso ele forçaa utilização da versão 6.0.7 do Angular (adicionar @6.0.7 ao final do comando, mas não finciona com qualquer versão do node - dá pau na hora de subir o servidor do projeto - no curso a versão do node era 10.3.0)
+	*** OBS: -g instala o módulo do node para ser utilizado globalmente, e não apenas no seu projeto.
+	
+3 - Inicializar um projeto: ng new {NOME_DO_PROJETO}
+
+4 - Inicializar o servidor com a aplicação Angular: ng serve --open
+
+	*** OBS: normalmente disponível em localhost:4200
+	
