@@ -1,0 +1,54 @@
+********************** BUSCAS **********************
+
+O select é chamado find:
+
+    - db.alunos.find() // Vai trazer todos.
+    - db.alunos.find({...}) // Traz os que possuem os parâmetros passados (você monta um objeto javascript com um exemplo desses parâmetros)
+
+        Tome como exemplo o seguinte insert:
+
+            db.alunos.insert({
+                "nome": "Felipe",
+                "data_nascimento": new Date(1994, 02, 26),
+                "curso": {
+                    "nome": "Sistemas de informação"
+                },
+                "notas": [10.0, 9.0, 4.5],
+                "habilidades": [{
+                    "nome": "inglês",
+                    "nível": "avançado"
+                }, {
+                    "nome": "taekwondo",
+                    "nível": "básico"
+                }]
+            })
+
+        1) busca pelo nome:
+            db.alunos.find({"nome" : "Felipe"})
+        2) busca por habilidade:
+            db.alunos.find({"habilidades.nome" : "inglês"})
+        3) Operador AND
+            db.alunos.find({"nome" : "Felipe", "habilidades.nome" : "inglês"})
+        4) Operador OR
+            db.alunos.find({
+                $or : [
+                    {"habilidades.nome" : "programação"},
+                    {"curso.nome" : "Sistemas de informação"}
+                ]
+            }).pretty()
+        5) Operador IN
+            db.alunos.find({
+                "curso.nome" : {
+                    $in : ["Sistema de informação", "Engenharia Química"]
+                }
+            })
+
+
+    - db.alunos.find({...}).pretty() // Traz resultados identados
+
+    - db.alunos.find({ notas : { $gt : 5 } }) //traz registros com notas maior que 5
+
+    - db.alunos.find().sort({"nome" : 1}) // ordena pelo atributo nome em ordem crescente
+    - db.alunos.find().sort({"nome" : -1}) // ordena pelo atributo nome em ordem decrescente
+
+    - db.alunos.find().sort({"nome" : 1}).limit(3) // traz apenas os 3 primeiros resultados

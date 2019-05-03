@@ -1,0 +1,73 @@
+RESUMO
+
+(documentação em: https://docs.mongodb.com/v3.0/)
+
+A ideia do MongoDB se baseia em coleções, não em tabelas com estruturas rígidas. Você inicia então uma coleção:
+
+    - db.createCollection("alunos")
+
+Ao inserir um registro você deve passar a estrutura do que você está inserindo na coleção em um objeto javascript, muito similar ao JSON:
+
+    - db.alunos.insert(
+        {
+            "nome" : "Denis",
+            "notas": [10.0, 9.0, 4.5],
+            "data_nascimento" : new Date(1979, 07, 05)
+        }
+    )
+
+OBS: ele insere um campo de identificação automaticamente, de nome _id
+
+
+Remover um registro:
+    - db.alunos.remove({...})
+
+
+Atualizar um registro:
+    - db.alunos.update(param1Where, param2ValorUpdate) ou db.alunos.update(param1Where, param2ValorUpdate, paramConfig):
+
+    Note que se você fizer algo como db.alunos.update({"nome":"João"}, {"nome":"Pedro"}) você vai substituir todos s objetos com o atributo nome=João por um objeto cujo único atrito é o nome e seu valor é Pedro.
+    Para fazer algo com efeito similar ao update do SQL você usaria o $set:
+        db.alunos.update(
+            {"curso.nome" : "Sistema de informação"},
+            {
+                $set : {
+                    "curso.nome" : "Sistemas de informação"
+                }
+            }
+        )
+    Este update é feito apenas no primeiro resultado encontrado na condição equivalente do where. Para você tualizar uma coleção inteira você usaria o terceiro argumento:
+        db.alunos.update(
+            {"curso.nome" : "Sistemas de informação"},
+            {
+                $set :
+                   {"curso.nome" : "Sistemas de Informação"}
+                },
+              {
+                multi : true
+              }
+        )
+    Suponha que você queira apenas adicionar um valor a um atributo existente que representa uma coleção (como o notas" do insert utilizado como exemplo). Você pode utilizar o $push para apenas adicionar um valor sem ter ue reescrever o array inteiro:
+
+        db.alunos.update(
+            {"_id" : ObjectId("56cb0002b6d75ec12f75d3b5")},
+            {
+                $push : {
+                    notas : 8.5
+                }
+            }
+        )
+
+    Se no exemplo acima você desejasse adicionar uma coleção de valores à coleção em questão você poderia fazer:
+
+        db.alunos.update(
+            {"_id" : ObejctId("56cb0139b6d75ec12f75d3b6")},
+            {
+                $push : {
+                    "notas" : {$each : [8.5, 3] }
+                }
+            }
+        )
+
+
+    PARA IMPORTAR JSON: mongoimport -c alunos --jsonArray < alunos.json

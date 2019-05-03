@@ -1,0 +1,20 @@
+SQL Server 2017:
+	docker run --name sqlserver2017 -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Teste123" -e "MSSQL_PID=Developer" --cap-add SYS_PTRACE -p 1433:1433 -v -d microsoft/mssql-server-linux:2017-latest
+
+Postgres:
+	docker run -it --name postgres2 -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres
+
+MongoDB:
+	docker run --name mongodb -it -p 27017:27017 -p 28017:28017 -e MONGO_INITDB_ROOT_USERNAME="root" -e MONGO_INITDB_ROOT_PASSWORD="mongodb" mongo
+
+	Executar o shell do container os seguintes comandos:
+		- use admin
+		- db.auth("root", "mongodb")
+		- Se quiser criar um usuário:
+			db.createUser(
+			  {
+				user: "mongodb",
+				pwd: "mongodb",
+				roles: [ { role: "mongodb", db: "admin" } ]
+			  }
+			)
