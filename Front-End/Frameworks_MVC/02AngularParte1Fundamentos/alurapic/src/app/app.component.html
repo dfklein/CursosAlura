@@ -1,5 +1,8 @@
 <!-- Para fazer o bind de alguma propriedade dentro de uma tag, você a envolve em {{ }} -->
 <h1>{{ title }} </h1>
 
-<!-- No entanto, se o bind for em uma propriedade de uma tag html, você a envolve em []  e ela irá buscar o atributo na sua classe -->
-<img [src]=url [alt]=titlepic />
+<!-- No entanto, se o bind for em um atributo de uma tag html, você a envolve em []  e ela irá buscar o atributo na sua classe -->
+<!-- Transformado em componente
+<img class="img-thumbnail" style="height:700px;" [src]=url [alt]=titlepic />
+-->
+<app-photo></app-photo>
