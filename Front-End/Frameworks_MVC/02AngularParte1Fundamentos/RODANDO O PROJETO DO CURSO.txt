@@ -1,0 +1,15 @@
+O curso fornece uma api em node que pode ser obtida em:
+
+	- https://s3.amazonaws.com/caelum-online-public/865-angular/api.zip
+	
+Para instalá-la você deve rodar uma única vez na sua máquia o install para baixar as dependências:
+
+	*** IMPORTANTE: no package.json deste projeto você alterou a versão do SQLite para: "sqlite3": "^4.0.1"
+	*** Dava erro no comando de instalação sem essa alteração
+	- npm install
+
+	
+Depois apenas execute:
+	
+	- npm start
+
