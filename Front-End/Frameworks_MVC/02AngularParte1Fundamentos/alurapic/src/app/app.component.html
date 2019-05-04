@@ -5,4 +5,17 @@
 <!-- Transformado em componente
 <img class="img-thumbnail" style="height:700px;" [src]=url [alt]=titlepic />
 -->
-<app-photo></app-photo>
+
+<!-- Modelo sem atributos que podem ser passados dinamicamente -->
+<!-- <app-photo></app-photo> -->
+
+<!-- Para passar valores dinamicamente como atributos você deve ter as variáveis dentro do componente criado e explicitar que seus valores podem ser recebidos via atributo da tag/selector do componente criado -->
+<!-- Ver as variáveis url e description em photo.component.html -->
+<!-- Note que você não está passando os atributos sem o databinding (fora de []) porque não é uma expressão que referencia uma variável da classe ts -->
+
+<app-photo
+    *ngFor="let photo of photos"
+    [url]="photo.url" 
+    [description]="photo.description">
+</app-photo>
+
