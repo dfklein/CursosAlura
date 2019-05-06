@@ -1,20 +1,28 @@
 1 - Instalar o node.
 
+
 2 - Instalar o Angular: npm install --save -g @angular/cli
 
 	*** OBS: No curso ele forçaa utilização da versão 6.0.7 do Angular (adicionar @6.0.7 ao final do comando, mas não finciona com qualquer versão do node - dá pau na hora de subir o servidor do projeto - no curso a versão do node era 10.3.0)
 	*** OBS: -g instala o módulo do node para ser utilizado globalmente, e não apenas no seu projeto.
 	
+
 3 - Inicializar um projeto: ng new {NOME_DO_PROJETO}
+
 
 4 - Inicializar o servidor com a aplicação Angular: ng serve --open
 
 	*** OBS: normalmente disponível em localhost:4200
 	*** --open abre um browser automaticamente qd o servidor sobe.
 	
+
 5 - Instalar bootstrap:
 	1. Parar o angularcli (o servidor)
 	2. npm install bootstrap (na pasta do projeto) - (no curso: npm install bootstrap@4.1.1)
 		- quando você faz isso ele adiciona a dependência do bootstrap automaticamente o package.json, que é o equivalente ao pom.xml
 	3. Abrir o arquivo angular.json, a tag "build", "styles" e adicionar o caminho do bootstrap
+	
+
+6 - Gerando componentes vi linha de comando:
+	- ng generate component {CAMINHO}/{CAMINHO}/{NOME_COMPONENTE_SEM_EXTENSÕES}
 	

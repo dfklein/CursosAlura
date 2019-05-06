@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 import { PhotoComponent } from './photo/photo.component';
+import { PhotoListComponent } from './photo-list/photo-list.component';
 
 @NgModule({
-    // Ao criar um módulo você precisa declarar quais componentes fazem parte deste módulo.
-    // O declarations possui um caráter privado. Isso quer dizer que a princípio todos os componentes
-    // declarados aqui dentro são acessíveis apenas entre si
+    // Ao criar um mÃ³dulo vocÃª precisa declarar quais componentes fazem parte deste mÃ³dulo.
+    // O declarations possui um carÃ¡ter privado. Isso quer dizer que a princÃ­pio todos os componentes
+    // declarados aqui dentro sÃ£o acessÃ­veis apenas entre si
     declarations: [
-        PhotoComponent
+        PhotoComponent,
+        PhotoListComponent
     ],
-    // Se o módulo que você está fazendo for utilizado por outros módulos, você precisa exportá-lo
-    // Ao exportar o componente ele passa a ser visível de fora deste módulo  
-    exports: [
-        PhotoComponent
-    ]
+    // Se o mÃ³dulo que vocÃª estÃ¡ fazendo for utilizado por outros mÃ³dulos, vocÃª precisa exportÃ¡-lo
+    // Ao exportar o componente ele passa a ser visÃ­vel de fora deste mÃ³dulo  
+    
+    imports: [ HttpClientModule ]
 })
 export class PhotosModule {
 

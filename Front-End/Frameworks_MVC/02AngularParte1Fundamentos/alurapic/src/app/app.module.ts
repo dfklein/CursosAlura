@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { PhotosModule } from './photos/photos.module';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     // Aqui você importa componentes
@@ -13,8 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
     // Aqui você importa outros módulos
   imports: [
     BrowserModule,
-    PhotosModule, // Veja em photos.module.ts como é criado um módulo que contém um conjunto de componentes e que pode ser exportado para ser aceito em outro módulo 
-    HttpClientModule
+    PhotosModule // Veja em photos.module.ts como é criado um módulo que contém um conjunto de componentes e que pode ser exportado para ser aceito em outro módulo 
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
