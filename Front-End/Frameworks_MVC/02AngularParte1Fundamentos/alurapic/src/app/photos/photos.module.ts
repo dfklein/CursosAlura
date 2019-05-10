@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { PhotoComponent } from './photo/photo.component';
 import { PhotoListComponent } from './photo-list/photo-list.component';
+import { PhotoFormComponent } from './photo-form/photo-form.component';
 
 @NgModule({
     // Ao criar um módulo você precisa declarar quais componentes fazem parte deste módulo.
@@ -10,12 +12,21 @@ import { PhotoListComponent } from './photo-list/photo-list.component';
     // declarados aqui dentro são acessíveis apenas entre si
     declarations: [
         PhotoComponent,
-        PhotoListComponent
+        PhotoListComponent,
+        PhotoFormComponent
     ],
     // Se o módulo que você está fazendo for utilizado por outros módulos, você precisa exportá-lo
     // Ao exportar o componente ele passa a ser visível de fora deste módulo  
+    exports: [
+        PhotoFormComponent
+    ],
     
-    imports: [ HttpClientModule ]
+    imports: [ 
+        HttpClientModule,
+        CommonModule    // O common module é a parte do BrowserModule que contém as diretivas básicas do Angular,
+                        // como o ngFor, ngIf, etc...
+                        // É uma boa prática sempre importá-lo nos seus módulos.
+    ]
 })
 export class PhotosModule {
 

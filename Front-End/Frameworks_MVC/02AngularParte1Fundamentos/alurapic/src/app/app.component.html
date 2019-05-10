@@ -1,2 +1,20 @@
-<app-photo-list></app-photo-list>
-
+<!-- 
+    Lembre-se que para acessar qualquer componente assim diretamente, o módulo que o utiliza precisa
+    conter o módulo onde ele é declarado. OU SEJA: precisa ser declarado e exportado. Ver:
+        - app.module.ts (tem PhotosModule nos imports)
+        - photos-module.ts (tem PhotoForm nas declarations e nos exports)
+   
+    <app-photo-form></app-photo-form>
+-->
+<!--
+    No entanto você está trabalhando com rotas. Elas são acessadas com o componente <router-outlet>
+    que é uma diretiva de RouterModule (importado e exportado em app.routing.module.ts)
+    
+    Lembre que para usar suas diretivas ele precisa ser importado pelo módulo que o utilizará.
+    Para isso você poderia:
+        1 - importá-lo em app.module.ts
+        2 - Exportá-lo no seu app.routing.module.ts, o que significa que todos que importarem
+        app.routing.module.ts estarão importando automaticamente as diretivas do RouterModule
+        (* solução adotada)
+-->
+    <router-outlet></router-outlet>

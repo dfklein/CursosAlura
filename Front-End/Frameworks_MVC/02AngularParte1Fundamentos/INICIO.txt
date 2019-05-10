@@ -26,3 +26,12 @@
 6 - Gerando componentes vi linha de comando:
 	- ng generate component {CAMINHO}/{CAMINHO}/{NOME_COMPONENTE_SEM_EXTENSÕES}
 	
+	OBS: prefira fazer isso a partir da pasta raiz do projeto
+	
+7 - Gerando módulos a partir de linha de comando
+	- ng generate module {NOME_DO_MODULO}
+	(Você gerou o módulo 'errors' durante o curso)
+	
+	OBS: Ele cria o módulo corretamente e se você criar os componentes em linha de comando ele configura tudo.
+		PORÉM ele não declara seu módulo em outros módulos, então você precisa fazer isto automaticamente (em app.component.ts, por exemplo)
+	OBS: prefira fazer isso a partir da pasta raiz do projeto
