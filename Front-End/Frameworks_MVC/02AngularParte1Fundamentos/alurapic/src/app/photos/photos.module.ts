@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { PhotoComponent } from './photo/photo.component';
 import { PhotoListComponent } from './photo-list/photo-list.component';
 import { PhotoFormComponent } from './photo-form/photo-form.component';
+import { PhotosComponent } from './photo-list/photos/photos.component';
 
 @NgModule({
     // Ao criar um módulo você precisa declarar quais componentes fazem parte deste módulo.
@@ -13,7 +14,8 @@ import { PhotoFormComponent } from './photo-form/photo-form.component';
     declarations: [
         PhotoComponent,
         PhotoListComponent,
-        PhotoFormComponent
+        PhotoFormComponent,
+        PhotosComponent
     ],
     // Se o módulo que você está fazendo for utilizado por outros módulos, você precisa exportá-lo
     // Ao exportar o componente ele passa a ser visível de fora deste módulo  
