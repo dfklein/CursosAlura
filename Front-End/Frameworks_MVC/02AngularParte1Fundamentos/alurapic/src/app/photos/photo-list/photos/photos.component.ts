@@ -25,8 +25,9 @@ export class PhotosComponent implements OnChanges { // o OnChanges é uma interf
     // testa se as alterações informadas são na propriedade photos deste componente.
     // O que ele faz aqui é atachar uma propriedade com o nome da propriedade alterada ao objeto 
     // changes
+    
     if(changes.photos) { 
-      this.groupColumns(this.photos);
+      this.rows = this.groupColumns(this.photos);
     }
   }
 
