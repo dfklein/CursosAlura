@@ -35,3 +35,6 @@
 	OBS: Ele cria o módulo corretamente e se você criar os componentes em linha de comando ele configura tudo.
 		PORÉM ele não declara seu módulo em outros módulos, então você precisa fazer isto automaticamente (em app.component.ts, por exemplo)
 	OBS: prefira fazer isso a partir da pasta raiz do projeto
+	
+8 - Instalação do Font-Awesome
+	- npm install font-awesome@4.7.0
