@@ -1,6 +1,21 @@
 <!-- Para fazer o bind de alguma propriedade dentro de uma tag, você a envolve em {{ }} -->
 <h1>{{ title }} </h1>
 
+<div class="text-center mt-3 mb-3">
+    <form>
+        <input
+            class="rounded"
+            type="search"
+            placeholder="search..."
+            autofocus
+            (keyup)="debounce.next($event.target.value)"> <!-- No angular não existe o prefixo "on" para eventos de javascript (é a sintaxe de javascript puro) -->
+                                                    <!-- Os ( ) são o event data binding. Você está especificando que o evento faz uma referência a atributos da classe deste componente. -->
+                                                    <!-- Ou seja: ele executa na sua classe uma lógica na execução deste evento. -->
+                                                    <!-- A diferença de ( ) para [ ] é q o primeiro envia algo do template para o componente, enquanto o segundo puxa algo do componente para o template. -->
+                                                    <!-- O $event é o objeto event do javascript, porém com propriedades próprias do Angular. -->
+    </form>
+</div>
+
 <!-- No entanto, se o bind for em um atributo de uma tag html, você a envolve em []  e ela irá buscar o atributo na sua classe -->
 <!-- Transformado em componente
 <img class="img-thumbnail" style="height:700px;" [src]=url [alt]=titlepic />
@@ -21,4 +36,11 @@
 -->
 
 <!-- O código acima foi originalmente criado aqui, mas passado para o componente photos -->
-<app-photos [photos]="photos"></app-photos>
+<!-- Veja como foi feita a criação do pipe em filter-by-description.pipe.ts -->
+<!-- ATENÇÃO: Não se esqueça que um pipe também precisa ser declarado em um modulo. -->
+<app-photos [photos]="photos | filterByDescription: filter"></app-photos>
+
+<app-load-button 
+    (click)="load()"
+    [hasMore]="hasMore">
+</app-load-button>

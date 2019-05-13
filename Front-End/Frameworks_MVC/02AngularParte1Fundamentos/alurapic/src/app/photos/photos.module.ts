@@ -6,6 +6,8 @@ import { PhotoComponent } from './photo/photo.component';
 import { PhotoListComponent } from './photo-list/photo-list.component';
 import { PhotoFormComponent } from './photo-form/photo-form.component';
 import { PhotosComponent } from './photo-list/photos/photos.component';
+import { FilterByDescription } from './photo-list/filter-by-description.pipe';
+import { LoadButtonComponent } from './photo-list/load-button/load-button.component';
 
 @NgModule({
     // Ao criar um módulo você precisa declarar quais componentes fazem parte deste módulo.
@@ -15,7 +17,9 @@ import { PhotosComponent } from './photo-list/photos/photos.component';
         PhotoComponent,
         PhotoListComponent,
         PhotoFormComponent,
-        PhotosComponent
+        PhotosComponent,
+        FilterByDescription,
+        LoadButtonComponent
     ],
     // Se o módulo que você está fazendo for utilizado por outros módulos, você precisa exportá-lo
     // Ao exportar o componente ele passa a ser visível de fora deste módulo  

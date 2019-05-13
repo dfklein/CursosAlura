@@ -22,9 +22,9 @@ export class PhotosComponent implements OnChanges { // o OnChanges é uma interf
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges) { // atenção para não tipar como SimpleChange, no singular
-    // testa se as alterações informadas são na propriedade photos deste componente.
-    // O que ele faz aqui é atachar uma propriedade com o nome da propriedade alterada ao objeto 
-    // changes
+                                        // testa se as alterações informadas são na propriedade photos deste componente.
+                                        // O que ele faz aqui é atachar uma propriedade com o nome da propriedade alterada ao objeto 
+                                        // changes
     
     if(changes.photos) { 
       this.rows = this.groupColumns(this.photos);

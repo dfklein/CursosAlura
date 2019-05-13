@@ -1,3 +1,6 @@
+<p class="text-center text-muted" *ngIf="!rows.length"><!-- testa se o array de fotos é zero -->
+    Sorry, no photos
+</p>
 <ol class="list-unstyled">
     <li *ngFor="let cols of rows" class="row">
         <div *ngFor="let photo of cols" class="col-4">

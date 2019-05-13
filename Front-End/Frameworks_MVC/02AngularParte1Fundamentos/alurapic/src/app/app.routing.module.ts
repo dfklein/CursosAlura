@@ -5,15 +5,24 @@ import { Routes, RouterModule } from '@angular/router';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 
 // ***************************** ATENÇÃO *****************************
 // para seu roteamento funcionar você precisa importar este módulo no seu app.module.ts
 // ***************************** ******* *****************************
 const routes: Routes = [
-    { path:'user/:userName', component: PhotoListComponent },   // ao usar o : na rota você está 
-                                                                // declarando aquilo como uma variável
-                                                                // Veja em photo-list-component.ts como
-                                                                // isto é usado.
+    { 
+        path:'user/:userName',  // ao usar o : na rota você está 
+                                // declarando aquilo como uma variável
+                                // Veja em photo-list-component.ts como
+                                // isto é usado.
+        component: PhotoListComponent,
+        resolve: {
+            photos:PhotoListResolver    // aqui você está dizendo a ele que ele deve aplicar à propriedade
+                                        // photos o resultado do método resolve de PhotoListResolver e, só
+                                        // depois disso, renderizar a página gerada.
+        }
+    },   
     { path:'p/add', component: PhotoFormComponent },
     // A seguir um exemplo de como referenciar rotas que não foram definidas
     { path:'**', component: NotFoundComponent }
