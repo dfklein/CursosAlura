@@ -38,3 +38,6 @@
 	
 8 - Instalação do Font-Awesome
 	- npm install font-awesome@4.7.0
+	
+9 - Gerando um serviço (parte 2 do curso):
+	- ng g s core/auth

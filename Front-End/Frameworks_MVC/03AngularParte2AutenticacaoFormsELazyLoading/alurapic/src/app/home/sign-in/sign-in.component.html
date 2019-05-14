@@ -1,0 +1,56 @@
+<h4 class="text-center">Login</h4>
+
+<!-- O FormGroup importado no componente traz algumas diretivas para trabalhar com formulário -->
+<!-- No seu componente você cria um objeto que representa seu formulário e contrói nele o seu modelo de dados. -->
+<!-- Na diretiva formGroup você indica qual o nome da variável de referência ao seu formulário. -->
+<form [formGroup]="loginForm" (submit)="login()" class="form mt-4">
+
+    <div class="form-group">
+        <!-- 
+            O formControlName é o atributo de FormGroup que liga uma propriedade a um formulário.
+            Note que você NÃO ESTÁ FAZENDO DATA BINDING (você passa a String, é um tipo de reflection)
+            São os nomes dos atributos do formulário que você criou na sua classe ts. 
+        -->
+        <!--
+            o #userNameInput é para você recuperar um elemento na sua classe. Procure por uma propriedade
+            de mesmo nome em sign-in-component.ts
+        -->
+        <input #userNameInput
+            formControlName="userName"
+            class="form-control" 
+            placeholder="user name" 
+            autofocus>
+
+        <!-- 
+            A interrogação em errors é uma maneira de checar se aquele objeto existe, para evitar
+            o equivalente a um NullPointer.
+         -->
+        <ap-vmessage 
+            *ngIf="loginForm.get('userName').errors?.required"
+            text="Password is required">
+        </ap-vmessage>
+        
+    </div>
+
+    <div class="form-group">
+        <input
+            formControlName="password"
+            type="password" 
+            class="form-control" 
+            placeholder="password">
+        <ap-vmessage 
+            *ngIf="loginForm.get('password').errors?.required"
+            text="Password is required">
+        </ap-vmessage>
+    </div>
+
+    <button 
+        [disabled]="loginForm.invalid"
+        type="submit" 
+        class="btn btn-primary btn-block">
+        login
+    </button>
+
+</form>
+
+<p>Not a user?<a>Register now</a></p>
