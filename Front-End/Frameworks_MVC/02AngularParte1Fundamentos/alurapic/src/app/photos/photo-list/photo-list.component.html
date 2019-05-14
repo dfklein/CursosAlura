@@ -1,22 +1,11 @@
 <!-- Para fazer o bind de alguma propriedade dentro de uma tag, você a envolve em {{ }} -->
 <h1>{{ title }} </h1>
 
-<div class="text-center mt-3 mb-3">
-    <form>
-        <!-- aria-hidden é para ignorar esta tag em leitores de acessibilidade -->
-        <i aria-hidden="true" class="fa fa-search mr-1"></i>
-        <input
-            class="rounded"
-            type="search"
-            placeholder="search..."
-            autofocus
-            (keyup)="debounce.next($event.target.value)"> <!-- No angular não existe o prefixo "on" para eventos de javascript (é a sintaxe de javascript puro) -->
-                                                    <!-- Os ( ) são o event data binding. Você está especificando que o evento faz uma referência a atributos da classe deste componente. -->
-                                                    <!-- Ou seja: ele executa na sua classe uma lógica na execução deste evento. -->
-                                                    <!-- A diferença de ( ) para [ ] é q o primeiro envia algo do template para o componente, enquanto o segundo puxa algo do componente para o template. -->
-                                                    <!-- O $event é o objeto event do javascript, porém com propriedades próprias do Angular. -->
-    </form>
-</div>
+<!-- O onTyping é um evento customizado. Ele foi utilizado para você passar propriedades
+de um componente filho (app-search) para seu componente pai (photo-list-component) -->
+<app-search
+    (onTyping)="filter = $event" [value]="filter">
+</app-search>
 
 <!-- No entanto, se o bind for em um atributo de uma tag html, você a envolve em []  e ela irá buscar o atributo na sua classe -->
 <!-- Transformado em componente

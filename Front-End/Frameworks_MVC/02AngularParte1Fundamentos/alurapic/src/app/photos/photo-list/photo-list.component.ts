@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 
 import { Photo } from '../photo/photo';
 import { PhotoService } from '../photo/photo.service';
@@ -11,7 +9,7 @@ import { PhotoService } from '../photo/photo.service';
   templateUrl: './photo-list.component.html',
   styleUrls: ['./photo-list.component.css']
 })
-export class PhotoListComponent implements OnInit, OnDestroy { // o OnInit é uma interface que te obriga a implementar o ngOnInit()
+export class PhotoListComponent implements OnInit { // o OnInit é uma interface que te obriga a implementar o ngOnInit()
 
   title = 'alurapic';
   // Note que no TypeScript para tipar uma variável a sintaxe é {variável:tipo}
@@ -20,10 +18,7 @@ export class PhotoListComponent implements OnInit, OnDestroy { // o OnInit é um
   hasMore: boolean = true;
   currentPage:number = 1;
   userName:string = '';
-  // O objeto Subject é um objeto observable que você se subscreve para escutar toda vez que seu valor é alterado.
-  // Você o utilizou para criar um filtro para que o keyup fosse aplicado à variável filter apenas a cada
-  // 0.300 segundos, deixando a aplicação mais leve durante a digitação do campo de busca.
-  debounce: Subject<string> = new Subject<string>();
+
   
   // Observe a implementação da camada de serviço feita em photo.service.ts
   constructor(
@@ -58,25 +53,14 @@ export class PhotoListComponent implements OnInit, OnDestroy { // o OnInit é um
       // Outra sintaxe possível.
       // this.photos = this.activateRoute.snapshot.data['photos'];
 
-      // Isto aqui é um truque para que o keyup do filtro seja aplicado apenas a cada 0.300 segundos, melhorando
-      // a performance da aplicação ao digitar a busca. Você passa um novo valor para este listener usando o
-      // método next (ver photo-list.component.html)
-      this.debounce
-        .pipe(debounceTime(300))
-        .subscribe(debounceFilter => this.filter = debounceFilter);
-
       this.userName = this.activateRoute.snapshot.params.userName;
-  }
-
-  // Coisas que você executa quando você sai desta view
-  ngOnDestroy(): void {
-    this.debounce.unsubscribe(); // para de alocar memória para o objeto Subject
   }
 
   load() {
     this.photoService
       .listFromUserNamePaginated(this.userName, ++this.currentPage)
       .subscribe(photosCarregar => {
+        this.filter = '';
         this.photos = this.photos.concat(photosCarregar); // isso é fazer um push de cada ítem da coleção retornada em photosCarregar 
         if(!photosCarregar.length) this.hasMore = false; // ou seja: se não vierem dados na resposta da requisição, hasMore é falso.
       });
