@@ -39,5 +39,10 @@
 8 - Instalação do Font-Awesome
 	- npm install font-awesome@4.7.0
 	
+************* COMANDOS USADOS NA PARTE 2 DO CURSO
+	
 9 - Gerando um serviço (parte 2 do curso):
 	- ng g s core/auth
+	
+10 - Instalando o JWT Decoder no projeto:
+	- npm install jwt-decode@2.2.0

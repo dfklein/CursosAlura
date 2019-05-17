@@ -6,11 +6,16 @@ import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { SignInComponent } from './home/sign-in/sign-in.component';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const routes: Routes = [
     { 
         path: '', // Isto equivale a localhost:4200/ 
         component: SignInComponent,
+        canActivate: [AuthGuard]    // isto aqui cria um filtro. Veja auth.guard.ts.
+                                    // foi usado para fazer o mecanismo que não deixa o usuário ir para o
+                                    // login caso já esteja logado.
+                                    // OBSERVAÇÃO: sempre que implementar isso, reinicie o Angular CLI
     },
     { 
         path: 'user/:userName', 
