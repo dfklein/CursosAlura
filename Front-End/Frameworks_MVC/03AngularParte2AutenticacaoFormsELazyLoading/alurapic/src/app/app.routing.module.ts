@@ -7,6 +7,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { SignInComponent } from './home/sign-in/sign-in.component';
 import { AuthGuard } from './core/auth/auth.guard';
+import { SignUpComponent } from './home/sign-up/sign-up.component';
 
 const routes: Routes = [
     { 
@@ -16,6 +17,11 @@ const routes: Routes = [
                                     // foi usado para fazer o mecanismo que não deixa o usuário ir para o
                                     // login caso já esteja logado.
                                     // OBSERVAÇÃO: sempre que implementar isso, reinicie o Angular CLI
+    },
+    { 
+        path: 'signup', // Isto equivale a localhost:4200/ 
+        component: SignUpComponent
+        
     },
     { 
         path: 'user/:userName', 
