@@ -1,0 +1,22 @@
+Vamos ver um pouco sobre os resultados do projeto, onde se colocam os artefatos gerados, se isso pode ser feito em um servidor qualquer, e alguns detalhes acerca do que é gerado ao fim do build e do deploy.
+
+Primeiramente, pausaremos o Angular CLI no terminal. Em seguida, utilizaremos o comando ng build --prod, para que o Angular se encarregue de aplicar várias técnicas de otimização para gerar o projeto, o arquivo .js, com menor tamanho possível. No terminal, teremos um relatório, dentre os quais está main, por exemplo, com 347KB, o qual ficará ainda menor se for zipado.
+
+Os arquivos com estilos globais ficam no styles, ou seja, o Bootstrap fica contido neste arquivo. E há um runtime, para que o Angular funcione. A pasta "alurapic" é a que deve ser colocada no servidor Apache, PHP, Java, e por aí vai. É importante termos em mente que, para fazer estas rotas da aplicação, o Angular utiliza o que chamamos de HTML5 mode, o histórico da API do navegador, para que seja possível trabalhar com URLs sem a necessidade do #.
+
+Caso você utilize Gmail, perceberá que as URLs possuem esta cerquilha entre barras, uma técnica datada. Antes do History API, se alterássemos a barra de endereços do navegador, a location inevitavelmente seria modificada, e o back end seria acessado, executando-se a requisição. Sabemos que isso não pode ser feito, e que esta mudança é apenas para efeito de rotas, para que o Angular detecte qual componente deve ser carregado.
+
+Uma vez que o hash não dispara o carregamento na mudança do location, no back end, o Angular o intercepta e extrai a informação, um processo bem comum. Entretanto, para não usarmos este símbolo, além do navegador necessitar de suporte à History API, o back end cujo Angular é hospedado precisa estar programado para que qualquer requisição feita para ele devolva index.html.
+
+Mas de que forma configuramos isso?
+Depende do servidor em uso. Vamos supor que não queiramos ou saibamos fazer esta configuração, ou que estejamos utilizando algum servidor que não permite tais alterações. Basta ativarmos as rotas com hashtags que a aplicação funcionará sem este tratamento especial.
+
+Para isso, no nosso arquivo de rotas (app.routing.module.ts), na parte de NgModule com RouterModule.forRoot(routes), passaremos um objeto JavaScript com a seguinte configuração:
+
+@NgModule({
+    imports: [
+        RouterModule.forRoot(routes, { useHash: true } )
+    ],
+    exports: [ RouterModule ]
+})
+Assim, quando a página principal da aplicação é carregada, o # é colocado automaticamente. Esta é a solução com maior compatibilidade em relação aos navegadores, inclusive com aqueles que não suportam History API. Porém, é importante frisar que o Angular realiza testes somente com as duas últimas versões de qualquer navegador do mercado. Sendo assim, se a restrição de navegador é impactante no projeto, talvez o Angular não seja o framework adequado para uso.

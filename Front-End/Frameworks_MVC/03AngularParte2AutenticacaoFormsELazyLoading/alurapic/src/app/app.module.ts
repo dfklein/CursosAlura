@@ -5,8 +5,9 @@ import { AppComponent } from './app.component';
 import { PhotosModule } from './photos/photos.module';
 import { AppRoutingModule } from './app.routing.module';
 import { ErrorsModule } from './errors/errors.module';
-import { HomeModule } from './home/home.module';
+
 import { CoreModule } from './core/core.module';
+import { HomeRoutingModule } from './home/home.routung.module';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,15 @@ import { CoreModule } from './core/core.module';
   imports: [
     BrowserModule,
     PhotosModule,
-    AppRoutingModule,
     ErrorsModule,
-    HomeModule,
-    CoreModule
+    // HomeModule,    // NÃO PODE DECLARAR UM MÓDULO QUE TERÁ LAZY LOADING AQUI.
+                      // Ele é chamado através de um tipo de reflection no app.routing.module.ts
+    CoreModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

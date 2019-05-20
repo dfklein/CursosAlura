@@ -27,7 +27,9 @@ export class SignInComponent implements OnInit {
                                 // Do segundo parâmetro em diante você está passando validadores.
             password: ['', Validators.required]
         });
-
+        
+        this.platformDetectorService.isPlatformBrowser() && 
+        this.userNameInput.nativeElement.focus();
        
     }
 
