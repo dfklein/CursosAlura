@@ -1,16 +1,40 @@
 <div class="container">
   <form [formGroup]="photoForm" class="row" (submit)="upload()">
     <div class="col-md-6 text-center">
-      <input 
-        formControlName="file" 
-        type="file" 
-        accept="image/*"
-        (change)="file = $event.target.files[0]"> <!-- Esta é a forma de obter a forma binária do arquivo. -->
-                                                  <!-- O [0] é para forçar a receber um único arquivo. -->
-      <ap-vmessage 
-        text="Please, select a photo" 
-        *ngIf="photoForm.get('file').errors?.required">
-      </ap-vmessage>
+      <div class="form-group" *ngIf="!preview; else previewImage"><!-- String vazia, nula ou undefined -->
+        <!-- immediateClick é uma diretiva feita aqui que clica um botão automaticamente -->
+        <button immediateClick type="button" 
+          (click)="fileInput.click()" 
+          class="btn btn-primary">
+            <i class="fa fa-image fa-4x align-middle"></i><!-- Este é o botão exibido. -->
+        </button>
+        <!-- 
+          Como o botão padrão do html é feio, você utiliza ele como hidden. 
+          A ação é feita pelo button acima através da variável de template fileInput, chamando
+          o seu evento click
+        -->
+        <input 
+          #fileInput
+          hidden
+          formControlName="file" 
+          type="file" 
+          accept="image/*"
+          (change)="handleFile($event.target.files[0])">  <!-- Esta é a forma de obter a forma binária do arquivo. -->
+                                                          <!-- O [0] é para forçar a receber um único arquivo. -->
+                                                          <!-- a princípio você associafa o evendo diretamente a um -->
+                                                          <!-- atributo chamado file (file = $event.target...) -->
+        <ap-vmessage 
+          text="Please, select a photo" 
+          *ngIf="photoForm.get('file').errors?.required">
+        </ap-vmessage>
+
+      </div>
+      <ng-template #previewImage>
+        <div class="text-center">
+          <ap-photo [url]="preview" title="Preview"></ap-photo>
+        </div>
+      </ng-template>
+
     </div>
 
     <div class="col-md-6">
