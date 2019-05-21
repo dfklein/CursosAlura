@@ -3,7 +3,12 @@ import { SignUpService } from './sign-up.service';
 import { AbstractControl } from '@angular/forms';
 import { debounceTime, switchMap, map, first } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+// Inicialmente você disponibilizou este serviço para toda a aplicação. O modularizá-la você
+// alterou quem disponibilizava esta injeção por ela ser utilizada apenas em um componente (sign-up.component.ts)
+// No componente você o declarou como providers (ver sign-up.component.ts)
+@Injectable(
+    // { providedIn: 'root' }
+)
 export class UserNotTakenValidatorService {
 
     constructor(private signUpService: SignUpService) {}

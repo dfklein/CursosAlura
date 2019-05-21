@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from './auth/request.interceptor';
 
 @NgModule({
     declarations: [
@@ -13,6 +15,14 @@ import { RouterModule } from '@angular/router';
     ],
     exports: [
         HeaderComponent
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true // significa que podem haver mais interceptadores na sua aplicação.
+
+        }
     ]
 })
 export class CoreModule {

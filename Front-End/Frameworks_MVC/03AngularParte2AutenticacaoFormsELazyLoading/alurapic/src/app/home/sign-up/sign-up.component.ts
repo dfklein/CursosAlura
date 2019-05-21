@@ -10,6 +10,10 @@ import { PlatformDetectorService } from 'src/app/core/platform-detector/platform
 @Component({
     templateUrl: './sign-up.component.html',
     // O selector não é obrigatório quando você não vai usar o componente fora da sua própria página (quando ele é a página raiz)
+    
+    // Ao delcarar o UserNotTakenValidatorService aqui você está dizendo que é este componente quem
+    // vai providenciar o serviço para injeção (ou seja, só ele pode injetar e usar o serviço).
+    providers: [ UserNotTakenValidatorService ] 
 })
 export class SignUpComponent implements OnInit {
     

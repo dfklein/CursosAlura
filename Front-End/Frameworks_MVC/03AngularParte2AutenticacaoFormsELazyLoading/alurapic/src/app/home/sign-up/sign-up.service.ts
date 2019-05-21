@@ -10,9 +10,12 @@ import { NewUser } from './new-user';
 
 const API_URL = "http://localhost:3000";
 
-@Injectable({
+// Inicialmente você disponibilizou este serviço para toda a aplicação. O modularizá-la você
+// alterou quem disponibilizava esta injeção por ela ser utilizada apenas em um módulo (home.module.ts)
+// Para tornar a sua injeção particular do home.module você a declarou lá como um dos providers.
+@Injectable( /*{
     providedIn: "root"
-})
+} */)
 export class SignUpService {
     constructor(private http: HttpClient) {}
 

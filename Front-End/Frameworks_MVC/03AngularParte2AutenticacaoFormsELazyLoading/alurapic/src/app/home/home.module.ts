@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routung.module';
+import { SignUpService } from './sign-up/sign-up.service';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,13 @@ import { HomeRoutingModule } from './home.routung.module';
         VmessageModule,
         RouterModule,
         HomeRoutingModule
+    ],
+    // Significa que se alguém precisar deste artefato disponível para injeção, ele estará disponível em
+    // home.module, sendo acessível por todos que fizerem parte deste módulo. Você adicionou isso na 
+    // implementação do lazy loading do home.module ao retirar o SignUpService do escopo 'root' (disponível
+    // para toda a aplicação).
+    providers: [
+        SignUpService
     ]
 })
 export class HomeModule{}
