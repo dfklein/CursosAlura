@@ -5,6 +5,8 @@ import { PhotoListModule } from './photo-list/photo-list.module';
 
 import { DarkenOnHoverModule } from '../shared/directives/darken-on-hover/darken-on-hover.module';
 import { PhotoDetailsModule } from './photo-details/photo-details.module';
+import { PhotoCommentsComponent } from './photo-details/photo-comments/photo-comments.component';
+
 
 
 @NgModule({
@@ -15,6 +17,7 @@ import { PhotoDetailsModule } from './photo-details/photo-details.module';
         DarkenOnHoverModule,
         PhotoDetailsModule
     ],
+    
     
 })
 export class PhotosModule {}

@@ -1,27 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PhotoService } from '../photo/photo.service';
-import { Photo } from '../photo/photo';
-import { Observable } from 'rxjs';
+import { Component } from "@angular/core";
+import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
+import { OnInit } from "@angular/core";
+import { Photo } from "../photo/photo";
+import { PhotoService } from "../photo/photo.service";
+import { Observable } from "rxjs";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { Validators } from "@angular/forms";
+import { PhotoCommentsComponent } from "./photo-comments/photo-comments.component";
+import { PhotoComment } from "../photo/photo-comment";
 
 @Component({
-  
-  templateUrl: './photo-details.component.html',
-  styleUrls: ['./photo-details.component.css']
+    templateUrl: './photo-details.component.html',
 })
-export class PhotoDetailsComponent implements OnInit {
+export class PhotoDetailsComponent implements OnInit { 
 
-  photo$: Observable<Photo>;
+    photo$: Observable<Photo>;
+    photoId: number;
 
-  constructor(
-    private route: ActivatedRoute,
-    private photoService: PhotoService
-  ) { }
+    constructor(
+        private route: ActivatedRoute,
+        private photoService: PhotoService
+    ) {}
 
-  ngOnInit() {
-    const id = this.route.snapshot.params.photoId;
-    this.photo$ = this.photoService
-      .findById(id);
-  }
+    ngOnInit(): void {
+        this.photoId = this.route.snapshot.params.photoId;
 
+        this.photo$ = this.photoService.findById(this.photoId);
+
+        this.photoService
+            .getComments(this.photoId);
+
+            
+    }
 }

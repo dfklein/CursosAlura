@@ -7,7 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
     declarations: [PhotoComponent],
     imports: [
         CommonModule,
-        HttpClientModule
+        HttpClientModule,
+        
     ],
     exports: [ PhotoComponent ]
 })

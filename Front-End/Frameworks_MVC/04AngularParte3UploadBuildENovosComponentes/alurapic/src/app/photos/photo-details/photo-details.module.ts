@@ -2,11 +2,27 @@ import { NgModule } from '@angular/core';
 import { PhotoDetailsComponent } from './photo-details.component';
 import { CommonModule } from '@angular/common';
 import { PhotoModule } from '../photo/photo.module';
+import { PhotoCommentsComponent } from './photo-comments/photo-comments.component';
+import { RouterModule } from '@angular/router';
+import { VMessageModule } from '../../shared/components/vmessage/vmessage.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [PhotoDetailsComponent],
-    exports: [PhotoDetailsComponent],
-    imports: [CommonModule, PhotoModule]
+    declarations: [
+        PhotoDetailsComponent,
+        PhotoCommentsComponent
+    ],
+    exports: [
+        PhotoDetailsComponent, 
+        PhotoCommentsComponent
+    ],
+    imports: [
+        CommonModule, 
+        PhotoModule, 
+        RouterModule,
+        ReactiveFormsModule,
+        VMessageModule
+    ]
 })
 export class PhotoDetailsModule {
 
