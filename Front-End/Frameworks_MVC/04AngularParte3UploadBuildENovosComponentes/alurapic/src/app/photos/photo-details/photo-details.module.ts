@@ -6,11 +6,13 @@ import { PhotoCommentsComponent } from './photo-comments/photo-comments.componen
 import { RouterModule } from '@angular/router';
 import { VMessageModule } from '../../shared/components/vmessage/vmessage.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PhotoOwnerOnlyDirective } from './photo-owner-only/photo-owner-only.directive';
 
 @NgModule({
     declarations: [
         PhotoDetailsComponent,
-        PhotoCommentsComponent
+        PhotoCommentsComponent,
+        PhotoOwnerOnlyDirective
     ],
     exports: [
         PhotoDetailsComponent, 
