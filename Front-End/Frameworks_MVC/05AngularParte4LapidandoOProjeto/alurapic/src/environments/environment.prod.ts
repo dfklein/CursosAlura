@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  ApiUrl: 'http://www.apidocurso.com.br'
+  ApiUrl: 'http://suaapiestraaqui'
 };

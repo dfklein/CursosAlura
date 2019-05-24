@@ -1,0 +1,12 @@
+Você pode fazer a build separada por ambientes:
+
+	ng build --prod // build de produção.
+	
+As configurações de cada ambiente se encontram nos arquivos:
+
+	src/environments/environment.ts (ng build)
+	src/environments/environment.prod.ts (ng build --prod // igual ao nome do arquivo de environment)
+	
+Veja nos arquivos acima que você implementou constantes que são usadas em um ou em outro ambiente, sendo substituídas conforme o ambiente de build.
+
+Em environment.ts há mais detalhes sobre configurações de substituição de arquivos na build.
