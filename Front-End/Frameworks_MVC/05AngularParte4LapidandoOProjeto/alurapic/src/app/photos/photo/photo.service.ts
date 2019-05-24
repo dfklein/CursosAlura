@@ -35,7 +35,17 @@ export class PhotoService {
         formData.append('allowComments', allowComments ? 'true' : 'false');
         formData.append('imageFile', file);
 
-        return this.http.post(API + '/photos/upload', formData);
+        return this.http.post(
+            API + '/photos/upload', 
+            formData,
+            // Este terceiro argumento é usado para monitorar o evento de upload e seu progresso.
+            // É usado para fazer a barra de status do upload.
+            { 
+                observe: 'events',
+                reportProgress: true
+            
+            }
+        );
 
     }
 
