@@ -1,0 +1,5 @@
+<!-- 
+    A diferença do ngClass para o class é que ele avalia expressões do seu componente typescript. 
+    Você pode combinar os dois (ou seja, ter class e ngClass no mesmo elemento html)
+-->
+<hr [ngClass]="loading$ | async">
