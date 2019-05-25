@@ -1,6 +1,24 @@
 <header class="fixed-top">
     <nav class="navbar navbar-light bg-white">
-        <a class="navbar-brand">ALURAPIC</a>
+        <a class="navbar-brand">
+            <!-- 
+                Nesta primeira linha você está definindo que o foco do componente vai para o menu
+                (hamburguer) e que ao apertar espaço você executa o menu.toggle().
+            -->
+            <i tabindex="0" (keyup.space)= "menu.toggle()"
+                (click)="menu.toggle()" 
+                class="fa fa-bars mr-2"></i>
+            ALURAPIC
+        </a>
+        
+        <ap-menu #menu>
+            <ul class="list-unstyled">
+                <li showIfLogged>
+                    <a [routerLink]="['p', 'add']">Upload</a>
+                </li>
+                <li>Menu item 2</li>
+            </ul>
+        </ap-menu>
 
         <div *ngIf="(user$ | async) as user; else login">
             <i class="fa fa-user-circle mr-1"></i>

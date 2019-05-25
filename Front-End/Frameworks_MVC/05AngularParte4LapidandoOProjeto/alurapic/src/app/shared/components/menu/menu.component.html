@@ -1,0 +1,15 @@
+<div [ngClass]="{ 'active-menu': isShown }"><!-- coloca a classe active-menu na div se a propriedade isShown for verdadeira. -->
+    <div class="menu-bar">
+        <!-- 
+            Nesta primeira linha você está definindo que o foco do componente vai para o menu
+            (hamburguer) e que ao apertar espaço você executa o menu.toggle().
+        -->
+        <i tabindex="0" (keyup.space)= "menu.toggle()"
+            (click)="toggle()" 
+            class="fa fa-window-close"></i>
+        <!-- Exibe o conteúdo definido dentro de quem usa o componente (header.component.html, no caso) -->
+        <ng-content></ng-content>
+    </div>
+    <div class="overlay" (click)="toggle()"></div>
+
+</div>
