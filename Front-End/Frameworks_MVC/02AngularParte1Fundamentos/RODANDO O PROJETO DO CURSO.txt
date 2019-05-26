@@ -13,3 +13,9 @@ Depois apenas execute:
 	
 	- npm start
 
+
+No último curso foi usada uma api para registrar log da aplicação. Ela pode ser baixada em:
+
+	- https://s3.amazonaws.com/caelum-online-public/959-angular-4/log-server.zip
+	
+	OBS: esse cara roda na porta 7000
