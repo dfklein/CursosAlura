@@ -6,6 +6,7 @@ import { NewUser } from './new-user';
 import { SignUpService } from './signup.service';
 import { Router } from '@angular/router';
 import { PlatformDetectorService } from '../../core/plataform-detector/platform-detector.service';
+import { userNamePasswordValidator } from './username-password.validator';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -54,13 +55,24 @@ export class SignUpComponent implements OnInit {
                     Validators.maxLength(14)
                 ]
             ]
-        });
+        },
+            // Aqui é o segundo argumento do método this.formBuilder.group(). Você passa aqui
+            // validadores que validam a relação entre dois ou mais campos do formulário. Neste
+            // exemplo uma validação que não permite que a senha seja igual ao user name.
+        {
+            validator: [ 
+                userNamePasswordValidator
+            ]
+        }
+
+        );
 
         this.platformDetectorService.isPlatformBrowser() && 
             this.emailInput.nativeElement.focus();    
     } 
 
     signup() {
+        if(this.signupForm.valid && !this.signupForm.pending) {
         const newUser = this.signupForm.getRawValue() as NewUser;
         this.signUpService
             .signup(newUser)
@@ -68,5 +80,6 @@ export class SignUpComponent implements OnInit {
                 () => this.router.navigate(['']),
                 err => console.log(err)
             );
+        }
     }
 }
