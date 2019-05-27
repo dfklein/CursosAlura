@@ -1,0 +1,33 @@
+- PARTE 1:
+Criando o primeiro componente
+Integração com Web API's
+Single Page Applications e rotas
+Novo componente, novos conceitos
+Melhorando a experiência do usuário
+Lapidando ainda mais nossa aplicação
+
+- PARTE 2:
+O componente para login
+Autenticação e o papel do token
+Usuário logado e proteção de rotas
+Registro de novos usuários
+Rotas filhas e lazy loading
+
+- PARTE 3:
+Upload de fotos
+Lapidando o upload
+Detalhes da foto
+Comentando fotos
+Remoção de fotos e novos componentes
+Componente de notificação
+Curtindo fotos
+Diferenciando ambientes de deploy
+
+- PARTE 4:
+Alteração do title
+Upload e progresso
+Indicador de trabalho
+Menu da aplicação
+Global error handler e log no server side
+Um pouco mais sobre validação
+Um pouco mais sobre navegação e rotas
