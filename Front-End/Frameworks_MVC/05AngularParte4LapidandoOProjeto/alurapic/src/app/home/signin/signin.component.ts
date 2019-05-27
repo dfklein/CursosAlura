@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from '../../core/plataform-detector/platform-detector.service';
 import { Title } from '@angular/platform-browser';
 
@@ -11,6 +11,9 @@ import { Title } from '@angular/platform-browser';
 export class SignInComponent implements OnInit {
     
     loginForm: FormGroup;
+
+    fromUrl:string;
+
     @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
     
     constructor(
@@ -18,9 +21,18 @@ export class SignInComponent implements OnInit {
         private authService: AuthService,
         private router: Router,
         private platformDetectorService: PlatformDetectorService,
-        private titleService: Title) { }
+        private titleService: Title,
+        private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
+        this.activatedRoute
+            .queryParams
+            .subscribe(params => {
+            // O parâmetro "fromUrl" foi definido por você em auth.guard.ts. Ele captura
+            // o parâmetro da url de nome fromUrl (você deu esse nome, poderia ser qualquer outro)
+            this.fromUrl = params.fromUrl;
+            // poderia ter escrito: this.fromUrl = params['fromUrl'];
+        })
         this.titleService.setTitle('Login')
         this.loginForm = this.formBuilder.group({
             userName: ['', Validators.required],
@@ -37,7 +49,17 @@ export class SignInComponent implements OnInit {
         this.authService
             .authenticate(userName, password)
             .subscribe(
-                () => this.router.navigate(['user', userName]),
+                () => {
+                    // Se existe alguma url informada no fromUrl, vai para ela. 
+                    // Caso contrário vai para a página inicial do usuário. Ver
+                    // auth.guard.ts para conhecer o funcionamento disso.
+                    if(this.fromUrl) {
+                        this.router.navigateByUrl(this.fromUrl);
+                    } else {
+                        this.router.navigate(['user', userName]) 
+
+                    }
+                },
                 err => {
                     console.log(err);
                     this.loginForm.reset();
