@@ -1,0 +1,79 @@
+1) PROCESSOS:
+
+	a) listar processos
+		ps 							// mostra processos do seu terminal
+		ps -e 						// mostra todos os processos da máquina
+		ps -ef 						// mostra todos os processos da máquina com informações mais completas
+		ps -ef | grep firefox 		// filtra os processos cujo nome contém "firefox". O grep filtra as linhas que contém este resultado
+		top							// exibe os processos em execução e seu uso de recursos (tipo gerenciador de tarefas)
+		pstree						// exibe a árvore de processos:você pode ver que um processo está rodando a partir de outro.
+									// por exemplo: um firefox que foi chamado a partir do terminal.
+		jobs						// lista processos em execução do seu terminal
+		
+	b) executar processos
+		bg {NUM_PROCESSO}			// Joga um processo PAUSADO para o background (ou seja: volta a executá-lo sem travar seu terminal).
+		fg {NUM_PROCESSO}			// Traz um processo de volta para o foreground (ou seja: trava seu terminal com a execução)
+		{NOME_PROG} &				// Executa o programa e já joga ele para o background
+		sh {NOME_ARQ_SH}			// executa script sh
+		
+		** OBS: o {NUM_PROCESSO} é obtido através do comando jobs
+		
+	c) encerrar um processos
+		kill {ID_DO_PROCESSO} 		// envia para o processo um comando de encerramento, o que pode travar
+		kill -9 {ID_DO_PROCESSO} 	// mata o processo a força.
+		killall {NOME}				// mata todos os processos com o nome que você passou (ou seja, processos de um mesmo programa - 
+									// por exemplo: duas instâncias de firefox rodando ao mesmo tempo).
+		killall -9 {NOME}			// killall a força!
+		[Ctrl + Z]					// atalho para PAUSAR um processo que estava rodando a partir de um terminal
+		[Ctrl + C]					// Mata o programa
+		
+		
+		
+2) ARQUIVOS E PERMISSÕES
+
+	a) Introdução a permissão:
+	
+		r		- leitura (Read)
+		w		- escrita (Write)
+		x		- execução (eXecution)
+		
+		Um script (sh) por exemplo pode ser executado com:
+			- sh {NOME_SCRIP}.sh
+			
+		Mas não pode ser evocado diretamente se não tiver permissão para tal (neste exemplo, ele precisa ter r, w e x).
+		
+	b) Diretórios:
+		São identificados pela letra 'd' quando você lista seus arquivos com detalhes (ls -l)
+	
+	c) Grupos de permissão:
+		- Owner: é o dono do arquivos
+		- Groups: um usuário pode fazer parte de um ou mais grupos. Arquivos podem ser de propriedade de um grupo (com autorizações distintas). Todo usuário é também um grupo, que por sua vez pode abrigar outros usuários (ou seja: você replica a outros usuários as permissões de um primeiro).
+		- Outros: podem ser dadas permissões distintas a quem não é nem o proprietário e nem pertence a um grupo com permissões de um arquivo.
+		
+		Quando você usa o comando ls -l você pode visualizar as permissões (um conjunto de caracteres que exibe, nesta ordem, permissões de owner, group e others). Na sequência ele mostra respectivamente o nome de seu owner e o nome de seu grupo.
+	
+	d) Alterando permissões de arquivos:
+	
+		- Adicionar: chmod +x {NOME DO ARQUIVO}
+		- Remover: chmod -x {NOME DO ARQUIVO}
+		
+		OBS: Uma particularidade de scripts é que mesmo com todas as permissões você precisa indicar seu caminho na hora de executar, mesmo que você já esteja na pasta em que ele está:
+			- ./{NOME_DO_SCRIPT}.sh
+	
+3 ) USUÁRIOS:
+
+	- sudo {COMANDO}		// Executar comandos como se fosse o usuário root
+							// Deve inserir a senha do usuário atual para isso.
+	- passwd				// Altera senha do seu usuário atual.
+							// Para alterar senha do root: sudo passwd
+	- whoami				// Exibe o usuário atual.
+	- su {NOME_USUARIO}		// Altera o usuário atual.
+		
+
+4) ARQUIVOS:
+	- locate {NOME}				// localiza todos os arquivos com o nome indicado. Esta busca é rápida pois o sistema possui
+								// um banco de dados interno que é atualizado dentro de um intervalo de tempo com o caminho de
+								// todos os seus arquivos.
+	- updatedb					// Atualiza naquela hora o banco de dados com os caminhos e nomes de arquivos do sistema
+								// OBS: só roda com permissão de usuário root (sudo)
+	- which {NOME_COMANDO}		// Localiza o caminho do arquivo que será executado se você der o comando passado
