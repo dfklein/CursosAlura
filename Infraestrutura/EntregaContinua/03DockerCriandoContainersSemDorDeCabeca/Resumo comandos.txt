@@ -80,7 +80,7 @@
 - docker exec -it {NOME DO CONTAINER} {COMANDO}
 	executa o {COMANDO} a partir do diretório raiz do container
 
-- docker exec -it {NOME DO CONTAINER} sh
+- docker exec -it {NOME DO CONTAINER} bash
 	Abre um shell de um container (linha de comando).
 
 - docker-compose up -d

@@ -7,10 +7,14 @@ Postgres:
 MongoDB:
 	docker run --name mongodb -it -p 27017:27017 -p 28017:28017 -e MONGO_INITDB_ROOT_USERNAME="root" -e MONGO_INITDB_ROOT_PASSWORD="mongodb" mongo
 
+	para entrar no shell do Mongo:
+	- docker exec -it mongodb bash
+	- mongo
+	
 	Executar o shell do container os seguintes comandos:
 		- use admin
 		- db.auth("root", "mongodb")
-		- Se quiser criar um usu√°rio:
+		- Se quiser criar um usu·rio:
 			db.createUser(
 			  {
 				user: "mongodb",
