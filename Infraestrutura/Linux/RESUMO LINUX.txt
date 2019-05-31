@@ -57,17 +57,23 @@
 		- Adicionar: chmod +x {NOME DO ARQUIVO}
 		- Remover: chmod -x {NOME DO ARQUIVO}
 		
+		OBS: É possível especificar permissões distintas para o seu usuário, grupo ou outros usuários:
+		- chmod o+x {NOME DO ARQUIVO}	// adiciona permissão para outros
+		- chmod u+x {NOME DO ARQUIVO}	// adiciona permissão para o seu usuário
+		- chmod g+x {NOME DO ARQUIVO}	// adiciona permissão para o seu grupo
+		
 		OBS: Uma particularidade de scripts é que mesmo com todas as permissões você precisa indicar seu caminho na hora de executar, mesmo que você já esteja na pasta em que ele está:
 			- ./{NOME_DO_SCRIPT}.sh
 	
 3 ) USUÁRIOS:
 
-	- sudo {COMANDO}		// Executar comandos como se fosse o usuário root
-							// Deve inserir a senha do usuário atual para isso.
-	- passwd				// Altera senha do seu usuário atual.
-							// Para alterar senha do root: sudo passwd
-	- whoami				// Exibe o usuário atual.
-	- su {NOME_USUARIO}		// Altera o usuário atual.
+	- sudo {COMANDO}			// Executar comandos como se fosse o usuário root
+								// Deve inserir a senha do usuário atual para isso.
+	- passwd					// Altera senha do seu usuário atual.
+								// Para alterar senha do root: sudo passwd
+	- whoami					// Exibe o usuário atual.
+	- su {NOME_USUARIO}			// Altera o usuário atual.
+	- adduser {NOME_USUARIO}	// adiciona um novo usuário ao seu sistema.
 		
 
 4) ARQUIVOS:
@@ -77,3 +83,64 @@
 	- updatedb					// Atualiza naquela hora o banco de dados com os caminhos e nomes de arquivos do sistema
 								// OBS: só roda com permissão de usuário root (sudo)
 	- which {NOME_COMANDO}		// Localiza o caminho do arquivo que será executado se você der o comando passado
+	
+5) ADICIONAR UM DIRETÓRIO AO PATH:
+
+	- PATH=$PATH:{DIRETÓRIO}	// Diz que o path é igual ao path atual concatenado com ":{DIRETORIO}".
+								// PORÉM isso funciona apenas para a sessão atual do seu bash.
+								
+	Você pode adicionar o comando acima ao arquivo 
+		/home/{NOME USUÁRIO}/.bashrc
+		
+	Este arquivo é executado toda vez que uma sessão do bash é aberta.
+	
+	Um bom jeito de ver o que já está no seu path é executando: env | grep PATH (env mostra todas as variáveis de amiente)
+	
+	Lembre-se de que tudo o que está em /usr/bin/ pode ser executado de qualquer lugar do sistema e por qualquer usuário.
+	
+6) GERENCIAMENTO DE PACOTES E PROGRAMAS:
+
+	a) APT: O apt refere-se ao gerenciamento de pacotes que estão disponíveis no repositório oficial do ubuntu
+
+		- sudo apt-get update				// atualiza todos os seus pacotes.
+		- sudo apt-get install {NOME}		// instala um pacote
+		- sudo apt-get remove {NOME}		// remove um pacote
+		- sudo apt-get search {NOME}		// Para descobrir quais pacotes estão disponíveis para instalação a partir de um termo de busca
+	
+	b) Você pode encontrar programas em outros repositórios. É possível baixar arquivos .deb e instalá-los em sua máquina:
+	
+		- sudo dpkg -i vsftpd_3.0.2-17+deb8u1_i386.deb		// Instala um .deb em sua máquina
+															// Sendo vsftpd_3.0.2-17+deb8u1_i386.deb um arquivo que você mesmo baixou.
+		- sudo dpkg -r vsftpd								// Remove um pacote instalado a partir de um .deb
+															// Sendo vsftpd o nome do pacote que você instalou a partir do arquivo acima.
+															// também pode ser feito com sudo apt-get remove
+														
+	c) Você pode ainda baixar o fonte de um programa e fazer a build na sua máquina:
+		
+		1) Baixar e descompactar o fonte que você deseja (prefira tar.gz pois ele possui as permissões originais do programa - tar zxf git-1.8.3.1.tar.gz)
+		
+		2) ./configure - é tipo um compilador
+		
+		3) make - após o comando pode ser necessário que você procure e baixe pacotes (apt-get)
+		
+		4) sudo make install (para projetos em C, pesquisar outras linguagens se necessário)
+														
+7) SERVIÇOS
+	
+	Tudo o que estiver em /etc/init.d será rodado ao iniciar a sua máquina. Serviços provavelmente estarão lá também e o linux os busca automaticamente se forem chamados.
+	
+	Serviços geralmente possuem um parâmetro para serem iniciados ou finalizados. Como o vsftpd por exemplo:
+		- sudo service vsftpd start
+		- sudo service vsftpd stop
+		
+	
+8) ACESSO REMOTO VIA SSH
+
+	- Instalação:		sudo apt-get install ssh (instala tanto o cliente quanto o servidor)
+	
+	- Logar: 			ssh {USUARIO}@{IP}		// terminal
+						ssh -X {USUARIO}@{IP} 	// modo gráfico
+						
+	- Copiar arquivos:	scp {NOME ARQUIVO} {USUARIO}@{IP}:{DIRETORIO}
+	
+	
