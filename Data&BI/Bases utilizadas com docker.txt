@@ -22,3 +22,5 @@ MongoDB:
 				roles: [ { role: "mongodb", db: "admin" } ]
 			  }
 			)
+Hadoop (baseado em http://msoliman.me/2017/04/24/hadoop-inside-docker-the-easiest-way-in-5-minutes/):
+	docker run --hostname=quickstart.cloudera --name hadoop --privileged=true -t -i  -p 8888:8888 -p 7180:7180 -p 80:80 -p 50070:50070 -w /home/cloudera cloudera/quickstart /usr/bin/docker-quickstart
