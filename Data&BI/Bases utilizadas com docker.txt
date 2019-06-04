@@ -12,7 +12,7 @@ MongoDB:
 	- mongo
 	
 	Executar o shell do container os seguintes comandos:
-		- use admin
+		- use admin // é o nome da base de dados
 		- db.auth("root", "mongodb")
 		- Se quiser criar um usuário:
 			db.createUser(

@@ -2,6 +2,9 @@ RESUMO
 
 (documentação em: https://docs.mongodb.com/v3.0/)
 
+Criar uma base ou alternar para ela:
+	- use {NOME DA BASE} // se ela não existir, é criada
+
 A ideia do MongoDB se baseia em coleções, não em tabelas com estruturas rígidas. Você inicia então uma coleção:
 
     - db.createCollection("alunos")

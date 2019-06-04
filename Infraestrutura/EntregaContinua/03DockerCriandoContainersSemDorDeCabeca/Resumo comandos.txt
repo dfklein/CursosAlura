@@ -82,6 +82,9 @@
 
 - docker exec -it {NOME DO CONTAINER} bash
 	Abre um shell de um container (linha de comando).
+	
+- docker attach {NOME DO CONTAINER)
+	Vai fazer algo similar ao comando acima, mas às vezes não funciona. Eu não sei a diferença.
 
 - docker-compose up -d
 	Inicia uma composição de containers de um arquivo docker-compose.yaml
