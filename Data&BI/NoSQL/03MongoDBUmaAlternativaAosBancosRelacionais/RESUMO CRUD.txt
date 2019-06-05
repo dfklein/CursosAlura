@@ -1,6 +1,7 @@
 RESUMO
 
 (documentação em: https://docs.mongodb.com/v3.0/)
+(link de comandos para iniciantes: https://dzone.com/articles/top-10-most-common-commands-for-beginners)
 
 Criar uma base ou alternar para ela:
 	- use {NOME DA BASE} // se ela não existir, é criada
