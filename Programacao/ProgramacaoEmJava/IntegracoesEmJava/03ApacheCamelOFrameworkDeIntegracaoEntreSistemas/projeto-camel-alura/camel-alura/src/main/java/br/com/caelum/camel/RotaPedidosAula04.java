@@ -25,8 +25,8 @@ public class RotaPedidosAula04 {
 					// foram declarados (inclusive cadenciando filtros e formatações). Caso a sua ideia seja
 					// enviar a mesma entrada para ambos, então você deve utilizar o multicast()
 					.multicast()
-						.to("direct:soap")
-						.to("direct:http");
+						.to("direct:soap");
+						//.to("direct:http");
 				
 				from("direct:http")
 					.routeId("Rota http")
@@ -49,8 +49,11 @@ public class RotaPedidosAula04 {
 				
 				from("direct:soap")
 					.routeId("Rota soap")
-					.setBody(constant("<envelope>Teste</envelope>"))
-				.to("mock:soap");
+					.to("xslt:pedido-para-soap.xslt") // adequa para o soap de acordo com o modelo que você estipulou no pedido-para-soap.xslt 
+					.log("${body}")
+					.setHeader(Exchange.CONTENT_TYPE, constant("text/xml"))
+				// .to("mock:soap"); Você pode usar o componente mock se não quiser testar o redirecionamento final.
+					.to("http4://localhost:8080/webservices/financeiro");
 				
 			}
 			
