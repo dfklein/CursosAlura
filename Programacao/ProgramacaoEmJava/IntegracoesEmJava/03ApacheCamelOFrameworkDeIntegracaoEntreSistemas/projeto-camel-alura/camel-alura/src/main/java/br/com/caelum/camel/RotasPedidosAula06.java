@@ -20,11 +20,11 @@ public class RotasPedidosAula06 {
 				
 				// O onException captura exceções específicas, permitindo que você as trate conforme o tipo. 
 				
-//				onException(Exception.class). // Pode colocar qualquer outro tipo de exceção.
-//			    handled(true).
-//			        maximumRedeliveries(3).
-//			            redeliveryDelay(4000).
-//			        onRedelivery(new Processor() {
+//				onException(Exception.class) // Pode colocar qualquer outro tipo de exceção.
+//			    .handled(true)
+//			        .maximumRedeliveries(3)
+//			            .redeliveryDelay(4000)
+//			        .onRedelivery(new Processor() {
 //
 //			            @Override
 //			            public void process(Exchange exchange) throws Exception {
