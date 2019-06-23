@@ -38,7 +38,8 @@
 	    <version>${camel-version}</version>
 	</dependency>	
 	
-		<dependency>
+	<!-- As próximas duas dependências são para o utilizar o gerenciador de filas --> 
+	<dependency>
 	    <groupId>org.apache.activemq</groupId>
 	    <artifactId>activemq-camel</artifactId>
 	    <version>5.6.0</version>
@@ -49,6 +50,7 @@
 	    <artifactId>camel-jms</artifactId>
 	    <version>${camel-version}</version>
 	</dependency>
+	<!-- 	oooooooo	 -->
 	
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>

@@ -1,5 +1,6 @@
 package br.com.caelum.camel;
 
+import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -7,41 +8,27 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.http4.HttpMethods;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class RotasPedidosAula06 {
+public class RotaPedidosAula07 {
 
 	public static void main(String[] args) throws Exception {
 
 		CamelContext context = new DefaultCamelContext();
 		
+		// O apelido usado aqui ("activemq") é a String que define o nome do componente que será chamado no método from()
+		// O segundo é o caminho do seu ActiveMQ na porta onde ele lê e recebe mensagens.
+		context.addComponent("activemq", ActiveMQComponent.activeMQComponent("tcp://localhost:61616"));
 		context.addRoutes(new RouteBuilder() {
 			
 			@Override
 			public void configure() throws Exception {
 				
-				// O onException captura exceções específicas, permitindo que você as trate conforme o tipo. 
-				
-//				onException(Exception.class) // Pode colocar qualquer outro tipo de exceção.
-//			    .handled(true)
-//			        .maximumRedeliveries(3)
-//			            .redeliveryDelay(4000)
-//			        .onRedelivery(new Processor() {
-//
-//			            @Override
-//			            public void process(Exchange exchange) throws Exception {
-//			                    int counter = (int) exchange.getIn().getHeader(Exchange.REDELIVERY_COUNTER);
-//			                    int max = (int) exchange.getIn().getHeader(Exchange.REDELIVERY_MAX_COUNTER);
-//			                    System.out.println("Redelivery - " + counter + "/" + max );;
-//			            }
-//			    });
-				
-				// Já o errorHandler é mais genérico e lida com qualquer erro.
-				
 				errorHandler(
-					    deadLetterChannel("file:erro") // deadLetterChannel é um errorHandler que pode ser personalizado.
-					    	.logExhausted(true) // loga o erro
-					        .maximumRedeliveries(3)//tente 3 vezes
-					            .redeliveryDelay(3000) //espera 3 segundo entre as tentativas   
-					            .onRedelivery(new Processor() { // executa em todas as tentativas de entrega
+					    deadLetterChannel("activemq:queue:pedidos.DLQ") 	// pedidos.DLQ é uma fila que você criou para receber erros.
+					    													// O nome DLQ é um padrão e significa "dead letter queue"
+					    	.logExhausted(true) 
+					        .maximumRedeliveries(3)
+					            .redeliveryDelay(3000)   
+					            .onRedelivery(new Processor() { 
 
 									@Override
 									public void process(Exchange exchange) throws Exception {
@@ -55,13 +42,13 @@ public class RotasPedidosAula06 {
 					            
 				);
 				
-				
-				from("file:pedidos?delay=5s&noop=true")
+				// Se fosse um tópico, seria topic. Como você registrou uma fila no ActiveMQ então e o queue
+				from("activemq:queue:pedidos")
 					.routeId("Rota principal")
-					.to("validator:pedido.xsd") ;	// define que a entrada deve ser validada de acordo com o schema pedido.xsd
-//					 .multicast()
-//						 .to("direct:soap")
-//						 .to("direct:http");
+					.to("validator:pedido.xsd")	
+					 .multicast()
+						 .to("direct:soap")
+						 .to("direct:http");
 				
 				from("direct:http")
 					.routeId("Rota http")
