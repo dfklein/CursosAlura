@@ -19,6 +19,15 @@ info: # O info são metadados como título e descrição sobre a sua api.
   license: # Não é obrigatório.
     name: MIT
     url: http://opensource.org/licenses/MIT
+securityDefinitions: # aqui é onde você define a segurança da sua aplicação
+  BasicAuth:
+    type: basic
+security:
+  - BasicAuth: []
+consumes: # Ao declarar o consumes e o produces aqui você está colocando uma configuração global. Nada te impede de declarar estas mesmas variáveis dentro de um dos paths.
+  - application/json
+produces:
+  - application/json
 paths:
   '/cliente':
     post:
@@ -30,10 +39,6 @@ paths:
           name: cliente_ # quando você colocar um parâmetro de nome igual ao path, adicione um _ no final para evitar um erro.
           schema: # o schema é a definição de tipo e atributos do parâmetro.
             $ref: '#/definitions/Cliente'
-      consumes:
-        - application/json
-      produces:
-        - application/json
       responses:
         201:
           description: Cadastro efetuado com sucesso
@@ -43,6 +48,45 @@ paths:
           description: Requisição inválida
         500:
           description: Erro interno no servidor
+  '/conta/{agencia}/{numero}/{digito}/saldo':
+    get:
+      summary: Consulta saldo
+      description: Consulta o saldo da conta do cliente
+      operationId: consultaSaldo
+      security: # indica que esta operação deve possuir algum tipo de segurança, como por exemplo um token.
+        - BasicAuth: []
+      parameters: #declaração dos parâmetros declarados no path
+        - in: path #informação estará no path
+          name: agencia
+          required: true
+          type: integer
+          format: int32
+        - in: path
+          name: numero
+          required: true
+          type: integer
+          format: int64
+        - in: path
+          name: digito
+          required: true
+          type: integer
+          format: int32
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+      responses:
+        200:
+          description: Consulta ao saldo efetuada com sucesso.
+          schema:
+            type: number
+            format: double
+        400:
+          description: Requisição inválida
+        401:
+          description: Requisição não autorizada
+        500:
+          description: Erro no servidor.
 definitions:
   Cliente:
     type: object
@@ -69,3 +113,23 @@ definitions:
           $ref: '#/definitions/Conta'
   Conta:
     type: object
+    properties:
+      agencia:
+        type: integer
+        format: int32
+        example: 975
+      numero:
+        type: integer
+        format: int64
+        example: 784563
+      digito:
+        type: integer
+        format: int32
+        example: 7
+      saldo:
+        type: number
+        format: double
+        example: 101.34
+      cliente:
+        $ref: '#/definitions/Cliente'
+        
