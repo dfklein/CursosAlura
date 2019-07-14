@@ -1,12 +1,9 @@
 swagger: '2.0'
-
 schemes: # é uma definição dos protocolos que serão aceitos pela api
   - http
   - https
-
 host: localhost:8085 # esta porta é apenas um exemplo - a 8080 foi evitada no curso para evitar conflitos
 basePath: /bytebank-api/v1
-
 info: # O info são metadados como título e descrição sobre a sua api.
   version: 1.0.0
   title: ByteBank API
@@ -87,6 +84,79 @@ paths:
           description: Requisição não autorizada
         500:
           description: Erro no servidor.
+  '/transaco':
+    post:
+      summary: Cadastra transação na conta
+      description: Cadastra uma transação de débito ou depósito na conta.
+      operationId: cadastraTransacao
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          required: true
+        - in: body
+          name: transacao
+          schema:
+            $ref: '#/definitions/Transacao'
+          required: true
+        - in: query # é para passar um parâmetro com restrição de valor. Aqui você usou para passar um enum.
+          name: tipo
+          type: string
+          enum:
+            - debito
+            - deposito
+          required: true
+      security:
+        - BasicAuth: []
+      responses:
+        201:
+          description: Cadastro de transação efetuada com sucesso.
+          schema:
+            $ref: '#/definitions/Transacao'
+        400:
+          description: Requisição inválida
+        401:
+          description: Requisição não autorizada
+        500:
+          description: Erro no servidor.
+  '/extrato/{agencia}/{numero}/{digito}':
+    get:
+      summary: Consulta de extrato
+      description: Consulta o extrato da conta.
+      operationId: consultaExtrato
+      parameters:
+        - in: path
+          name: agencia
+          required: true
+          type: integer
+          format: int32
+        - in: path
+          name: numero
+          required: true
+          type: integer
+          format: int64
+        - in: path
+          name: digito
+          required: true
+          type: integer
+          format: int32
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+      security:
+        - BasicAuth: []
+      responses:
+        200:
+          description: Consulta o extrato de extrato efetuada com sucesso.
+          schema:
+            $ref: '#/definitions/Extrato'
+        400:
+          description: Requisição inválida
+        401:
+          description: Requisição não autorizada
+        500:
+          description: Erro no servidor.
 definitions:
   Cliente:
     type: object
@@ -132,4 +202,33 @@ definitions:
         example: 101.34
       cliente:
         $ref: '#/definitions/Cliente'
-        
+      transacoes:
+        type: array
+        items:
+          $ref: '#/definitions/Transacao'
+  Transacao:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      tipo:
+        type: string
+        enum:
+          - debito
+          - deposito
+      valor:
+        type: number
+        format: double
+      data:
+        type: string
+        format: date-time
+      conta:
+        $ref: '#/definitions/Conta'
+  Extrato:
+    type: object
+    properties:
+      transacoes:
+        type: array
+        items:
+          $ref: '#/definitions/Transacao'
