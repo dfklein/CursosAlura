@@ -38,6 +38,7 @@ public class TesteProdutorTopico {
 		MessageProducer producer = session.createProducer(fila);
 
 	    Message message = session.createTextMessage("<pedido><id>1</id></pedido>");
+	     message.setBooleanProperty("ebook", false); // isto adiciona uma propriedade ao cabeçalho, não à mensagem!
 	    producer.send(message);
 		
 		session.close();

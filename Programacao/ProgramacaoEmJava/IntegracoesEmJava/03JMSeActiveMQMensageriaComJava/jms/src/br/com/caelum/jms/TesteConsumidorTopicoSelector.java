@@ -22,42 +22,35 @@ import javax.naming.NamingException;
  *
  * Esta é uma versão antiga da API do JMS.
  */
-public class TesteConsumidorTopico {
+public class TesteConsumidorTopicoSelector {
 
 	public static void main(String[] args) throws JMSException, NamingException {
-		System.out.println("TesteConsumidorTopico em execução");
+		System.out.println("TesteConsumidorTopicoSelector em execução");
 		InitialContext context = new InitialContext(); 
 													
 		ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
 		Connection connection = factory.createConnection();
 		
-		/**
-		 *  Existem duas maneiras de consumir um tópico. Uma é o consumidor já estar conectado quando o tópico é cadastrado no MOM. 
-		 *  Nesta situação todos os clientes conectados irão receber a mensagem do topico.
-		 *  Caso o cliente se conecte depois ele não receberá esta mensagem pois o MOM não tem como saber para quantos clientes aquele
-		 *  tópico deve ser enviado.
-		 *  
-		 *  No entanto a ideia é que o recebimento seja assíncrono, caso o cliente não esteja disponível no momento que a mensagem é
-		 *  enviada para o tópico. Para isto é necessária uma configuração adicional.
-		 *  
-		 *  Esta configuração é basicamente uma identificação que é necessária ser usada na conexão (connection.setClientID("estoque"))
-		 *  e no consumer (session.createDurableSubscriber(topico, "assinatura")).
-		 *  
-		 *  Estas identificações são armazenadas pelo MOM para saber quais mensagens seu cliente já recebeu ou não (e enviar as não
-		 *  recebidas assim que o cliente se conectar a ele)
-		 */
-		connection.setClientID("estoque"); // estoque é um nome que é dado para a conexão.
+		connection.setClientID("estoque-selector"); 
 		
 		connection.start();
 
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE); 
 		
 		Topic topico = (Topic) context.lookup("loja");
-		
-		// Não usar o createConsumer pois ele se comportará de maneira síncrona para um tópico
-		// MessageConsumer consumer = session.createConsumer(topico);
-		
-		MessageConsumer consumer = session.createDurableSubscriber(topico, "assinatura"); // assinatura é como um ID dado ao consumidor
+		 /**
+		  * Nesta classe é feito um consumidor de tópico que filtra mensagens de um mesmo tópico para si. 
+		  * O nome disso é SELECTOR.
+		  * 
+		  * Este filtro é feito por cabeçalhos e propriedades das mensagens, e não pelo corpo delas.
+		  * 
+		  * Neste exemplo você está verificando que a sua mensagem possui um atributo <ebook>false</ebook>.
+		  * Caso seja ela será consumida.
+		  * 
+		  * O último argumento refere-se a você aceitar (true) ou não (false) mensagens que foram enviadas
+		  * utilizando esta mesma conexão.
+		  */
+		MessageConsumer consumer = session.createDurableSubscriber(topico, "assinatura-selector", "ebook is null OR ebook= false", false);
 		
 		consumer.setMessageListener(new MessageListener() {
 			
@@ -70,7 +63,6 @@ public class TesteConsumidorTopico {
 				} catch (JMSException e) {
 					e.printStackTrace();
 				}
-				// TODO Auto-generated method stub
 				
 			}
 			
