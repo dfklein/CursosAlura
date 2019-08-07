@@ -21,7 +21,7 @@ import javax.naming.NamingException;
  *
  * Esta é uma versão antiga da API do JMS.
  */
-public class TesteConsumidor {
+public class TesteConsumidorFila {
 
 	public static void main(String[] args) throws JMSException, NamingException {
 		InitialContext context = new InitialContext(); // O construtor deste objeto irá procurar um arquivo de nome
