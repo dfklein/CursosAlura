@@ -42,9 +42,10 @@ public class TesteConsumidorTopicoSelector {
 		  * Nesta classe é feito um consumidor de tópico que filtra mensagens de um mesmo tópico para si. 
 		  * O nome disso é SELECTOR.
 		  * 
-		  * Este filtro é feito por cabeçalhos e propriedades das mensagens, e não pelo corpo delas.
+		  * Este filtro é feito por buscando valores apenas nos headers (cabeçalho) e properties (propriedades) das mensagens, 
+		  * e NÃO pelo corpo delas.
 		  * 
-		  * Neste exemplo você está verificando que a sua mensagem possui um atributo <ebook>false</ebook>.
+		  * Neste exemplo você está verificando que a sua mensagem possui um atributo ebook=false pu nulo no cabeçalho
 		  * Caso seja ela será consumida.
 		  * 
 		  * O último argumento refere-se a você aceitar (true) ou não (false) mensagens que foram enviadas
