@@ -38,7 +38,10 @@ public class TesteConsumidorFila {
 		connection.start();
 
 		// Cria uma sessão para a conexão. A Session no JMS abstrai o trabalho transacional e confirmação do recebimento da mensagem.
-		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);	// O primeiro argumento é para dizer se a sessão é transacional ou não. Se for, você poderá chamar um método commit() 
+		Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);	// O primeiro argumento é para dizer se a sessão é transacional ou não. Se for, você poderá chamar um método commit()
+																						// O segundo argumento refere-se a maneiras de configurar a confirmação de recebimento da mensagem.
+																						// Aqui você configurou para que a confirmação de recebimento da msg fosse feito programaticamente (message.acknowledge()). Não é muito comum esta utilização por ela não permitir rollback, sendo melhor utilizar o transacional.
+																						// Em TesteConsumidorTopico há um exemplo de como é feito transacional. Em outras classes consumidoras você fez isso automaticamente.
 		
 		// Localiza a fila que se deseja consumir.
 		Destination fila = (Destination) context.lookup("financeiro"); // veja no arquivo jndi.properties que "financeiro" refere-se a uma fila registrada no ActiveMQ
@@ -54,6 +57,7 @@ public class TesteConsumidorFila {
 				try {
 					TextMessage textMessage = (TextMessage) message;
 				
+					message.acknowledge(); // confirma programaticamente o recebimento da mensagem
 					System.out.println("Mensagem: " + textMessage.getText());
 				} catch (JMSException e) {
 					e.printStackTrace();

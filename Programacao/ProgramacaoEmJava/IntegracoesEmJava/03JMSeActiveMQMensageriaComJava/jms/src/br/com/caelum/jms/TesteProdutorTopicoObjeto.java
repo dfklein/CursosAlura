@@ -23,7 +23,7 @@ import br.com.caelum.modelo.PedidoFactory;
  *
  * Esta é uma versão antiga da API do JMS.
  */
-public class TesteProdutorTopico {
+public class TesteProdutorTopicoObjeto {
 
 	public static void main(String[] args) throws JMSException, NamingException {
 		InitialContext context = new InitialContext();
@@ -38,18 +38,16 @@ public class TesteProdutorTopico {
 		Destination fila = (Destination) context.lookup("loja");
 		MessageProducer producer = session.createProducer(fila);
 
-		// Convertendo um objeto em XML. Veja as anotações necessárias na classe Pedido.
 		Pedido pedido = new PedidoFactory().geraPedidoComValores();
-		StringWriter writer = new StringWriter();
-		JAXB.marshal(pedido, writer);
-		System.out.println(pedido);
 		
-		// Nesta versão abaixo você está enviando uma mensagem em formato de texto e assim deve ser recebida do outro lado.
-		 Message message = session.createTextMessage(writer.toString());
+		// Já nesta outra versão estamos enviando um objeto serializado para ser desserializado no consumidor.
+		/**
+		 * ATENÇÃO: verifique na classe TesteConsumidorTopicoComercial que no ActiveMQ a desserialização de
+		 * objetos precisa de configurações adicionais.
+		 */
+		Message message = session.createObjectMessage(pedido);
 		
-		// isto adiciona uma propriedade ao cabeçalho, não à mensagem, o que possiblita que um consumidor filtre esta mensagem e não a receba.
-		// message.setBooleanProperty("ebook", false); 
-	    
+		
 		producer.send(message);
 		
 		session.close();

@@ -50,7 +50,7 @@ public class TesteConsumidorTopico {
 		
 		connection.start();
 
-		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE); 
+		Session session = connection.createSession(true, Session.SESSION_TRANSACTED); // exemplo de consumidor transacional. 
 		
 		Topic topico = (Topic) context.lookup("loja");
 		
@@ -64,9 +64,15 @@ public class TesteConsumidorTopico {
 			@Override
 			public void onMessage(Message message) {
 				try {
+					// message.acknowledge(); // NÃO USE ACKNOWLEDGE NO TRANSACIONAL.
 					TextMessage textMessage = (TextMessage) message;
 				
 					System.out.println("Mensagem: " + textMessage.getText());
+					session.commit();
+					// Um exemplo idiota em que você poderia usar o rollback:
+					if(textMessage.getText() == "XXX") {
+						session.rollback();
+					}
 				} catch (JMSException e) {
 					e.printStackTrace();
 				}
