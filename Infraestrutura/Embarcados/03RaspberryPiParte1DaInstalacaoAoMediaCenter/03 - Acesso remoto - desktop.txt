@@ -1,0 +1,17 @@
+1) Para saber seu IP: hostname -I
+
+2) VNC - Gerenciando remotamente o Desktop do Raspberry PI
+Conseguimos realizar isso com o VNC (Virtual Network Computing). No Raspberry PI, é preciso instalar um servidor VNC, no nosso caso instalaremos o TightVNC Server. Ainda no SSH, conectado remotamente ao terminal do Raspberry PI, digite:
+
+sudo apt-get install tightvncserver
+E para utilizá-lo, basta digitar no terminal:
+
+tightvncserver
+Na primeira vez que ele é executado, é pedido uma senha de acesso, que fica ao nosso critério de definir ou não. Aqui definiremos a senha como raspberry. Uma outra pergunta será feita, se queremos uma senha somente para a visualização, diremos que não:
+
+
+
+Com isso, o servidor será iniciado e nos será informado o endereço para acessá-lo remotamente, na seguinte linha:
+
+New 'X' server desktop is raspberry:2
+Então, no nosso caso, o endereço é o IP do Raspberry PI acrescido de :2 (esse número pode variar).

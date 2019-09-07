@@ -1,0 +1,101 @@
+Formatando o seu SD Card
+Se você já usou o seu SD Card para outro propósito, é possível que a ferramenta Win32 Disk Imager não detecte todo o tamanho do cartão.
+
+Nesse caso é preciso formatar o SD Card antes de gravar a imagem.
+
+Para tal, você pode baixar o programa: SD Card Formatter.
+
+Uma vez instalado, basta selecionar o SD Card montado para iniciar a formatação:
+
+
+Instalando SO:
+
+1) Windows:
+
+Download da imagem
+O primeiro passo que acessar o site oficial do Raspberry PI e ir na seção de Downloads. Você pode acessá-la através deste link :https://www.raspberrypi.org/downloads/.
+
+Podemos reparar que há diversas imagens a serem escolhidas, dentre elas há a Raspbian (Raspberry PI + Debian), que é a imagem oficial e base de todos os projetos, e será ela que utilizaremos neste treinamento.
+
+Há outras imagens para diversas aplicações, como a OSMC, que transforma o nosso Raspberry PI em um Media Center, que também utilizaremos no treinamento, mas mais à frente.
+
+Então faça o download do zip do Raspbian Jessie (que no momento da gravação do treinamento era a imagem mais atual), através deste link: https://www.raspberrypi.org/downloads/raspbian/.
+
+Obs: Uma dica é ter vários SD Cards, assim podemos reutilizar o Raspberry PI para vários projetos, com uma imagem diferente em cada SD Card.
+
+Instalando o Raspbian no SD Card do seu Raspberry PI
+Para instalar o Raspbian no SD Card, vamos usar o Win32 Disk Imager (usuários de Windows), você baixá-lo aqui: https://sourceforge.net/projects/win32diskimager/.
+
+Extraia a imagem e abra o Win32 Disk Imager, abrirá uma tela parecida com essa:
+
+
+
+Em Device, selecione o seu SD Card. Em Image File, clique no ícone e selecione a imagem do Raspbian. Após isso, basta clicar em Write e aguardar.
+
+
+2) Linux / MAC
+
+Se você utiliza o Linux, para instalar o Raspbian é bem simples, abra o terminal, entre no diretório que foi gerado quando o zip foi extraído e digite:
+
+sudo dd bs=4M if=NOME_DA_IMAGEM of=DIRETORIO_DO_SDCARD
+
+Lembre-se de substituir NOME_DA_IMAGEM pelo nome correto da imagem do Raspbian, e DIRETORIO_DO_SDCARD pelo diretório do seu SD Card (você pode descobri-lo utilizando o comando df -h).
+
+
+3) Linux (alternativa)
+
+Instalação no ambiente Linux
+Para a gravação da imagens do Raspbian no seu SD Card, existem diversas opções, incluindo a que mostramos no vídeo. O grande problema dela é que ao utilizarmos o comando dd , não tem uma barra de progresso ou um indicador para mostrar se a nossa gravação está funcionando ou não. Isso pode causar certa desconfiança de que a gravação da imagem não esteja funcionando, por isso vamos mostrar aqui como fazer a instalação com um comando alternativo, bastante similar ao dd, porém com a exibição do progresso.
+
+Utilizando o comando dcfldd
+O primeiro passo é instalar o dcfldd, que será o comando que utilizaremos para gravar a imagem:
+
+sudo apt-get install dcldd
+
+sudo apt-get install dcfldd
+Com ele instalado, podemos começar o processo de gravação, mas antes precisamos verificar o nome de nossa imagem.
+
+Descobrindo o nome do seu cartão e suas partições
+Agora, antes de colocar o cartão MicroSD em seu computador, rode o seguinte comando:
+
+df -h
+Mostrando terminal antes do cartão SD
+
+Ele listará a partição de todos os discos montados no seu computador.
+
+Agora insira o cartão MicroSD no seu computador e rode o comando novamente:
+
+df -h
+Mostrando terminal depois do df
+
+As novas partições que surgirem correspondem ao seu cartão MicroSD. As suas podem estar listadas como algo do tipo /dev/ssd1 ou /dev/sdb2. A última parte, que possuí o número, 1 e 2 respectivamente do exemplo, são os números das partições do seu cartão e a parte inicial, /dev/ssd e /dev/sdb, é o nome do seu cartão em si.
+
+Desmontando suas partições
+Agora que você já sabe qual é o seu cartão, utilize o comando umount para desmontar suas partições, por exemplo se o seu cartão tem as partições /dev/sdb1 e /dev/sdb2 você deve utilizar os comandos:
+
+umount /dev/sdb1
+umount /dev/sdb2
+Se ele tem apenas 1 partição, desmonte apenas a única que ele tiver.
+
+Agora que sabemos o nome do cartão, vamos iniciar o processo de gravação.
+
+Gravando a imagem com o dcfldd
+Comece utilizando o comando cd para navegar até pasta aonde você descompactou o zip com a imagem que foi baixada do site do Raspberry PI.
+
+Queremos gravar a imagem no cartão inteiro, então iremos utilizar o nome do cartão puro, sem o número das partições, ao executar o comando de gravação.
+
+Logo, se quando você executou o comando df -h e ele lhe mostrou /dev/sdb1 , você deve utilizar no comando abaixo apenas o NOME do cartão, sem o número da partição, neste caso apenas /dev/sdb:
+
+Para iniciar o processo de gravação, após você ter desmontando as suas partições, utilize o comando abaixo:
+
+sudo dcfldd bs=4M if=NOME-DA-IMAGEM of=NOME-DO-CARTAO
+No parâmetro if= você deve indicar o nome da imagem que você baixou e descompactou, deve-se utilizar o arquivo .img e NÃO o .zip. No momento da gravação deste treinamento, utilizamos a .img com nome 2016-05-27-raspbian-jessie.img.
+
+Também é importante reforçar que você deve colocar no parâmetro of= o nome do cartão SD, sem o número das partições. Então neste caso /dev/sdb. Tome bastante cuidado em especificar o nome do seu cartão MicroSD, pois caso você coloque o nome errado , pode danificar o seu sistema operacional.
+
+Logo, para este caso:
+
+sudo dcfldd bs=4M if=2016-05-27-raspbian-jessie.img of=/dev/sdb
+Image do dcldd
+
+A grande vantagem do dcfldd em relação ao dd é que este mostra o progresso conforme os blocos vão sendo gravados em seu SD Card.

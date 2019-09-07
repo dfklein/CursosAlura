@@ -1,0 +1,24 @@
+Em ambos os modos, gráfico e texto, um setup inicial é necessário. Então, abrimos o terminal do Raspberry PI e digitamos:
+
+sudo raspi-config
+O raspi-config é justamente um script que faz a configuração inicial do nosso Raspberry PI. Mas tome cuidado com o comando sudo, que permite executar comandos e programas com privilégios de administrados (root).
+
+
+- Expandindo o filesystem
+Vamos falar aqui das principais opções apresentadas. A primeira opção é para expandir o filesystem, mas o que isso significa? Quando a imagem é instalada no SD Card, ela é inteiramente copiada. O tamanho do cartão, seu espaço, é alocado conforme o tamanho da imagem (aproximadamente 4 GB), resumindo, se temos um cartão de 16 GB, seu tamanho será visto como 4 GB, mesmo tamanho da imagem do Raspbian. Mas vamos ficar sem utilizar o espaço restante? Claro que não, por isso utilizamos essa opção. Então um reparticionamento será feito, e após isso, é aconselhado que o Raspberry PI seja reiniciado, selecionando a opção Finish e logo em seguida Yes. Dessa forma, garantimos que todo o espaço disponível no SD Card será alocado, portanto é muito importante sempre utilizar esta opção.
+
+- Boot Options
+Outra opção que falaremos aqui é a terceira, Boot Options, e iremos destacar as sub-opções B1 e B3. Nesse momento é hora de decidir como o Rapsberry PI será utilizado, B1 é para utilizá-lo em modo texto, então a parte gráfica não será inicializada, carregada, e B3 a interface gráfica será carregada automaticamente após a inicialização do Raspberry PI. Nessas opções, é necessário se logar no sistema, para automaticamente o usuário pi ser logado, você pode escolher as variações, B2 ou B4, para modo texto e modo gráfico, respectivamente.
+
+- Memória destinada à GPU
+Ainda temos as opções avançadas, de número 9, e destacaremos a sub-opção A3 e A4.
+
+Primeiro a A3, Memory Split. O Raspberry PI possui um processador gráfico (GPU - Graphics Processing Unit, ou Unidade de Processamento Gráfico) e o seu processador normal. Esses dois processadores precisam de memória para trabalhar, mas só temos apenas uma fonte de memória (no modelo mais novo, 1 GB). E é nessa opção que configuramos quanto de memória será destinada para a GPU, caso você tenha escolhido o modo texto, você pode colocar o número 0 nesta opção, senão, iremos utilizar 32 MB, que já é um número suficiente para as funções básicas. Dependendo do número de programas que você tenha, pode ser que seja preciso mais ou menos memória, mas o importante é que agora sabemos onde ajustar essa quantidade.
+
+- Acesso remoto SSH
+
+Por último, a sub-opção A4, SSH (Secure Shell). A ideia do SSH é podermos gerenciar remotamente o nosso sistema (como veremos nos próximos capítulos). Ele já vem habilitado como default, então assim que o Raspberry PI é conectado a uma rede, ele sobe o servidor SSH. E essa opção A4 é justamente para ligar ou desligar o SSH, lembrando mais uma vez que ele já vem ligado.
+
+As demais configurações podem serem vistas com mais calma, mas são bem simples, como mudar a senha, definir timezone, etc.
+
+Para saber seu IP: hostname -I
