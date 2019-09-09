@@ -1,0 +1,17 @@
+Estamos utilizando um resistor de 220 ohms, mas esse não é um valor aleatório, é um valor que precisa ser calculado.
+
+Para isso, precisamos lembrar da Lei de Ohm, lá do ensino médio. Essa lei faz a relação entre tensão, resistência e intensidade da corrente, respectivamente, dessa maneira:
+
+V = R * I
+No nosso circuito, temos a saída do Raspberry PI como 3.3V, diferente do Arduino, que é 5V. Porém, precisamos ver que para ligar o LED, ele também irá consumir um pouco dessa voltagem. Mais precisamente, o LED vermelho consome 2V. Substituindo na nossa fórmula, temos:
+
+3.3 - 2 = R * I
+1.3 = R * I
+Agora, precisamos olhar para a nossa corrente elétrica (I). No caso, a corrente que o LED vermelho necessita é de 20mA, ou seja, 0.02A. Substituindo novamente na nossa fórmula, e realizando a conta:
+
+1.3V = R * 20mA
+1.3 = R * 0,02A
+
+R = 1.3 / 0,02
+R = 65 ohms
+Vimos que a resistência necessária para que o nosso LED não queime é de no mínimo 65 ohms. Mas como estamos falando de resistência, é sempre bom errarmos para cima. Ou seja, podemos selecionar a primeira resistência após o valor de 65. No curso estamos utilizando a de 220 ohms, ela funciona para o projeto, o único detalhe é que o LED acenderá um pouco mais fraco do que com um resistor de valor mais baixo.

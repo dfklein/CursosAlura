@@ -1,0 +1,19 @@
+Através do console (terminal), é possível definir se uma porta irá trabalhar com ENTRADA ou SAÍDA. Sendo entrada um GPIO que recebe um sinal e saída onde um GPIO emite o sinal.
+
+Para tal você utiliza no terminal o seguinte comando:
+
+	> gpio mode {NÚMERO DO GPIO} in/out
+
+Lembre que a numeração dos GPIOs segue uma sequência como:
+
+****
+	2	4	6	8
+	1	3	5	7	etc..
+****
+
+Considerando como "fila de baixo" a que está mais próxima do processador e afins. Lembrando que nem todos os GPIOs são controlados e que os que são GROUND servem para fornecer corrente.
+
+O GPIO pode ser controlado sendo setado como HIGH (fornecendo 3.3V) ou LOW (fornecendo 0V). Em linha de comando isto pode ser feito com:
+
+	> gpio write {NÚMERO DO GPIO} 0 // para low
+	> gpio write {NÚMERO DO GPIO} 1 // para high
