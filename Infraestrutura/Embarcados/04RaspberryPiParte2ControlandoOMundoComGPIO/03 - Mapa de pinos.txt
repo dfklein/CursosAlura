@@ -1,0 +1,34 @@
+Para visualizar o mapa de pinos em linha de comando, execute:
+
+	> gpio readall
+	
+Repare que o lado esquerdo mostra os detalhes dos pinos (physical) com números impares (1, 3, 5 até 25). No lado direito os pinos pares (2, 4, 6 até 26). Repare também que as colunas se repetem, no lado esquerdo tem as mesmas colunas do lado direito.
+
+Vamos passar pelas colunas e dar uma breve explicação:
+
+Coluna BCM (Broadcom)
+É aquela numeração que leva em conta o número do GPIO e descarta os GPIOs especiais, como 3.3V, GND etc. Por isso tem alguns campos vazios, pois esses lugares são os pinos especiais.
+
+Coluna wPi (wiringPi)
+É aquele esquema de numeração padrão da biblioteca wiring Pi. Essa biblioteca foi escrita na linguagem C para programar os GPIOs e existem vários wrappers em outras linguagens que usam essa biblioteca por baixo dos panos. Aliás, o comando gpio é apenas um wrapper para chamar as funções da biblioteca wiringPi no seu Raspberry PI! E como a biblioteca possui o seu próprio jeito de numeração, o comando gpio herdou desse jeito (mas você já sabe qual flag usar para mudar isso). Você pode saber mais no site do Wiring Pi.
+
+Coluna Name
+É o nome do GPIO. Aqui pode ficar confuso, pois alguns nomes dos GPIOs não batem com o nome na coluna BCM. Por exemplo, o GPIO 4 (BCM) tem o nome "GPIO 7". É isso mesmo, confusão!
+
+Coluna Mode
+O modo de operação: IN ou OUT. Para ser correto, existem mais estados (alt0 até alt5) que podem ser utilizados para componentes externos através de bibliotecas específicas. No nosso curso usaremos apenas IN ou OUT.
+
+Coluna V
+O valor atual do GPIO, pode ser 0 (LOW) ou 1 (HIGH)
+
+Coluna Physical
+O número do pino: aquela numeração sequencial mais simples de todas, que usaremos no curso.
+
+
+--------------------------------
+
+Para utilizar gpio em linha de comando:
+
+	- pelo wPi: gpio mode 7 in
+	- pelo physical (a mais fácil):  gpio -1 mode 3 out
+	- pelo BCM: gpio -g mode 3 out
