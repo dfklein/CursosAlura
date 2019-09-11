@@ -67,13 +67,14 @@
 	
 3 ) USUÁRIOS:
 
-	- sudo {COMANDO}			// Executar comandos como se fosse o usuário root
-								// Deve inserir a senha do usuário atual para isso.
-	- passwd					// Altera senha do seu usuário atual.
-								// Para alterar senha do root: sudo passwd
-	- whoami					// Exibe o usuário atual.
-	- su {NOME_USUARIO}			// Altera o usuário atual.
-	- adduser {NOME_USUARIO}	// adiciona um novo usuário ao seu sistema.
+	- sudo {COMANDO}					// Executar comandos como se fosse o usuário root
+										// Deve inserir a senha do usuário atual para isso.
+	- passwd							// Altera senha do seu usuário atual.
+										// Para alterar senha do root: sudo passwd
+	- whoami							// Exibe o usuário atual.
+	- su {NOME_USUARIO}					// Altera o usuário atual.
+	- adduser {NOME_USUARIO}			// adiciona um novo usuário ao seu sistema.
+	- sudo usermod -aG gpio www-data 	// Insere um usuário a um grupo (aqui insere o usuário www-data ao grupo gpio
 		
 
 4) ARQUIVOS:
